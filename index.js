@@ -1,6 +1,7 @@
+import Button from './src/components/Button/Button';
 
-import { NativeModules } from 'react-native';
+const myUnit = {
+  Button,
+}
 
-const { RNUnitZjp } = NativeModules;
-
-export default RNUnitZjp;
+module.exports = myUnit;
