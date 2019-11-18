@@ -58,7 +58,7 @@ export default class ModalDemo extends Component {
             }}
           />
           <InputItem
-            icon={<Icon name="md-home" size={18} style={{ marginRight: 5 }} />}
+            // icon={<Icon name="md-home" size={18} style={{ marginRight: 5 }} />}
             label="手机号"
             value={this.state.value1}
             onChange={v => {

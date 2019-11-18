@@ -13,12 +13,6 @@ export default class LoanPage extends Component {
     super(props);
   }
 
-  componentWillMount() {}
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
   render() {
     return (
       <ScrollView>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text } from 'react-native';
+import { ScrollView } from 'react-native';
 import ListRow from '../../../component/ListRow/ListRow';
 import SButton from '../../../component/Button/Button';
 import Card from '../../../component/Card/Card';
@@ -14,12 +14,6 @@ export default class LoanPage extends Component {
   constructor(props) {
     super(props);
   }
-
-  componentWillMount() {}
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
 
   render() {
     return (

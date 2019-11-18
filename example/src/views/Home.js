@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text } from 'react-native';
+import { ScrollView, Text } from 'react-native';
 // import { Button } from 'react-native-unit-zjp';
 import { ListRow } from '../components';
 
@@ -11,7 +11,6 @@ export default class HomeScreen extends Component {
   goto(route) {
     this.props.navigation.navigate(route);
   }
-
 
   render() {
     return (

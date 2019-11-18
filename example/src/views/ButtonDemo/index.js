@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, StyleSheet } from 'react-native';
-import { Button } from '../components';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { ScrollView, Text, StyleSheet } from 'react-native';
+import { Button } from '../../components';
 
-const buttonIcon = <Icon name="md-close-circle" size={18} color="#ccc" />;
+const buttonIcon = require('./close_gray.png');
+
 
 export default class ButtonDemo extends Component {
-  static navigationOptions = () => {
-    return {
-      title: 'button',
-    };
-  };
+  static navigationOptions = () => ({
+    title: 'button',
+  });
 
   constructor(props) {
     super(props);
@@ -19,13 +17,12 @@ export default class ButtonDemo extends Component {
     };
   }
 
-
   pressEvent() {
-    alert('click');
+    console.log('click');
   }
 
   longPressEvent() {
-    alert('long');
+    console.log('long');
   }
 
   render() {

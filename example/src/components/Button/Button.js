@@ -90,12 +90,6 @@ export default class Button extends Component {
 
   prePressTime = 0;
 
-  componentWillMount() {}
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
   getBackgroundColor() {
     const { outline, link, disabled, backgroundColor, type } = this.props;
     if (outline || link) {
