@@ -10,7 +10,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import theme from './theme';
 
 /**
- * @label 按钮中的文字
+ * @label  按钮中的文字
  * @labelStyle 按钮中的文字样式
  * @labelProps 按钮中的文字属性
  * @containerStyle 容器样式 覆盖 padding 等
@@ -21,7 +21,7 @@ import theme from './theme';
  * @gradientColors 渐变颜色
  * @gradientDirection 渐变方向
  * @gradientProps 渐变其他属性
- * @iconSource 图标资源
+ * @icon 图标资源
  * @iconStyle 图标样式
  * @iconOnRight 图标是否在右边
  * @size 大小 [xl, lg, md, sm, xs]
@@ -51,7 +51,7 @@ export default class Button extends Component {
     gradientColors: PropTypes.array,
     gradientDirection: PropTypes.oneOf(['horizontal', 'vertical']),
     gradientProps: PropTypes.object,
-    iconSource: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.func]),
+    icon: PropTypes.oneOfType([PropTypes.element, PropTypes.object, PropTypes.number, PropTypes.func]),
     iconStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
     iconOnRight: PropTypes.bool,
     iconMarginSize: PropTypes.number,
@@ -221,8 +221,6 @@ export default class Button extends Component {
         borderRadius: this.getBorderRadius(),
         backgroundColor: this.getBackgroundColor(),
         overflow: 'hidden',
-        // marginVertical: 5,
-        // marginHorizontal: 20,
         ...outlineStyle,
       },
     ].concat(style);
@@ -255,19 +253,31 @@ export default class Button extends Component {
 
   // 生成按钮图标
   renderIcon() {
-    const { iconSource, loading } = this.props;
+    const { icon, loading } = this.props;
     if (loading) {
       return <ActivityIndicator color={this.getLabelColor()} size="small" style={{ marginRight: 5 }} />;
     }
-    if (iconSource) {
-      return <Image source={iconSource} style={this.getIconStyle()} />;
+    
+    if (icon) {
+      console.log(icon, 'icon')
+      console.log(typeof icon, 'typeof')
+      if (React.isValidElement(icon)) {
+        return icon;
+      }
+      // if (typeof icon === 'string') {
+      //   return <Icon name={icon} style={this.getIconStyle()} />;
+      // }
+      return <Image source={icon} style={this.getIconStyle()} />
     }
     return null;
   }
 
   // 生成按钮文字
   renderLabel() {
-    const { label } = this.props;
+    const { children, label } = this.props;
+    if (children && React.isValidElement(children)) {
+      return children;
+    }
     if (label) {
       return (
         <Text style={this.getLabelStyle()} numberOfLines={1}>
@@ -279,11 +289,11 @@ export default class Button extends Component {
   }
 
   renderContent() {
+    const { iconOnRight} = this.props;
     return (
       <View style={this.getContainerStyle()}>
-        {this.props.children}
-        {this.props.iconOnRight ? this.renderLabel() : this.renderIcon()}
-        {this.props.iconOnRight ? this.renderIcon() : this.renderLabel()}
+        {iconOnRight ? this.renderLabel() : this.renderIcon()}
+        {iconOnRight ? this.renderIcon() : this.renderLabel()}
       </View>
     );
   }

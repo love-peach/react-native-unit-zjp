@@ -24,7 +24,7 @@ export default class LoanPage extends PureComponent {
         width,
         marginRight: 'auto',
         marginLeft: 'auto',
-        borderTopWidth: 0.5,
+        borderTopWidth: 1,
         borderColor: color,
         borderStyle: type,
         opacity: 0.8,

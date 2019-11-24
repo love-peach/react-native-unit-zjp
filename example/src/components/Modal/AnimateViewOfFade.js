@@ -20,8 +20,6 @@ export default class ScaleAnimateView extends Component {
     };
   }
 
-  componentWillMount() {}
-
   componentDidMount() {
     this.in();
   }

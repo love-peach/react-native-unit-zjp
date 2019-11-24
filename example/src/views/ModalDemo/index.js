@@ -4,8 +4,8 @@
  */
 import React, { Component } from 'react';
 import { ScrollView, View, Text } from 'react-native';
-import SButton from '../../../component/Button/Button';
-import Modal from '../../../component/Modal/Modal';
+import { Button, Modal } from '../../components';
+
 
 export default class ModalExample extends Component {
   static navigationOptions = () => ({
@@ -41,50 +41,50 @@ export default class ModalExample extends Component {
   render() {
     return (
       <ScrollView>
-        <SButton onPress={this.setModalVisibleByKey.bind(this, 'modal1', true)}>
+        <Button onPress={this.setModalVisibleByKey.bind(this, 'modal1', true)}>
           <Text>center</Text>
-        </SButton>
-        <SButton onPress={this.setModalVisibleByKey.bind(this, 'modal2', true)}>
+        </Button>
+        <Button onPress={this.setModalVisibleByKey.bind(this, 'modal2', true)}>
           <Text>bottom</Text>
-        </SButton>
+        </Button>
 
-        <SButton onPress={this.setModalVisibleByKey.bind(this, 'modal3', true)}>
+        <Button onPress={this.setModalVisibleByKey.bind(this, 'modal3', true)}>
           <Text>top</Text>
-        </SButton>
+        </Button>
 
-        <SButton onPress={this.setModalVisibleByKey.bind(this, 'modal4', true)}>
+        <Button onPress={this.setModalVisibleByKey.bind(this, 'modal4', true)}>
           <Text>left</Text>
-        </SButton>
-        <SButton onPress={this.setModalVisibleByKey.bind(this, 'modal5', true)}>
+        </Button>
+        <Button onPress={this.setModalVisibleByKey.bind(this, 'modal5', true)}>
           <Text>right</Text>
-        </SButton>
+        </Button>
 
         <Modal visible={this.state.modal1} placement="center" onMaskPress={this.setModalVisibleByKey.bind(this, 'modal1', false)}>
           {this.renderDemoText()}
-          <SButton type="primary" size="lg" label="关闭" onPress={this.setModalVisibleByKey.bind(this, 'modal1', false)} />
+          <Button type="primary" size="lg" label="关闭" onPress={this.setModalVisibleByKey.bind(this, 'modal1', false)} />
         </Modal>
 
         <Modal visible={this.state.modal2} placement="bottom">
           {this.renderDemoText()}
-          <SButton type="primary" size="lg" label="关闭" onPress={this.setModalVisibleByKey.bind(this, 'modal2', false)} />
+          <Button type="primary" size="lg" label="关闭" onPress={this.setModalVisibleByKey.bind(this, 'modal2', false)} />
         </Modal>
 
         <Modal visible={this.state.modal3} placement="top">
           {this.renderDemoText()}
-          <SButton type="primary" size="lg" label="关闭" onPress={this.setModalVisibleByKey.bind(this, 'modal3', false)} />
+          <Button type="primary" size="lg" label="关闭" onPress={this.setModalVisibleByKey.bind(this, 'modal3', false)} />
         </Modal>
 
         <Modal visible={this.state.modal4} placement="left">
           <ScrollView contentContainerStyle={{ padding: 10 }}>
             {this.renderDemoText()}
-            <SButton type="primary" size="lg" label="关闭" onPress={this.setModalVisibleByKey.bind(this, 'modal4', false)} />
+            <Button type="primary" size="lg" label="关闭" onPress={this.setModalVisibleByKey.bind(this, 'modal4', false)} />
             <View style={{ height: 500, borderWidth: 1 }} />
           </ScrollView>
         </Modal>
 
         <Modal visible={this.state.modal5} placement="right">
           {this.renderDemoText()}
-          <SButton type="primary" size="lg" label="关闭" onPress={this.setModalVisibleByKey.bind(this, 'modal5', false)} />
+          <Button type="primary" size="lg" label="关闭" onPress={this.setModalVisibleByKey.bind(this, 'modal5', false)} />
         </Modal>
       </ScrollView>
     );

@@ -15,8 +15,11 @@ export default class HomeScreen extends Component {
   render() {
     return (
       <ScrollView>
-        <Text>Home Screen1</Text>
-        <ListRow title="ButtonDemo" link onPress={this.goto.bind(this, 'ButtonDemo')} />
+        <ListRow contentOffset={10} title="ButtonDemo" link onPress={this.goto.bind(this, 'ButtonDemo')} />
+        <ListRow contentOffset={10} title="ModalDemo" link onPress={this.goto.bind(this, 'ModalDemo')} />
+        <ListRow contentOffset={10} title="CardDemo" link onPress={this.goto.bind(this, 'CardDemo')} />
+        <ListRow contentOffset={10} title="ListRowDemo" link onPress={this.goto.bind(this, 'ListRowDemo')} />
+        <ListRow contentOffset={10} title="InputDemo" link onPress={this.goto.bind(this, 'InputDemo')} />
       </ScrollView>
     );
   }

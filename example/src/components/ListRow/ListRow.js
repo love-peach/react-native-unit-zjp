@@ -102,8 +102,8 @@ export default class ListRow extends PureComponent {
     clickInterval: 1600,
     underlayColor: '#eee',
     onPress: null,
-    titleStyle: [],
-    splitLineStyle: [],
+    titleStyle: null,
+    splitLineStyle: null,
   };
 
   prePressTime = 0;

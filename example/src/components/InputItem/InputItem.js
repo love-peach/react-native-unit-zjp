@@ -89,14 +89,14 @@ export default class InputItem extends Component {
     clearButtonMode: 'while-editing',
   };
 
-  componentWillMount() {
-    const { value } = this.props;
-    if (value) {
-      this.setState({
-        myValue: value,
-      });
-    }
-  }
+  // componentDidMount() {
+  //   const { value } = this.props;
+  //   if (value) {
+  //     this.setState({
+  //       myValue: value,
+  //     });
+  //   }
+  // }
 
   //
   handleChange = value => {
