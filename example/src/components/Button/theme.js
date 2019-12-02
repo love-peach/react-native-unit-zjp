@@ -54,13 +54,6 @@ export default {
   btnPaddingHorizontalSM: 5,
   btnPaddingHorizontalXS: 3,
 
-  // loadingSize
-  btnLoadingSizeXL: 18,
-  btnLoadingSizeLG: 18,
-  btnLoadingSizeMD: 18,
-  btnLoadingSizeSM: 18,
-  btnLoadingSizeXS: 5,
-
   //Button - border width
   btnBorderWidth: 0.5,
 
