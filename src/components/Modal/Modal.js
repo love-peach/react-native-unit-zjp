@@ -92,13 +92,13 @@ export default class MyModal extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.setState({
       isVisible: this.props.visible,
     });
   }
 
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     if (props.visible === this.props.visible) {
       return;
     }

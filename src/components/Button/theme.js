@@ -34,46 +34,39 @@ export default {
   btnLabelLinkColor: colorPrimary,
 
   //Button - font size
-  btnFontSizeXL: 36,
-  btnFontSizeLG: 36,
-  btnFontSizeMD: 28,
-  btnFontSizeSM: 24,
-  btnFontSizeXS: 18,
+  btnFontSizeXL: 18,
+  btnFontSizeLG: 18,
+  btnFontSizeMD: 14,
+  btnFontSizeSM: 12,
+  btnFontSizeXS: 9,
 
   //Button - padding vertical
-  btnPaddingVerticalXL: 28,
-  btnPaddingVerticalLG: 18,
-  btnPaddingVerticalMD: 12,
-  btnPaddingVerticalSM: 8,
-  btnPaddingVerticalXS: 4,
+  btnPaddingVerticalXL: 14,
+  btnPaddingVerticalLG: 9,
+  btnPaddingVerticalMD: 6,
+  btnPaddingVerticalSM: 4,
+  btnPaddingVerticalXS: 2,
 
   //Button - padding horizontal
-  btnPaddingHorizontalXL: 35,
-  btnPaddingHorizontalLG: 25,
-  btnPaddingHorizontalMD: 15,
-  btnPaddingHorizontalSM: 10,
-  btnPaddingHorizontalXS: 5,
-
-  // loadingSize
-  btnLoadingSizeXL: 35,
-  btnLoadingSizeLG: 35,
-  btnLoadingSizeMD: 35,
-  btnLoadingSizeSM: 35,
-  btnLoadingSizeXS: 10,
+  btnPaddingHorizontalXL: 18,
+  btnPaddingHorizontalLG: 12,
+  btnPaddingHorizontalMD: 8,
+  btnPaddingHorizontalSM: 5,
+  btnPaddingHorizontalXS: 3,
 
   //Button - border width
-  btnBorderWidth: 1,
+  btnBorderWidth: 0.5,
 
   //Button - border color
   btnBorderColor: '#C9CDD5',
 
   //Button - border radius
-  btnBorderRadiusXL: 6,
-  btnBorderRadiusLG: 6,
-  btnBorderRadiusMD: 4,
-  btnBorderRadiusSM: 3,
-  btnBorderRadiusXS: 3,
+  btnBorderRadiusXL: 3,
+  btnBorderRadiusLG: 3,
+  btnBorderRadiusMD: 2,
+  btnBorderRadiusSM: 2,
+  btnBorderRadiusXS: 2,
   btnBorderRadiusRect: 0,
-  btnBorderRadiusRadius: 5,
+  btnBorderRadiusRadius: 2,
   btnBorderRadiusCircle: 1000,
 };

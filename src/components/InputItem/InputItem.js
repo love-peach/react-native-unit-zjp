@@ -6,7 +6,6 @@ const isIos = Platform.OS === 'ios';
 
 const styles = StyleSheet.create({
   wrap: {
-    marginBottom: 5,
     position: 'relative',
   },
   container: {
@@ -16,8 +15,8 @@ const styles = StyleSheet.create({
   content: {},
   inputStyle: {
     flex: 1,
-    paddingTop: 10,
-    paddingBottom: 10,
+    paddingTop: 12,
+    paddingBottom: 12,
     fontSize: 15,
     textAlignVertical: 'center',
     color: '#121C32',
@@ -90,14 +89,14 @@ export default class InputItem extends Component {
     clearButtonMode: 'while-editing',
   };
 
-  componentWillMount() {
-    const { value } = this.props;
-    if (value) {
-      this.setState({
-        myValue: value,
-      });
-    }
-  }
+  // componentDidMount() {
+  //   const { value } = this.props;
+  //   if (value) {
+  //     this.setState({
+  //       myValue: value,
+  //     });
+  //   }
+  // }
 
   //
   handleChange = value => {
@@ -155,14 +154,14 @@ export default class InputItem extends Component {
     if (React.isValidElement(label)) return label;
     let dynamicStyle = {};
     switch (labelPosition) {
-      case 'top':
-        dynamicStyle.fontSize = 12;
-        dynamicStyle.marginBottom = 4;
-        break;
-      case 'left':
-      default:
-        dynamicStyle.fontSize = 15;
-        dynamicStyle.marginRight = 4;
+    case 'top':
+      dynamicStyle.fontSize = 12;
+      dynamicStyle.marginBottom = 4;
+      break;
+    case 'left':
+    default:
+      dynamicStyle.fontSize = 15;
+      dynamicStyle.marginRight = 4;
     }
     if (labelWidth) {
       dynamicStyle.width = labelWidth;
@@ -213,37 +212,42 @@ export default class InputItem extends Component {
   renderTip() {
     const { tip, tipStyle } = this.props;
     if (React.isValidElement(tip)) return tip;
-    return <Text style={[styles.tip, tipStyle]}>{tip}</Text>;
+    if (tip) {
+      return <Text style={[styles.tip, tipStyle]}>{tip}</Text>;
+    }
+    return null;
   }
 
   // 容器样式 包含 label input closeIcon 的容器，不包含 tip；控制 布局，label 和 input 是 上下 布局 还是 左右布局
   buildContainerStyle() {
     const { labelPosition, containerType, borderColor, borderColorActive, type, containerStyle } = this.props;
     const { isFocus } = this.state;
+    const activeColor = borderColorActive === 'none' ? borderColor : borderColorActive;
+
     let dynamicStyle = {};
     switch (labelPosition) {
-      case 'top':
-        dynamicStyle.flexDirection = 'column';
-        break;
-      case 'left':
-        dynamicStyle.flexDirection = 'row';
-        dynamicStyle.alignItems = 'center';
-        break;
-      default:
-        dynamicStyle.flexDirection = 'column';
+    case 'top':
+      dynamicStyle.flexDirection = 'column';
+      break;
+    case 'left':
+      dynamicStyle.flexDirection = 'row';
+      dynamicStyle.alignItems = 'center';
+      break;
+    default:
+      dynamicStyle.flexDirection = 'column';
     }
     if (type !== 'textarea') {
       if (containerType === 'line') {
         dynamicStyle.borderBottomWidth = 1;
-        dynamicStyle.borderBottomColor = isFocus ? borderColorActive : borderColor;
+        dynamicStyle.borderBottomColor = isFocus ? activeColor : borderColor;
       }
       if (labelPosition === 'left') {
         if (containerType === 'box') {
           dynamicStyle.borderWidth = 1;
-          dynamicStyle.borderColor = isFocus ? borderColorActive : borderColor;
+          dynamicStyle.borderColor = isFocus ? activeColor : borderColor;
         }
         if (containerType === 'fill') {
-          dynamicStyle.backgroundColor = isFocus ? borderColorActive : borderColor;
+          dynamicStyle.backgroundColor = isFocus ? activeColor : borderColor;
         }
       }
     }
@@ -254,6 +258,7 @@ export default class InputItem extends Component {
   buidContentStyle() {
     const { labelPosition, containerType, borderColor, borderColorActive, contentStyle } = this.props;
     const { isFocus } = this.state;
+    const activeColor = borderColorActive === 'none' ? borderColor : borderColorActive;
 
     let dynamicStyle = {};
     if (labelPosition === 'left') {
@@ -265,12 +270,12 @@ export default class InputItem extends Component {
     if (labelPosition === 'top') {
       if (containerType === 'box') {
         dynamicStyle.borderWidth =0.5;
-        dynamicStyle.borderColor = isFocus ? borderColorActive : borderColor;
+        dynamicStyle.borderColor = isFocus ? activeColor : borderColor;
       }
       if (containerType === 'fill') {
-        dynamicStyle.backgroundColor = isFocus ? borderColorActive : borderColor;
+        dynamicStyle.backgroundColor = isFocus ? activeColor : borderColor;
         dynamicStyle.borderWidth = 0.5;
-        dynamicStyle.borderColor = isFocus ? borderColorActive : borderColor;
+        dynamicStyle.borderColor = isFocus ? activeColor : borderColor;
       }
     }
     return [styles.content, dynamicStyle, contentStyle];
@@ -292,24 +297,27 @@ export default class InputItem extends Component {
   }
 
   buildInputProps() {
-    const { style, inputStyle, labelPosition, clearButtonMode, numberOfLines, maxLength, type, ...rest } = this.props;
+    const { type, style, containerType, label, labelAlign, labelWidth, labelPosition, containerStyle, contentStyle, inputStyle, borderColor, borderColorActive, ...rest } = this.props;
     let inputProps = { ...rest };
 
     switch (type) {
-      case 'number':
-        inputProps.dataDetectorTypes = 'phoneNumber';
-        inputProps.keyboardType = 'number-pad';
-        break;
-      case 'password':
-        inputProps.secureTextEntry = true;
-        break;
-      case 'textarea':
-        inputProps.multiline = true;
-        inputProps.numberOfLines = numberOfLines;
-        inputProps.maxLength = maxLength || 180;
-        break;
-      default:
-        inputProps.keyboardType = 'default';
+    case 'number':
+      inputProps.dataDetectorTypes = 'phoneNumber';
+      inputProps.keyboardType = 'number-pad';
+      break;
+    case 'password':
+      inputProps.secureTextEntry = true;
+      break;
+    case 'textarea':
+      inputProps.multiline = true;
+      inputProps.numberOfLines = this.props.numberOfLines || 6;
+      inputProps.maxLength = this.props.maxLength || 180;
+      break;
+    default:
+      inputProps.keyboardType = 'default';
+    }
+    if (!isIos) {
+      inputProps.clearButtonMode = 'never';
     }
     return inputProps;
   }

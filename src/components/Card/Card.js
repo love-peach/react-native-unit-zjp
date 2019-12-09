@@ -40,12 +40,6 @@ export default class LoanPage extends PureComponent {
 
   // static minWidth = deviceWidth - this.props.margin * 2;
 
-  componentWillMount() {}
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
   getShadowOption() {
     const { width, height, margin, borderRadius, shadowColor, shadowBorder, shadowOpacity, shadowOpt } = this.props;
     let shadowOption = {

@@ -2,8 +2,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
 
-import { px } from '../../utils/ScreenUtil';
-
 export default class LoanPage extends PureComponent {
   static propTypes = {
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -26,7 +24,7 @@ export default class LoanPage extends PureComponent {
         width,
         marginRight: 'auto',
         marginLeft: 'auto',
-        borderTopWidth: px(1),
+        borderTopWidth: 1,
         borderColor: color,
         borderStyle: type,
         opacity: 0.8,

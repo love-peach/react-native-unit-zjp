@@ -2,26 +2,25 @@
  * @Author: shawn
  * @LastEditTime: 2019-11-01 14:35:45
  */
-import React from 'react';
+import React, { Component }from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, Image, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { View, ViewPropTypes, Text, Image, StyleSheet, ActivityIndicator, TouchableOpacity, TouchableNativeFeedback, Platform } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 import theme from './theme';
-
 /**
- * @label 按钮中的文字
+ * @label  按钮中的文字
  * @labelStyle 按钮中的文字样式
  * @labelProps 按钮中的文字属性
  * @containerStyle 容器样式 覆盖 padding 等
- * @type 按钮主题 [default, primary, info, orange, warning, success, error]
+ * @type 按钮主题 [default, gray, primary, info, orange, warning, success, error]
  * @color 文字颜色
  * @backgroundColor 背景色
  * @gradient 是否渐变
  * @gradientColors 渐变颜色
  * @gradientDirection 渐变方向
  * @gradientProps 渐变其他属性
- * @iconSource 图标资源
+ * @icon 图标资源
  * @iconStyle 图标样式
  * @iconOnRight 图标是否在右边
  * @size 大小 [xl, lg, md, sm, xs]
@@ -35,16 +34,16 @@ import theme from './theme';
  * @linkColor 链接颜色
  * @disabled 禁用
  * @loading loading
- * @loadingSize loadingSize
+ * @activityIndicatorColor loading 指示器颜色 默认为文字颜色
  * @onPress 事件
+ * @clickInterval 防连点 默认 1000 毫秒
  */
-export default class LoanPage extends TouchableOpacity {
+export default class Button extends Component {
   static propTypes = {
-    ...TouchableOpacity.propTypes,
     label: PropTypes.string,
-    labelStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+    labelStyle: Text.propTypes.style,
     labelProps: PropTypes.object,
-    containerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+    containerStyle: ViewPropTypes.style,
     color: PropTypes.string,
     type: PropTypes.oneOf(['default', 'gray', 'primary', 'info', 'warning', 'orange', 'success', 'error']),
     backgroundColor: PropTypes.string,
@@ -52,7 +51,7 @@ export default class LoanPage extends TouchableOpacity {
     gradientColors: PropTypes.array,
     gradientDirection: PropTypes.oneOf(['horizontal', 'vertical']),
     gradientProps: PropTypes.object,
-    iconSource: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.func]),
+    icon: PropTypes.oneOfType([PropTypes.element, PropTypes.object, PropTypes.number, PropTypes.func]),
     iconStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
     iconOnRight: PropTypes.bool,
     iconMarginSize: PropTypes.number,
@@ -67,13 +66,17 @@ export default class LoanPage extends TouchableOpacity {
     linkColor: PropTypes.string,
     disabled: PropTypes.bool,
     loading: PropTypes.bool,
-    loadingSize: PropTypes.oneOf(['xl', 'lg', 'md', 'sm', 'xs']), // 暂未实现
+    activityIndicatorColor: PropTypes.string,
+    style: ViewPropTypes.style,
+    children: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.element]),
+    clickInterval: PropTypes.number,
     onPress: PropTypes.func,
+    onLongPress: PropTypes.func,
+    
   };
 
   static defaultProps = {
-    ...TouchableOpacity.defaultProps,
-    type: 'warning',
+    type: 'default',
     size: 'xl',
     loading: false,
     iconOnRight: false,
@@ -87,16 +90,26 @@ export default class LoanPage extends TouchableOpacity {
     gradientColors: [theme.btnInfoColor, theme.btnPrimaryColor],
     gradientDirection: 'horizontal',
     activeOpacity: 0.65,
-    clickInterval: 1600,
+    clickInterval: 1000,
   };
 
   prePressTime = 0;
 
-  componentWillMount() {}
+  handleClick = event => {
+    const { disabled, loading, clickInterval, onPress } = this.props;
+    const now = Date.now();
 
-  componentDidMount() {}
+    if (disabled || loading) return;
 
-  componentWillUnmount() {}
+    if (clickInterval > 0 || this.prePressTime > 0) {
+      if (now - this.prePressTime > clickInterval) {
+        this.prePressTime = now;
+        !!onPress && onPress(event);
+      }
+    } else {
+      !!onPress && onPress(event);
+    }
+  };
 
   getBackgroundColor() {
     const { outline, link, disabled, backgroundColor, type } = this.props;
@@ -130,21 +143,6 @@ export default class LoanPage extends TouchableOpacity {
       return theme.btnDefaultColor;
     }
     return theme[`btnLabelColor${type.slice(0, 1).toUpperCase() + type.slice(1)}`];
-  }
-
-  getFontSize() {
-    const { size } = this.props;
-    return theme[`btnFontSize${size.toUpperCase()}`];
-  }
-
-  getPaddingVertical() {
-    const { size } = this.props;
-    return theme[`btnPaddingVertical${size.toUpperCase()}`];
-  }
-
-  getPaddingHorizontal() {
-    const { size } = this.props;
-    return theme[`btnPaddingHorizontal${size.toUpperCase()}`];
   }
 
   getBorderRadius() {
@@ -186,56 +184,19 @@ export default class LoanPage extends TouchableOpacity {
     return [iconStyleFinaly];
   }
 
-  getLabelStyle() {
-    let { size, labelStyle } = this.props;
-
-    let labelStyleFinaly = [
-      {
-        color: this.getLabelColor(),
-        fontSize: this.getFontSize(),
-        fontWeight: size === 'xl' ? '600' : '400',
-      },
-    ].concat(labelStyle);
-    labelStyleFinaly = StyleSheet.flatten(labelStyleFinaly);
-    return labelStyleFinaly;
-  }
-
-  getLoadingSize() {
-    const { size, loadingSize } = this.props;
-    return loadingSize || theme[`btnLoadingSizeXL${size.toUpperCase()}`];
-  }
-
-  getContainerStyle() {
-    const { containerStyle } = this.props;
-
-    return StyleSheet.flatten([
-      {
-        paddingVertical: this.getPaddingVertical(),
-        paddingHorizontal: this.getPaddingHorizontal(),
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-      },
-      containerStyle,
-    ]);
-  }
-
   // 构建组件样式
   buildStyle() {
     let { style } = this.props;
     const outlineStyle = this.getOutLineStyle();
-    let styleFinaly = [
+    return StyleSheet.flatten([
       {
         borderRadius: this.getBorderRadius(),
         backgroundColor: this.getBackgroundColor(),
         overflow: 'hidden',
-        // marginVertical: 5,
-        // marginHorizontal: 20,
         ...outlineStyle,
       },
-    ].concat(style);
-    styleFinaly = StyleSheet.flatten(styleFinaly);
-    return styleFinaly;
+      style
+    ]);
   }
 
   getGradientProps() {
@@ -263,35 +224,87 @@ export default class LoanPage extends TouchableOpacity {
 
   // 生成按钮图标
   renderIcon() {
-    const { iconSource, loading } = this.props;
+    const { icon, loading, activityIndicatorColor } = this.props;
     if (loading) {
-      return <ActivityIndicator color={this.getLabelColor()} size="small" style={{ marginRight: 5 }} />;
+      return <ActivityIndicator color={activityIndicatorColor || this.getLabelColor()} size="small" style={{ marginRight: 5, alignSelf: 'center', }} />;
     }
-    if (iconSource) {
-      return <Image source={iconSource} style={this.getIconStyle()} />;
+
+    if (icon && React.isValidElement(icon)) {
+      return icon;
+    }
+
+    // if (typeof icon === 'string') {
+    //   return <Icon name={icon} style={this.getIconStyle()} />;
+    // }
+
+
+    
+    if (icon) {
+      if (React.isValidElement(icon)) {
+        return icon;
+      }
+      // if (typeof icon === 'string') {
+      //   return <Icon name={icon} style={this.getIconStyle()} />;
+      // }
+      return <Image source={icon} style={this.getIconStyle()} />;
     }
     return null;
   }
 
   // 生成按钮文字
   renderLabel() {
-    const { label } = this.props;
-    if (label) {
-      return (
-        <Text style={this.getLabelStyle()} numberOfLines={1}>
-          {label}
-        </Text>
-      );
+    const { label, labelStyle, size, children } = this.props;
+
+    const labelStyleFinaly = StyleSheet.flatten([
+      {
+        color: this.getLabelColor(),
+        fontSize: theme[`btnFontSize${size.toUpperCase()}`],
+        fontWeight: size === 'xl' ? '600' : '400',
+      },
+      labelStyle
+    ]);
+
+    if (children) {
+      let childElements = [];
+      React.Children.forEach(children, (item) => {
+        if (typeof item === 'string' || typeof item === 'number') {
+          const element = (
+            <Text key={item} style={labelStyleFinaly} numberOfLines={1}>
+              {item}
+            </Text>
+          );
+          childElements.push(element);
+        } else if (React.isValidElement(item)) {
+          childElements.push(item);
+        }
+      });
+      return childElements;
     }
-    return null;
+
+    if (label && React.isValidElement(label)) {
+      return children;
+    }
+
+    return label ? <Text style={labelStyleFinaly} numberOfLines={1}>{label}</Text> : null;
   }
 
+  // 生成按钮内容
   renderContent() {
+    const { size, iconOnRight, containerStyle } = this.props;
+    const containerStyleFinal = StyleSheet.flatten([
+      {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: theme[`btnPaddingVertical${size.toUpperCase()}`],
+        paddingHorizontal: theme[`btnPaddingHorizontal${size.toUpperCase()}`],
+      },
+      containerStyle,
+    ]);
     return (
-      <View style={this.getContainerStyle()}>
-        {this.props.children}
-        {this.props.iconOnRight ? this.renderLabel() : this.renderIcon()}
-        {this.props.iconOnRight ? this.renderIcon() : this.renderLabel()}
+      <View style={containerStyleFinal}>
+        {iconOnRight ? this.renderLabel() : this.renderIcon()}
+        {iconOnRight ? this.renderIcon() : this.renderLabel()}
       </View>
     );
   }
@@ -305,26 +318,50 @@ export default class LoanPage extends TouchableOpacity {
     return this.renderContent();
   }
 
-  handleClick = event => {
-    const { disabled, loading, clickInterval, onPress } = this.props;
-    const now = Date.now();
-
-    if (disabled || loading) return;
-
-    if (clickInterval > 0 || this.prePressTime > 0) {
-      if (now - this.prePressTime > clickInterval) {
-        this.prePressTime = now;
-        !!onPress && onPress(event);
-      }
-    } else {
-      !!onPress && onPress(event);
-    }
-  };
-
   render() {
-    let { style, type, size, label, labelStyle, labelProps, children, onPress, ...others } = this.props;
+    let {
+      label,
+      labelStyle,
+      labelProps,
+      containerStyle,
+      type, color,
+      backgroundColor,
+      gradient,
+      gradientColors,
+      gradientDirection,
+      gradientProps,
+      icon,
+      iconStyle,
+      iconOnRight,
+      size,
+      outline,
+      outlineColor,
+      outlineWidth,
+      outlineType,
+      shape,
+      borderRadius,
+      link,
+      linkColor,
+      loading,
+      activityIndicatorColor,
+      clickInterval,
+      onPress,
+      style,
+      children,
+      ...restProps
+    } = this.props;
+    
+    if (Platform.OS === 'android') {
+      return (
+        <TouchableNativeFeedback onPress={event => this.handleClick(event)} {...restProps}>
+          <View style={this.buildStyle()}>
+            {this.renderWrapAndContent()}
+          </View>
+        </TouchableNativeFeedback>
+      );
+    }
     return (
-      <TouchableOpacity style={this.buildStyle()} onPress={event => this.handleClick(event)} {...others}>
+      <TouchableOpacity style={this.buildStyle()} onPress={event => this.handleClick(event)} {...restProps}>
         {this.renderWrapAndContent()}
       </TouchableOpacity>
     );

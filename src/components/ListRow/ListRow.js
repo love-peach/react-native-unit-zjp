@@ -9,7 +9,6 @@ import SplitLine from '../SplitLine/SplitLine';
 
 const demoImage = require('./icon_arrow.png');
 
-
 const styles = {
   wrapper: {
     backgroundColor: '#fff',
@@ -103,17 +102,12 @@ export default class ListRow extends PureComponent {
     clickInterval: 1600,
     underlayColor: '#eee',
     onPress: null,
-    titleStyle: [],
-    splitLineStyle: [],
+    titleStyle: null,
+    splitLineStyle: null,
   };
 
   prePressTime = 0;
 
-  componentWillMount() {}
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
 
   renderTitle() {
     const { title, titleStyle } = this.props;

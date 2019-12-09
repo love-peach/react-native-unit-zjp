@@ -1,7 +1,3 @@
-import Button from './src/components/Button/Button';
-
-const myUnit = {
-  Button,
-}
+import * as myUnit from './src/components/Button/Button';
 
 module.exports = myUnit;
