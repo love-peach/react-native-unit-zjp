@@ -1,3 +1,7 @@
-import * as myUnit from './src/components/Button/Button';
+import Theme from './src/themes/Theme';
+import * as myUnit from './src/components';
 
-module.exports = myUnit;
+module.exports = {
+  Theme,
+  ...myUnit
+};

@@ -25,3 +25,12 @@
 
 **注意：** 首次 `publish` 只要有个版本号就可以，再次 `publish` 之前，必须更新版本号，也就是执行 `npm version xxx` 命令，否者会报错：
 `You cannot publish over the previously published versions: x.x.x`;
+
+## 组件使用说明
+
+### Button
+
+属性 | 说明 |  类型 | 默认值  
+-|-|-|-
+label | 按钮显示的文字 | String | -
+labelStyle | 钮中的文字样式 | Object | -

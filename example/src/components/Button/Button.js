@@ -1,7 +1,3 @@
-/*
- * @Author: shawn
- * @LastEditTime: 2019-11-01 14:35:45
- */
 import React, { Component }from 'react';
 import PropTypes from 'prop-types';
 import { View, ViewPropTypes, Text, Image, StyleSheet, ActivityIndicator, TouchableOpacity, TouchableNativeFeedback, Platform } from 'react-native';
@@ -72,7 +68,6 @@ export default class Button extends Component {
     clickInterval: PropTypes.number,
     onPress: PropTypes.func,
     onLongPress: PropTypes.func,
-    
   };
 
   static defaultProps = {
@@ -318,7 +313,7 @@ export default class Button extends Component {
     return this.renderContent();
   }
 
-  render() {
+  buildProps = () => {
     let {
       label,
       labelStyle,
@@ -350,10 +345,15 @@ export default class Button extends Component {
       children,
       ...restProps
     } = this.props;
+    return { ...restProps };
+  };
+
+  render() {
+    
     
     if (Platform.OS === 'android') {
       return (
-        <TouchableNativeFeedback onPress={event => this.handleClick(event)} {...restProps}>
+        <TouchableNativeFeedback onPress={event => this.handleClick(event)} {...this.buildProps()}>
           <View style={this.buildStyle()}>
             {this.renderWrapAndContent()}
           </View>
@@ -361,7 +361,7 @@ export default class Button extends Component {
       );
     }
     return (
-      <TouchableOpacity style={this.buildStyle()} onPress={event => this.handleClick(event)} {...restProps}>
+      <TouchableOpacity style={this.buildStyle()} onPress={event => this.handleClick(event)} {...this.buildProps()}>
         {this.renderWrapAndContent()}
       </TouchableOpacity>
     );
