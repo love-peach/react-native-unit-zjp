@@ -6,8 +6,8 @@ import React, { Component }from 'react';
 import PropTypes from 'prop-types';
 import { View, ViewPropTypes, Text, Image, StyleSheet, ActivityIndicator, TouchableOpacity, TouchableNativeFeedback, Platform } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import Theme from '../../themes/Theme';
 
-import theme from './theme';
 /**
  * @label  按钮中的文字
  * @labelStyle 按钮中的文字样式
@@ -82,12 +82,12 @@ export default class Button extends Component {
     iconOnRight: false,
     iconMarginSize: 5,
     outline: false,
-    outlineColor: theme.btnBorderColor,
+    outlineColor: Theme.btnBorderColor,
     outlineType: 'solid',
     link: false,
-    linkColor: theme.btnLabelLinkColor,
+    linkColor: Theme.btnLabelLinkColor,
     shape: 'circle',
-    gradientColors: [theme.btnInfoColor, theme.btnPrimaryColor],
+    gradientColors: [Theme.btnInfoColor, Theme.btnPrimaryColor],
     gradientDirection: 'horizontal',
     activeOpacity: 0.65,
     clickInterval: 1000,
@@ -117,18 +117,18 @@ export default class Button extends Component {
       return 'transparent';
     }
     if (disabled) {
-      return theme.btnDisabledColor;
+      return Theme.btnDisabledColor;
     }
-    return backgroundColor || theme[`btn${type.slice(0, 1).toUpperCase() + type.slice(1)}Color`];
+    return backgroundColor || Theme[`btn${type.slice(0, 1).toUpperCase() + type.slice(1)}Color`];
   }
 
   getLabelColor() {
     const { disabled, color, link, linkColor, outline, outlineColor, type, gradient } = this.props;
     if (disabled) {
       if (outline || link) {
-        return theme.btnDisabledColor;
+        return Theme.btnDisabledColor;
       }
-      return theme.btnLabelColorDisabled;
+      return Theme.btnLabelColorDisabled;
     }
     if (color) {
       return color;
@@ -140,9 +140,9 @@ export default class Button extends Component {
       return outlineColor;
     }
     if (gradient) {
-      return theme.btnDefaultColor;
+      return Theme.btnDefaultColor;
     }
-    return theme[`btnLabelColor${type.slice(0, 1).toUpperCase() + type.slice(1)}`];
+    return Theme[`btnLabelColor${type.slice(0, 1).toUpperCase() + type.slice(1)}`];
   }
 
   getBorderRadius() {
@@ -151,21 +151,21 @@ export default class Button extends Component {
       return borderRadius;
     }
     if (shape) {
-      return theme[`btnBorderRadius${shape.slice(0, 1).toUpperCase() + shape.slice(1)}`];
+      return Theme[`btnBorderRadius${shape.slice(0, 1).toUpperCase() + shape.slice(1)}`];
     }
-    return theme[`btnBorderRadius${size.toUpperCase()}`];
+    return Theme[`btnBorderRadius${size.toUpperCase()}`];
   }
 
   getOutLineStyle() {
     const { outline, outlineColor, outlineWidth, outlineType, disabled } = this.props;
     let outlineStyle = {};
     if (outline) {
-      outlineStyle.borderWidth = outlineWidth || theme.btnBorderWidth;
-      outlineStyle.borderColor = outlineColor || theme.btnBorderColor;
+      outlineStyle.borderWidth = outlineWidth || Theme.btnBorderWidth;
+      outlineStyle.borderColor = outlineColor || Theme.btnBorderColor;
       outlineStyle.borderStyle = outlineType;
     }
     if (disabled) {
-      outlineStyle.borderColor = theme.btnDisabledColor;
+      outlineStyle.borderColor = Theme.btnDisabledColor;
     }
     return outlineStyle;
   }
@@ -207,7 +207,7 @@ export default class Button extends Component {
     };
 
     if (disabled) {
-      gradientPropsFinaly.colors = [theme.btnDisabledColor, theme.btnDisabledColor];
+      gradientPropsFinaly.colors = [Theme.btnDisabledColor, Theme.btnDisabledColor];
     }
 
     if (gradientDirection === 'horizontal') {
@@ -258,7 +258,7 @@ export default class Button extends Component {
     const labelStyleFinaly = StyleSheet.flatten([
       {
         color: this.getLabelColor(),
-        fontSize: theme[`btnFontSize${size.toUpperCase()}`],
+        fontSize: Theme[`btnFontSize${size.toUpperCase()}`],
         fontWeight: size === 'xl' ? '600' : '400',
       },
       labelStyle
@@ -296,8 +296,8 @@ export default class Button extends Component {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingVertical: theme[`btnPaddingVertical${size.toUpperCase()}`],
-        paddingHorizontal: theme[`btnPaddingHorizontal${size.toUpperCase()}`],
+        paddingVertical: Theme[`btnPaddingVertical${size.toUpperCase()}`],
+        paddingHorizontal: Theme[`btnPaddingHorizontal${size.toUpperCase()}`],
       },
       containerStyle,
     ]);
