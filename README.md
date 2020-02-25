@@ -30,7 +30,40 @@
 
 ### Button
 
+按钮组件，依赖插件 `react-native-linear-gradient` 来实现渐变效果
+
+**代码示例**
+
+```html
+<Button type="primary">primary</Button>
+
+<Button gradient gradientColors={['#f00', '#0f0']}>渐变</Button>
+```
+
+**API**
+
 属性 | 说明 |  类型 | 默认值  
 -|-|-|-
-label | 按钮显示的文字 | String | -
-labelStyle | 钮中的文字样式 | Object | -
+type | 按钮类型，可选值为 `default`、`primary`、`info`、`warning`、`success`、`error`、`gray`、`golden`、`text` | String | default
+size | 按钮大小，可选值为 `xs`、`sm`、`md`、`lg`、`xl` | String | lg
+shape | 按钮形状，可选值为 `rect`、`radius`、`circle` | String | circle
+borderRadius | 圆角大小, 当 `shape` 为 `radius` | Number | -
+color | 文字颜色 | String | -
+backgroundColor | 背景颜色 | String | -
+outline | 是否边框 | Boolean | false
+outlineType | 边框类型，可选值为 `solid`、`dotted`、`dashed` | String | solid
+outlineColor | 边框颜色 | String | -
+outlineWidth | 边框粗细 | String | -
+gradient | 是否渐变 | Boolean | false
+gradientColors | 渐变颜色 | Array | [info, primary]
+gradientDirection | 渐变方向 | String | horizontal
+gradientProps | 渐变其他属性。因为渐变是通过插件 `react-native-linear-gradient` 实现的 | Object | -
+loading | 设置按钮为加载中状态 | Boolean | false
+disabled | 设置按钮为禁用状态 | Boolean | false
+icon | 图标资源 | Object \| Function \| element | -
+iconStyle | 图标样式 | Object | -
+iconOnRight | 设置按钮图标位置在右边 | Boolean | false
+activityIndicatorColor | loading 指示器颜色 | String | 默认为文字颜色
+containerStyle | 容器样式 | Object | -
+clickInterval | 连续两次点击间隔 毫秒 | Numer | 1000
+onPress | 点击事件 | event | -

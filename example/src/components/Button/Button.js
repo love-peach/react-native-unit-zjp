@@ -5,43 +5,43 @@ import LinearGradient from 'react-native-linear-gradient';
 import Theme from '../../themes/Theme';
 
 /**
- * @label  按钮中的文字
- * @labelStyle 按钮中的文字样式
- * @labelProps 按钮中的文字属性
- * @containerStyle 容器样式 覆盖 padding 等
- * @type 按钮主题 [default, gray, primary, info, orange, warning, success, error]
+ * @type 按钮主题 [default, primary, info, warning, success, error, gray, golden, text]
+ * @size 大小 [xl, lg, md, sm, xs]
+ * 
+ * @shape 圆角大小 提供三种固定大小 [rect, radius, circle]
+ * @borderRadius 圆角大小
+ * 
  * @color 文字颜色
  * @backgroundColor 背景色
+ * 
+ * @ghost 边框是否有
+ * @outlineColor 边框颜色
+ * @outlineWidth 边框粗细
+ * @outlineType 边框类型 [solid, dotted, dashed]
+ * 
  * @gradient 是否渐变
  * @gradientColors 渐变颜色
  * @gradientDirection 渐变方向
  * @gradientProps 渐变其他属性
+ * 
+ * @loading loading
+ * @disabled 禁用
+ * 
  * @icon 图标资源
  * @iconStyle 图标样式
  * @iconOnRight 图标是否在右边
- * @size 大小 [xl, lg, md, sm, xs]
- * @outline 边框是否有
- * @outlineColor 边框颜色
- * @outlineWidth 边框粗细
- * @outlineType 边框类型 [solid, dotted, dashed]
- * @shape 圆角大小 提供三种固定大小 [rect, radius, circle]
- * @borderRadius 圆角大小
- * @link 是否是链接按钮 文字按钮
- * @linkColor 链接颜色
- * @disabled 禁用
- * @loading loading
  * @activityIndicatorColor loading 指示器颜色 默认为文字颜色
+ * 
+ * @containerStyle 容器样式 覆盖 padding 等
+ * 
  * @onPress 事件
  * @clickInterval 防连点 默认 1000 毫秒
  */
 export default class Button extends Component {
   static propTypes = {
-    label: PropTypes.string,
-    labelStyle: Text.propTypes.style,
-    labelProps: PropTypes.object,
     containerStyle: ViewPropTypes.style,
     color: PropTypes.string,
-    type: PropTypes.oneOf(['default', 'gray', 'primary', 'info', 'warning', 'orange', 'success', 'error']),
+    type: PropTypes.oneOf(['default', 'primary', 'info', 'warning', 'success', 'error', 'gray', 'golden', 'text']),
     backgroundColor: PropTypes.string,
     gradient: PropTypes.bool,
     gradientColors: PropTypes.array,
@@ -52,14 +52,12 @@ export default class Button extends Component {
     iconOnRight: PropTypes.bool,
     iconMarginSize: PropTypes.number,
     size: PropTypes.oneOf(['xl', 'lg', 'md', 'sm', 'xs']),
-    outline: PropTypes.bool,
+    ghost: PropTypes.bool,
     outlineColor: PropTypes.string,
     outlineWidth: PropTypes.number,
     outlineType: PropTypes.oneOf(['solid', 'dotted', 'dashed']),
     shape: PropTypes.oneOf(['rect', 'radius', 'circle']),
     borderRadius: PropTypes.number,
-    link: PropTypes.bool,
-    linkColor: PropTypes.string,
     disabled: PropTypes.bool,
     loading: PropTypes.bool,
     activityIndicatorColor: PropTypes.string,
@@ -76,13 +74,11 @@ export default class Button extends Component {
     loading: false,
     iconOnRight: false,
     iconMarginSize: 5,
-    outline: false,
-    outlineColor: Theme.btnBorderColor,
+    ghost: false,
+    // outlineColor: Theme.textColor.titleSub,
     outlineType: 'solid',
-    link: false,
-    linkColor: Theme.btnLabelLinkColor,
     shape: 'circle',
-    gradientColors: [Theme.btnInfoColor, Theme.btnPrimaryColor],
+    gradientColors: [Theme.color.info, Theme.color.primary],
     gradientDirection: 'horizontal',
     activeOpacity: 0.65,
     clickInterval: 1000,
@@ -107,60 +103,72 @@ export default class Button extends Component {
   };
 
   getBackgroundColor() {
-    const { outline, link, disabled, backgroundColor, type } = this.props;
-    if (outline || link) {
+    const { ghost, disabled, backgroundColor, type } = this.props;
+    if (ghost || type === 'text') {
       return 'transparent';
     }
     if (disabled) {
-      return Theme.btnDisabledColor;
+      return Theme.btn.bg.disabled;
     }
-    return backgroundColor || Theme[`btn${type.slice(0, 1).toUpperCase() + type.slice(1)}Color`];
+    return backgroundColor || Theme.btn.bg[type];
   }
 
   getLabelColor() {
-    const { disabled, color, link, linkColor, outline, outlineColor, type, gradient } = this.props;
+    const { disabled, color, ghost, outlineColor, type, gradient } = this.props;
     if (disabled) {
-      if (outline || link) {
-        return Theme.btnDisabledColor;
+      if (type === 'text' || ghost) {
+        return Theme.color.grayDark;
       }
-      return Theme.btnLabelColorDisabled;
+      return Theme.btn.text.disabled;
     }
     if (color) {
       return color;
     }
-    if (link && linkColor) {
-      return linkColor;
-    }
-    if (outline && outlineColor) {
-      return outlineColor;
+    if (ghost) {
+      if (outlineColor) {
+        return outlineColor;
+      } else if (type === 'default') {
+        return Theme.textColor.title;
+      } else if (type === 'text') {
+        return Theme.btn.text[type];
+      } else {
+        return Theme.btn.bg[type];
+      }
     }
     if (gradient) {
-      return Theme.btnDefaultColor;
+      return Theme.color.white;
     }
-    return Theme[`btnLabelColor${type.slice(0, 1).toUpperCase() + type.slice(1)}`];
+    return Theme.btn.text[type];
   }
 
   getBorderRadius() {
-    const { borderRadius, shape, size } = this.props;
+    const { borderRadius, shape } = this.props;
     if (borderRadius) {
       return borderRadius;
     }
     if (shape) {
-      return Theme[`btnBorderRadius${shape.slice(0, 1).toUpperCase() + shape.slice(1)}`];
+      return Theme.btn.radius[shape];
     }
-    return Theme[`btnBorderRadius${size.toUpperCase()}`];
   }
 
   getOutLineStyle() {
-    const { outline, outlineColor, outlineWidth, outlineType, disabled } = this.props;
+    const { type, ghost, outlineColor, outlineWidth, outlineType, disabled } = this.props;
     let outlineStyle = {};
-    if (outline) {
-      outlineStyle.borderWidth = outlineWidth || Theme.btnBorderWidth;
-      outlineStyle.borderColor = outlineColor || Theme.btnBorderColor;
+    if (ghost) {
+      outlineStyle.borderWidth = outlineWidth || Theme.btn.borderWidth;
       outlineStyle.borderStyle = outlineType;
+      if (outlineColor) {
+        outlineStyle.borderColor = outlineColor;
+      } else if (type === 'default') {
+        outlineStyle.borderColor = Theme.textColor.titleSub;
+      } else if (type === 'text') {
+        outlineStyle.borderColor = Theme.btn.text[type];
+      } else {
+        outlineStyle.borderColor = Theme.btn.bg[type];
+      }
     }
     if (disabled) {
-      outlineStyle.borderColor = Theme.btnDisabledColor;
+      outlineStyle.borderColor = Theme.color.grayDark;
     }
     return outlineStyle;
   }
@@ -202,7 +210,7 @@ export default class Button extends Component {
     };
 
     if (disabled) {
-      gradientPropsFinaly.colors = [Theme.btnDisabledColor, Theme.btnDisabledColor];
+      gradientPropsFinaly.colors = [Theme.color.gray, Theme.color.gray];
     }
 
     if (gradientDirection === 'horizontal') {
@@ -248,39 +256,30 @@ export default class Button extends Component {
 
   // 生成按钮文字
   renderLabel() {
-    const { label, labelStyle, size, children } = this.props;
+    const { size, children } = this.props;
 
     const labelStyleFinaly = StyleSheet.flatten([
       {
         color: this.getLabelColor(),
-        fontSize: Theme[`btnFontSize${size.toUpperCase()}`],
+        fontSize: Theme.btn.fontSize[size],
         fontWeight: size === 'xl' ? '600' : '400',
       },
-      labelStyle
     ]);
 
     if (children) {
       let childElements = [];
       React.Children.forEach(children, (item) => {
         if (typeof item === 'string' || typeof item === 'number') {
-          const element = (
-            <Text key={item} style={labelStyleFinaly} numberOfLines={1}>
-              {item}
-            </Text>
-          );
+          const element = <Text key={item}>{item}</Text>;
           childElements.push(element);
         } else if (React.isValidElement(item)) {
           childElements.push(item);
         }
       });
-      return childElements;
+      return <Text style={labelStyleFinaly} numberOfLines={1}>{childElements}</Text>;
+      // return childElements;
     }
-
-    if (label && React.isValidElement(label)) {
-      return children;
-    }
-
-    return label ? <Text style={labelStyleFinaly} numberOfLines={1}>{label}</Text> : null;
+    return null;
   }
 
   // 生成按钮内容
@@ -291,8 +290,10 @@ export default class Button extends Component {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingVertical: Theme[`btnPaddingVertical${size.toUpperCase()}`],
-        paddingHorizontal: Theme[`btnPaddingHorizontal${size.toUpperCase()}`],
+        height: Theme.btn.height[size],
+        minWidth: Theme.btn.minWidth[size],
+        paddingHorizontal: Theme.btn.paddingHorizontal[size],
+        // paddingVertical: Theme.btn.paddingVertical[size],
       },
       containerStyle,
     ]);
@@ -315,11 +316,9 @@ export default class Button extends Component {
 
   buildProps = () => {
     let {
-      label,
-      labelStyle,
-      labelProps,
       containerStyle,
-      type, color,
+      type,
+      color,
       backgroundColor,
       gradient,
       gradientColors,
@@ -329,14 +328,12 @@ export default class Button extends Component {
       iconStyle,
       iconOnRight,
       size,
-      outline,
+      ghost,
       outlineColor,
       outlineWidth,
       outlineType,
       shape,
       borderRadius,
-      link,
-      linkColor,
       loading,
       activityIndicatorColor,
       clickInterval,

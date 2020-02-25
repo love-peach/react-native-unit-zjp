@@ -9,7 +9,39 @@ const colorError = '#ff6665';
 const colorDisabled = '#DCDFE6';
 const colorDark = '#313233';
 
+const color = {
+  white: '#fff',
+
+  yellow: '#ffd210',
+  gold: '#b69254',
+  blue: '#3a7ae5',
+  red: '#eb4747',
+  green: '#56bc44',
+  gray: '#dcdfe5',
+
+  bg: '#f0f3f9',
+  bgLinght: '#f7f8fa',
+  border: '#f0f1f5',
+  borderDark: '#e0e2e7'
+};
+
+const textColor = {
+  titleMain: '#121b33',
+  title: '#394259',
+  titleSub: '#868f9e',
+  placeholder: '#b2b6bf',
+  tip: '#cccfd9',
+  tipAlert: '##fe6666',
+};
+
 export default {
+  color,
+  textColor,
+  
+  btn: {
+
+  }
+
   //Button - background color
   btnDefaultColor: colorDefault,
   btnGrayColor: colorDisabled,
