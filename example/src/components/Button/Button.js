@@ -39,28 +39,27 @@ import Theme from '../../themes/Theme';
  */
 export default class Button extends Component {
   static propTypes = {
-    containerStyle: ViewPropTypes.style,
-    color: PropTypes.string,
     type: PropTypes.oneOf(['default', 'primary', 'info', 'warning', 'success', 'error', 'gray', 'golden', 'text']),
+    size: PropTypes.oneOf(['xl', 'lg', 'md', 'sm', 'xs']),
+    shape: PropTypes.oneOf(['rect', 'radius', 'circle']),
+    borderRadius: PropTypes.number,
+    color: PropTypes.string,
     backgroundColor: PropTypes.string,
+    ghost: PropTypes.bool,
+    outlineType: PropTypes.oneOf(['solid', 'dotted', 'dashed']),
+    outlineColor: PropTypes.string,
+    outlineWidth: PropTypes.number,
     gradient: PropTypes.bool,
     gradientColors: PropTypes.array,
     gradientDirection: PropTypes.oneOf(['horizontal', 'vertical']),
     gradientProps: PropTypes.object,
+    loading: PropTypes.bool,
+    disabled: PropTypes.bool,
     icon: PropTypes.oneOfType([PropTypes.element, PropTypes.object, PropTypes.number, PropTypes.func]),
     iconStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
     iconOnRight: PropTypes.bool,
-    iconMarginSize: PropTypes.number,
-    size: PropTypes.oneOf(['xl', 'lg', 'md', 'sm', 'xs']),
-    ghost: PropTypes.bool,
-    outlineColor: PropTypes.string,
-    outlineWidth: PropTypes.number,
-    outlineType: PropTypes.oneOf(['solid', 'dotted', 'dashed']),
-    shape: PropTypes.oneOf(['rect', 'radius', 'circle']),
-    borderRadius: PropTypes.number,
-    disabled: PropTypes.bool,
-    loading: PropTypes.bool,
     activityIndicatorColor: PropTypes.string,
+    containerStyle: ViewPropTypes.style,
     style: ViewPropTypes.style,
     children: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.element]),
     clickInterval: PropTypes.number,
@@ -71,16 +70,10 @@ export default class Button extends Component {
   static defaultProps = {
     type: 'default',
     size: 'xl',
-    loading: false,
-    iconOnRight: false,
-    iconMarginSize: 5,
-    ghost: false,
-    // outlineColor: Theme.textColor.titleSub,
-    outlineType: 'solid',
     shape: 'circle',
+    outlineType: 'solid',
     gradientColors: [Theme.color.info, Theme.color.primary],
     gradientDirection: 'horizontal',
-    activeOpacity: 0.65,
     clickInterval: 1000,
   };
 
@@ -174,15 +167,15 @@ export default class Button extends Component {
   }
 
   getIconStyle() {
-    const { iconStyle = {}, iconOnRight, iconMarginSize } = this.props;
+    const { iconStyle = {}, iconOnRight } = this.props;
     const iconStyleFinaly = {
       tintColor: this.getLabelColor(),
       ...iconStyle,
     };
     if (iconOnRight) {
-      iconStyleFinaly.marginLeft = iconMarginSize;
+      iconStyleFinaly.marginLeft = 5;
     } else {
-      iconStyleFinaly.marginRight = iconMarginSize;
+      iconStyleFinaly.marginRight = 5;
     }
     return [iconStyleFinaly];
   }
@@ -232,16 +225,7 @@ export default class Button extends Component {
       return <ActivityIndicator color={activityIndicatorColor || this.getLabelColor()} size="small" style={{ marginRight: 5, alignSelf: 'center', }} />;
     }
 
-    if (icon && React.isValidElement(icon)) {
-      return icon;
-    }
-
-    // if (typeof icon === 'string') {
-    //   return <Icon name={icon} style={this.getIconStyle()} />;
-    // }
-
-
-    
+   
     if (icon) {
       if (React.isValidElement(icon)) {
         return icon;
@@ -270,14 +254,17 @@ export default class Button extends Component {
       let childElements = [];
       React.Children.forEach(children, (item) => {
         if (typeof item === 'string' || typeof item === 'number') {
-          const element = <Text key={item}>{item}</Text>;
+          const element = <Text key={item} style={labelStyleFinaly} numberOfLines={1}>{item}</Text>;
           childElements.push(element);
         } else if (React.isValidElement(item)) {
           childElements.push(item);
         }
       });
-      return <Text style={labelStyleFinaly} numberOfLines={1}>{childElements}</Text>;
-      // return childElements;
+      if(childElements.length && childElements.length > 1) {
+        return <Text style={labelStyleFinaly} numberOfLines={1}>{childElements}</Text>;
+      }
+      // return <Text style={labelStyleFinaly} numberOfLines={1}>{childElements}</Text>;
+      return childElements;
     }
     return null;
   }
@@ -345,9 +332,21 @@ export default class Button extends Component {
     return { ...restProps };
   };
 
+  buildOverflowStyle = () => {
+    let { style } = this.props;
+    const outlineStyle = this.getOutLineStyle();
+    return StyleSheet.flatten([
+      {
+        borderRadius: this.getBorderRadius(),
+        overflow: 'hidden',
+        borderWidth:2,
+        borderColor:'red',
+      },
+      style
+    ]);
+  }
+
   render() {
-    
-    
     if (Platform.OS === 'android') {
       return (
         <TouchableNativeFeedback onPress={event => this.handleClick(event)} {...this.buildProps()}>

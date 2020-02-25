@@ -47,23 +47,24 @@
 type | 按钮类型，可选值为 `default`、`primary`、`info`、`warning`、`success`、`error`、`gray`、`golden`、`text` | String | default
 size | 按钮大小，可选值为 `xs`、`sm`、`md`、`lg`、`xl` | String | lg
 shape | 按钮形状，可选值为 `rect`、`radius`、`circle` | String | circle
-borderRadius | 圆角大小, 当 `shape` 为 `radius` | Number | -
-color | 文字颜色 | String | -
-backgroundColor | 背景颜色 | String | -
-outline | 是否边框 | Boolean | false
-outlineType | 边框类型，可选值为 `solid`、`dotted`、`dashed` | String | solid
-outlineColor | 边框颜色 | String | -
-outlineWidth | 边框粗细 | String | -
-gradient | 是否渐变 | Boolean | false
-gradientColors | 渐变颜色 | Array | [info, primary]
-gradientDirection | 渐变方向 | String | horizontal
-gradientProps | 渐变其他属性。因为渐变是通过插件 `react-native-linear-gradient` 实现的 | Object | -
+borderRadius | 圆角大小, 当 `shape` 为 `radius` 时，可通过此属性控制圆角大小 | Number | -
+color | 设置按钮文字颜色 | String | -
+backgroundColor | 设置按钮背景颜色 | String | -
+ghost | 设置幽灵按钮 | Boolean | false
+outlineType | 设置按钮边框类型，可选值为 `solid`、`dotted`、`dashed` | String | solid
+outlineColor | 设置按钮边框颜色 | String | -
+outlineWidth | 设置按钮边框粗细 | String | -
+gradient | 设置渐变按钮 | Boolean | false
+gradientColors | 设置渐变颜色 | Array | [info, primary]
+gradientDirection | 设置渐变方向 | String | horizontal
+gradientProps | 设置渐变其他属性。因为渐变是通过插件 `react-native-linear-gradient` 实现的 | Object | -
 loading | 设置按钮为加载中状态 | Boolean | false
 disabled | 设置按钮为禁用状态 | Boolean | false
-icon | 图标资源 | Object \| Function \| element | -
-iconStyle | 图标样式 | Object | -
+icon | 设置按钮图标 | Object \| Function \| element | -
+iconStyle | 设置按钮图标样式 | Object | -
 iconOnRight | 设置按钮图标位置在右边 | Boolean | false
 activityIndicatorColor | loading 指示器颜色 | String | 默认为文字颜色
 containerStyle | 容器样式 | Object | -
 clickInterval | 连续两次点击间隔 毫秒 | Numer | 1000
 onPress | 点击事件 | event | -
+onLongPress | 长按事件 | event | -

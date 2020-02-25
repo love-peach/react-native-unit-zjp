@@ -1,73 +1,101 @@
-// 定义主色调
-const colorDefault = '#fff';
-// const colorPrimary = '#317AF1';
-const colorPrimary = '#000';
-const colorInfo = '#66d4f8';
-const colorOrange = '#F8A441';
-const colorWarning = '#EBDE74';
-const colorSuccess = '#40db89';
-const colorError = '#ff6665';
-const colorDisabled = '#DCDFE6';
-const colorDark = '#313233';
+const color = {
+  white: '#fff',
+
+  primary: '#22353c',
+  info: '#dea26c',
+  warning: '#6f4837',
+  success: '#3d272a',
+  error: '#05080d',
+  golden: '#a26e49',
+
+  grayDark: '#c5c8ce',
+  gray: '#dcdfe5',
+  grayLight: '#f7f8fa',
+
+  bg: '#f0f3f9',
+
+  border: '#f0f1f5',
+  borderDark: '#e0e2e7'
+};
+
+const textColor = {
+  titleMain: '#121b33',
+  title: '#394259',
+  titleSub: '#868f9e',
+  placeholder: '#b2b6bf',
+  tip: '#cccfd9',
+  tipAlert: '#fe6666',
+};
 
 export default {
-  //Button - background color
-  btnDefaultColor: colorDefault,
-  btnGrayColor: colorDisabled,
-  btnPrimaryColor: colorPrimary,
-  btnInfoColor: colorInfo,
-  btnWarningColor: colorWarning,
-  btnOrangeColor: colorOrange,
-  btnSuccessColor: colorSuccess,
-  btnErrorColor: colorError,
-  btnDisabledColor: colorDisabled,
-
-  //Button - label color
-  btnLabelColorDefault: colorDark,
-  btnLabelColorPrimary: '#fff',
-  btnLabelColorInfo: '#fff',
-  btnLabelColorWarning: colorDark,
-  btnLabelColorOrange: '#fff',
-  btnLabelColorSuccess: '#fff',
-  btnLabelColorError: '#fff',
-  btnLabelColorDisabled: '#fff',
-  btnLabelColorGray: '#fff',
-  btnLabelLinkColor: colorPrimary,
-
-  //Button - font size
-  btnFontSizeXL: 18,
-  btnFontSizeLG: 18,
-  btnFontSizeMD: 14,
-  btnFontSizeSM: 12,
-  btnFontSizeXS: 9,
-
-  //Button - padding vertical
-  btnPaddingVerticalXL: 14,
-  btnPaddingVerticalLG: 9,
-  btnPaddingVerticalMD: 6,
-  btnPaddingVerticalSM: 4,
-  btnPaddingVerticalXS: 2,
-
-  //Button - padding horizontal
-  btnPaddingHorizontalXL: 18,
-  btnPaddingHorizontalLG: 12,
-  btnPaddingHorizontalMD: 8,
-  btnPaddingHorizontalSM: 5,
-  btnPaddingHorizontalXS: 3,
-
-  //Button - border width
-  btnBorderWidth: 0.5,
-
-  //Button - border color
-  btnBorderColor: '#C9CDD5',
-
-  //Button - border radius
-  btnBorderRadiusXL: 3,
-  btnBorderRadiusLG: 3,
-  btnBorderRadiusMD: 2,
-  btnBorderRadiusSM: 2,
-  btnBorderRadiusXS: 2,
-  btnBorderRadiusRect: 0,
-  btnBorderRadiusRadius: 2,
-  btnBorderRadiusCircle: 1000,
+  color,
+  textColor,
+  btn: {
+    bg: {
+      default: color.gray,
+      primary: color.primary,
+      info: color.info,
+      warning: color.warning,
+      success: color.success,
+      error: color.error,
+      gray: color.grayLight,
+      golden: color.golden,
+      text: 'transparent',
+      disabled: color.gray,
+    },
+    text: {
+      default: color.white,
+      primary: color.white,
+      info: color.white,
+      warning: textColor.titleMain,
+      success: color.white,
+      error: color.white,
+      gray: textColor.titleSub,
+      golden: textColor.titleMain,
+      text: color.primary,
+      disabled: color.white,
+    },
+    fontSize: {
+      xs: 9,
+      sm: 12,
+      md: 14,
+      lg: 18,
+      xl: 18,
+    },
+    radius: {
+      rect: 0,
+      radius: 2,
+      circle: 1000,
+    },
+    height: {
+      xs: 20,
+      sm: 25,
+      md: 32,
+      lg: 40,
+      xl: 50,
+    },
+    minWidth: {
+      xs: 20,
+      sm: 25,
+      md: 32,
+      lg: 40,
+      xl: 50,
+    },
+    paddingHorizontal: {
+      xs: 4,
+      sm: 4,
+      md: 5,
+      lg: 12,
+      xl: 18,
+    },
+    paddingVertical: {
+      xs: 2,
+      sm: 4,
+      md: 6,
+      lg: 9,
+      xl: 14,
+    },
+    borderWidth: 1,
+    btnBorderColor: '#C9CDD5',
+  },
 };
