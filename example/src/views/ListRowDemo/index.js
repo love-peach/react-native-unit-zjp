@@ -41,7 +41,7 @@ export default class LoanPage extends Component {
           <ListRow title="2/3期" value="420.0" label="应支付日：2019年06月21日" extra="已逾期" />
         </Card>
 
-        <Card padding={0} margin={15}>
+        <Card margin={15}>
           <ListRow title="2/1期" value="420.0" label="应支付日：2019年06月21日" extra="已逾期" contentOffset={15} />
           <ListRow title="2/2期" value="420.0" label="应支付日：2019年06月21日" extra="已逾期" />
           <ListRow title="2/3期" value="420.0" label="应支付日：2019年06月21日" extra="已逾期" />

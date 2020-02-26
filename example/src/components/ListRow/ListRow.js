@@ -1,61 +1,9 @@
-/*
- * @Author: shawn
- * @LastEditTime: 2019-11-01 17:53:44
- */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, Image, StyleSheet, TouchableHighlight } from 'react-native';
 import SplitLine from '../SplitLine/SplitLine';
 
 const demoImage = require('./icon_arrow.png');
-
-const styles = {
-  wrapper: {
-    backgroundColor: '#fff',
-  },
-  content: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  container: {
-    flex: 1,
-  },
-  contentRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flex: 1,
-  },
-  contentRowBottom: {
-    marginTop: 4,
-  },
-  title: {
-    fontSize: 15,
-    color: '#121C32',
-    fontWeight: 'bold',
-    marginRight: 8,
-  },
-  value: {
-    fontSize: 15,
-    color: '#121C32',
-  },
-  valuePlace: {
-    fontSize: 15,
-    color: '#868E9E',
-  },
-  label: {
-    fontSize: 13,
-    color: '#868E9E',
-    flex: 1,
-  },
-  extra: {
-    fontSize: 13,
-    color: '#868E9E',
-  },
-  iconWrap: {
-    marginRight: 9,
-  },
-};
 
 /**
  * @title 标题 左上
@@ -266,21 +214,65 @@ export default class ListRow extends PureComponent {
   render() {
     const { underlayColor, onPress } = this.props;
     return (
-      <View style={styles.wrapper}>
-        <TouchableHighlight onPress={event => this.handleClick(event)} activeOpacity={onPress ? 0.5 : 1} underlayColor={onPress ? underlayColor : 'transparent'} style={this.buildContentWrapStyle()}>
-          <View>
-            <View style={this.buildContentStyle()}>
-              {this.renderIcon()}
-              <View style={styles.container}>
-                {this.renderContentRowTop()}
-                {this.renderContentRowBottom()}
-              </View>
-              {this.renderIndicator()}
+      <TouchableHighlight style={this.buildContentWrapStyle()} onPress={event => this.handleClick(event)} activeOpacity={onPress ? 0.5 : 1} underlayColor={onPress ? underlayColor : 'transparent'}>
+        <View>
+          <View style={this.buildContentStyle()}>
+            {this.renderIcon()}
+            <View style={styles.container}>
+              {this.renderContentRowTop()}
+              {this.renderContentRowBottom()}
             </View>
-            {this.renderSplitLine()}
+            {this.renderIndicator()}
           </View>
-        </TouchableHighlight>
-      </View>
+          {this.renderSplitLine()}
+        </View>
+      </TouchableHighlight>
     );
   }
 }
+
+const styles = {
+  content: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  container: {
+    flex: 1,
+  },
+  contentRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flex: 1,
+  },
+  contentRowBottom: {
+    marginTop: 4,
+  },
+  title: {
+    fontSize: 15,
+    color: '#121C32',
+    fontWeight: 'bold',
+    marginRight: 8,
+  },
+  value: {
+    fontSize: 15,
+    color: '#121C32',
+  },
+  valuePlace: {
+    fontSize: 15,
+    color: '#868E9E',
+  },
+  label: {
+    fontSize: 13,
+    color: '#868E9E',
+    flex: 1,
+  },
+  extra: {
+    fontSize: 13,
+    color: '#868E9E',
+  },
+  iconWrap: {
+    marginRight: 9,
+  },
+};
+
