@@ -95,6 +95,7 @@ export default class Button extends Component {
     }
   };
 
+  // 获取背景颜色
   getBackgroundColor() {
     const { ghost, disabled, backgroundColor, type } = this.props;
     if (ghost) {
@@ -109,6 +110,7 @@ export default class Button extends Component {
     return backgroundColor || Theme[`btn_bg_${type}`];
   }
 
+  // 获取文字颜色
   getLabelColor() {
     const { disabled, color, ghost, outlineColor, type, gradient } = this.props;
     if (disabled) {
@@ -137,6 +139,7 @@ export default class Button extends Component {
     return Theme[`btn_text_${type}`];
   }
 
+  // 获取圆角大小
   getBorderRadius() {
     const { borderRadius, shape } = this.props;
     if (borderRadius) {
@@ -147,6 +150,7 @@ export default class Button extends Component {
     }
   }
 
+  // 获取边框样式
   getOutLineStyle() {
     const { type, ghost, outlineColor, outlineWidth, outlineType, disabled } = this.props;
     let outlineStyle = {};
@@ -169,6 +173,7 @@ export default class Button extends Component {
     return outlineStyle;
   }
 
+  // 获取图标样式
   getIconStyle() {
     const { iconStyle = {}, iconOnRight } = this.props;
     const iconStyleFinaly = {
@@ -198,6 +203,7 @@ export default class Button extends Component {
     ]);
   }
 
+  // 获取渐变属性
   getGradientProps() {
     const { disabled, gradientColors, gradientDirection, gradientProps } = this.props;
     let gradientPropsFinaly = {
@@ -295,6 +301,7 @@ export default class Button extends Component {
     );
   }
 
+  // 是否需要套一层渐变效果
   renderWrapAndContent() {
     const { gradient } = this.props;
     const gradientProps = this.getGradientProps();
@@ -304,6 +311,7 @@ export default class Button extends Component {
     return this.renderContent();
   }
 
+  // 过滤不必要的 props
   buildProps = () => {
     let {
       containerStyle,
