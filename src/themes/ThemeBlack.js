@@ -1,102 +1,97 @@
-// 定义主色调
-const colorDefault = '#fff';
-// const colorPrimary = '#317AF1';
-const colorPrimary = '#000';
-const colorInfo = '#66d4f8';
-const colorOrange = '#F8A441';
-const colorWarning = '#EBDE74';
-const colorSuccess = '#40db89';
-const colorError = '#ff6665';
-const colorDisabled = '#DCDFE6';
-const colorDark = '#313233';
-
 const color = {
   white: '#fff',
 
-  yellow: '#ffd210',
-  gold: '#b69254',
-  blue: '#3a7ae5',
-  red: '#eb4747',
-  green: '#56bc44',
+  primary: '#22353c',
+  info: '#dea26c',
+  warning: '#6f4837',
+  success: '#3d272a',
+  error: '#05080d',
+  golden: '#a26e49',
+
+  grayDark: '#c5c8ce',
   gray: '#dcdfe5',
+  grayLight: '#f7f8fa',
 
   bg: '#f0f3f9',
-  bgLinght: '#f7f8fa',
+
   border: '#f0f1f5',
-  borderDark: '#e0e2e7'
-};
+  borderDark: '#e0e2e7',
 
-
-const textColor = {
   titleMain: '#121b33',
   title: '#394259',
   titleSub: '#868f9e',
-  placeholder: '#b2b6bf',
-  tip: '#cccfd9',
-  tipAlert: '##fe6666',
+  textPlaceholder: '#b2b6bf',
+  textTip: '#cccfd9',
+  textTipAlert: '#fe6666',
 };
 
 export default {
-  color,
-  textColor,
+  ...color,
 
-  //Button - background color
-  btnDefaultColor: colorDefault,
-  btnGrayColor: colorDisabled,
-  btnPrimaryColor: colorPrimary,
-  btnInfoColor: colorInfo,
-  btnWarningColor: colorWarning,
-  btnOrangeColor: colorOrange,
-  btnSuccessColor: colorSuccess,
-  btnErrorColor: colorError,
-  btnDisabledColor: colorDisabled,
+  // btn - background color
+  btn_bg_default: color.gray,
+  btn_bg_primary: color.primary,
+  btn_bg_info: color.info,
+  btn_bg_warning: color.warning,
+  btn_bg_success: color.success,
+  btn_bg_error: color.error,
+  btn_bg_gray: color.grayLight,
+  btn_bg_golden: color.golden,
+  btn_bg_text: 'transparent',
+  btn_bg_disabled: color.gray,
 
-  //Button - label color
-  btnLabelColorDefault: colorDark,
-  btnLabelColorPrimary: '#fff',
-  btnLabelColorInfo: '#fff',
-  btnLabelColorWarning: colorDark,
-  btnLabelColorOrange: '#fff',
-  btnLabelColorSuccess: '#fff',
-  btnLabelColorError: '#fff',
-  btnLabelColorDisabled: '#fff',
-  btnLabelColorGray: '#fff',
-  btnLabelLinkColor: colorPrimary,
+  // btn - text color
+  btn_text_default: color.white,
+  btn_text_primary: color.white,
+  btn_text_info: color.white,
+  btn_text_warning: color.titleMain,
+  btn_text_success: color.white,
+  btn_text_error: color.white,
+  btn_text_gray: color.titleSub,
+  btn_text_golden: color.titleMain,
+  btn_text_text: color.primary,
+  btn_text_disabled: color.white,
 
-  //Button - font size
-  btnFontSizeXL: 18,
-  btnFontSizeLG: 18,
-  btnFontSizeMD: 14,
-  btnFontSizeSM: 12,
-  btnFontSizeXS: 9,
+  // btn - height
+  btn_height_xs: 20,
+  btn_height_sm: 25,
+  btn_height_md: 32,
+  btn_height_lg: 40,
+  btn_height_xl: 50,
 
-  //Button - padding vertical
-  btnPaddingVerticalXL: 14,
-  btnPaddingVerticalLG: 9,
-  btnPaddingVerticalMD: 6,
-  btnPaddingVerticalSM: 4,
-  btnPaddingVerticalXS: 2,
+  // btn - min-width
+  btn_min_width_xs: 20,
+  btn_min_width_sm: 25,
+  btn_min_width_md: 32,
+  btn_min_width_lg: 40,
+  btn_min_width_xl: 50,
 
-  //Button - padding horizontal
-  btnPaddingHorizontalXL: 18,
-  btnPaddingHorizontalLG: 12,
-  btnPaddingHorizontalMD: 8,
-  btnPaddingHorizontalSM: 5,
-  btnPaddingHorizontalXS: 3,
+  // btn - font size
+  btn_font_xs: 9,
+  btn_font_sm: 12,
+  btn_font_md: 13,
+  btn_font_lg: 18,
+  btn_font_xl: 18,
 
-  //Button - border width
-  btnBorderWidth: 0.5,
+  // btn padding Horizontal
+  btn_padding_horizontal_xs: 4,
+  btn_padding_horizontal_sm: 4,
+  btn_padding_horizontal_md: 5,
+  btn_padding_horizontal_lg: 12,
+  btn_padding_horizontal_xl: 18,
 
-  //Button - border color
-  btnBorderColor: '#C9CDD5',
+  // btn padding Vertical 暂时没用到
+  btn_padding_vertical_xs: 2,
+  btn_padding_vertical_sm: 4,
+  btn_padding_vertical_md: 6,
+  btn_padding_vertical_lg: 9,
+  btn_padding_vertical_xl: 14,
 
-  //Button - border radius
-  btnBorderRadiusXL: 3,
-  btnBorderRadiusLG: 3,
-  btnBorderRadiusMD: 2,
-  btnBorderRadiusSM: 2,
-  btnBorderRadiusXS: 2,
-  btnBorderRadiusRect: 0,
-  btnBorderRadiusRadius: 2,
-  btnBorderRadiusCircle: 1000,
+  // btn - radius
+  btn_radius_rect: 0,
+  btn_radius_radius: 5,
+  btn_radius_circle: 1000,
+
+  // btn - border-width
+  btn_border_width: 1,
 };

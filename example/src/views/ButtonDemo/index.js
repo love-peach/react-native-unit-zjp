@@ -108,8 +108,9 @@ export default class ButtonDemo extends Component {
 
         <Text style={styles.title}>ghost</Text>
         <Button style={styles.btnDemo} ghost>ghost 默认 边框 文字 颜色一致</Button>
-        <Button style={styles.btnDemo} ghost type="text" >primary</Button>
-        <Button style={styles.btnDemo} ghost outlineType="dashed" type="golden">golden</Button>
+        <Button style={styles.btnDemo} ghost type="text">text solid</Button>
+        <Button style={styles.btnDemo} ghost outlineType="dashed" type="golden">dashed golden</Button>
+        <Button style={styles.btnDemo} ghost outlineType="dotted" type="error">dotted error</Button>
 
         <Text style={styles.title}>自定义 文字颜色 背景色</Text>
         <View style={styles.btnWrap}>

@@ -72,7 +72,7 @@ export default class Button extends Component {
     size: 'xl',
     shape: 'circle',
     outlineType: 'solid',
-    gradientColors: [Theme.color.info, Theme.color.primary],
+    gradientColors: [Theme.info, Theme.primary],
     gradientDirection: 'horizontal',
     clickInterval: 1000,
   };
@@ -97,22 +97,25 @@ export default class Button extends Component {
 
   getBackgroundColor() {
     const { ghost, disabled, backgroundColor, type } = this.props;
-    if (ghost || type === 'text') {
+    if (ghost) {
       return 'transparent';
     }
     if (disabled) {
-      return Theme.btn.bg.disabled;
+      if (type === 'text') {
+        return Theme.btn_bg_text;
+      }
+      return Theme.btn_bg_disabled;
     }
-    return backgroundColor || Theme.btn.bg[type];
+    return backgroundColor || Theme[`btn_bg_${type}`];
   }
 
   getLabelColor() {
     const { disabled, color, ghost, outlineColor, type, gradient } = this.props;
     if (disabled) {
       if (type === 'text' || ghost) {
-        return Theme.color.grayDark;
+        return Theme.grayDark;
       }
-      return Theme.btn.text.disabled;
+      return Theme.btn_text_disabled;
     }
     if (color) {
       return color;
@@ -121,17 +124,17 @@ export default class Button extends Component {
       if (outlineColor) {
         return outlineColor;
       } else if (type === 'default') {
-        return Theme.textColor.title;
+        return Theme.title;
       } else if (type === 'text') {
-        return Theme.btn.text[type];
+        return Theme[`btn_text_${type}`];
       } else {
-        return Theme.btn.bg[type];
+        return Theme[`btn_bg_${type}`];
       }
     }
     if (gradient) {
-      return Theme.color.white;
+      return Theme.white;
     }
-    return Theme.btn.text[type];
+    return Theme[`btn_text_${type}`];
   }
 
   getBorderRadius() {
@@ -140,7 +143,7 @@ export default class Button extends Component {
       return borderRadius;
     }
     if (shape) {
-      return Theme.btn.radius[shape];
+      return Theme[`btn_radius_${shape}`];
     }
   }
 
@@ -148,20 +151,20 @@ export default class Button extends Component {
     const { type, ghost, outlineColor, outlineWidth, outlineType, disabled } = this.props;
     let outlineStyle = {};
     if (ghost) {
-      outlineStyle.borderWidth = outlineWidth || Theme.btn.borderWidth;
+      outlineStyle.borderWidth = outlineWidth || Theme.btn_border_width;
       outlineStyle.borderStyle = outlineType;
       if (outlineColor) {
         outlineStyle.borderColor = outlineColor;
       } else if (type === 'default') {
-        outlineStyle.borderColor = Theme.textColor.titleSub;
+        outlineStyle.borderColor = Theme.titleSub;
       } else if (type === 'text') {
-        outlineStyle.borderColor = Theme.btn.text[type];
+        outlineStyle.borderColor = Theme[`btn_text_${type}`];
       } else {
-        outlineStyle.borderColor = Theme.btn.bg[type];
+        outlineStyle.borderColor = Theme[`btn_bg_${type}`];
       }
     }
     if (disabled) {
-      outlineStyle.borderColor = Theme.color.grayDark;
+      outlineStyle.borderColor = Theme.grayDark;
     }
     return outlineStyle;
   }
@@ -203,7 +206,7 @@ export default class Button extends Component {
     };
 
     if (disabled) {
-      gradientPropsFinaly.colors = [Theme.color.gray, Theme.color.gray];
+      gradientPropsFinaly.colors = [Theme.gray, Theme.gray];
     }
 
     if (gradientDirection === 'horizontal') {
@@ -245,7 +248,7 @@ export default class Button extends Component {
     const labelStyleFinaly = StyleSheet.flatten([
       {
         color: this.getLabelColor(),
-        fontSize: Theme.btn.fontSize[size],
+        fontSize: Theme[`btn_font_${size}`],
         fontWeight: size === 'xl' ? '600' : '400',
       },
     ]);
@@ -277,10 +280,10 @@ export default class Button extends Component {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        height: Theme.btn.height[size],
-        minWidth: Theme.btn.minWidth[size],
-        paddingHorizontal: Theme.btn.paddingHorizontal[size],
-        // paddingVertical: Theme.btn.paddingVertical[size],
+        height: Theme[`btn_height_${size}`],
+        minWidth: Theme[`btn_min_width_${size}`],
+        paddingHorizontal: Theme[`btn_padding_horizontal_${size}`],
+        // paddingVertical: Theme[`btn_padding_vertical_${size}`],
       },
       containerStyle,
     ]);
@@ -331,20 +334,6 @@ export default class Button extends Component {
     } = this.props;
     return { ...restProps };
   };
-
-  buildOverflowStyle = () => {
-    let { style } = this.props;
-    const outlineStyle = this.getOutLineStyle();
-    return StyleSheet.flatten([
-      {
-        borderRadius: this.getBorderRadius(),
-        overflow: 'hidden',
-        borderWidth:2,
-        borderColor:'red',
-      },
-      style
-    ]);
-  }
 
   render() {
     if (Platform.OS === 'android') {
