@@ -254,8 +254,8 @@ export default class Button extends Component {
     const labelStyleFinaly = StyleSheet.flatten([
       {
         color: this.getLabelColor(),
-        fontSize: Theme[`btn_font_${size}`],
-        fontWeight: size === 'xl' ? '600' : '400',
+        fontSize: Theme[`btn_font_size_${size}`],
+        fontWeight: Theme[`btn_font_weight_${size}`],
       },
     ]);
 

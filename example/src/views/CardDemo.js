@@ -1,6 +1,7 @@
+
 import React, { Component } from 'react';
 import { ScrollView, Text, View } from 'react-native';
-import { Card } from '../../components';
+import { Card } from '../components';
 
 export default class LoanPage extends Component {
   static navigationOptions = () => {

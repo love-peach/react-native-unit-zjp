@@ -67,11 +67,18 @@ export default {
   btn_min_width_xl: 50,
 
   // btn - font size
-  btn_font_xs: 9,
-  btn_font_sm: 12,
-  btn_font_md: 13,
-  btn_font_lg: 18,
-  btn_font_xl: 18,
+  btn_font_size_xs: 9,
+  btn_font_size_sm: 12,
+  btn_font_size_md: 13,
+  btn_font_size_lg: 18,
+  btn_font_size_xl: 18,
+
+  // btn - font weight
+  btn_font_weight_xs: '400',
+  btn_font_weight_sm: '400',
+  btn_font_weight_md: '400',
+  btn_font_weight_lg: '400',
+  btn_font_weight_xl: '600',
 
   // btn padding Horizontal
   btn_padding_horizontal_xs: 4,

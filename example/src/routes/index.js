@@ -3,12 +3,12 @@ import { Easing, Animated } from 'react-native';
 
 import Home from '../views/Home';
 
-import ThemeDemo from '../views/ThemeDemo';
-import ButtonDemo from '../views/ButtonDemo';
-import ModalDemo from '../views/ModalDemo';
-import CardDemo from '../views/CardDemo';
-import ListRowDemo from '../views/ListRowDemo';
-import InputDemo from '../views/InputDemo';
+import ThemeDemo from '../views/ThemeDemo.js';
+import ButtonDemo from '../views/ButtonDemo.js';
+import ModalDemo from '../views/ModalDemo.js';
+import CardDemo from '../views/CardDemo.js';
+import ListRowDemo from '../views/ListRowDemo.js';
+import InputDemo from '../views/InputDemo.js';
 
 const RootStack = createStackNavigator(
   {

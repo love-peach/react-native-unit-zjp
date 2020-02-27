@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { ScrollView } from 'react-native';
-import { Card, Button, ListRow } from '../../components';
+import { Card, Button, ListRow } from '../components';
 
-
-const icon = require('./close_gray.png');
+const icon = require('../../images/close_gray.png');
 
 export default class LoanPage extends Component {
   static navigationOptions = () => ({
@@ -17,8 +16,10 @@ export default class LoanPage extends Component {
   render() {
     return (
       <ScrollView>
-        <ListRow title="2/411期" />
-        <ListRow title="2/4期" value="420.0" splitLine={false} />
+        <ListRow title="2/411期" style={{ margin: 10 }} onPress={() => {
+          alert(123);
+        }} />
+        <ListRow title="2/4期" value="420.0" splitLine={false} activeOpacity={0} underlayColor="red" />
         <ListRow title="2/4期" value="420.0" icon={icon} />
         <ListRow
           title="2/4期"
@@ -33,7 +34,7 @@ export default class LoanPage extends Component {
         <ListRow title="手机号：" value={<Button size="md" shape="radius" outline label="这里可以放input" style={{ marginHorizontal: 0, marginVertical: 0, flex: 1 }} />} />
         <ListRow title="2/4期" label="Lorem ipsum dolor, sit amet consectetur adipisicing elit." />
         <ListRow title="2/4期" value="420.0" label="Lorem ipsum dolor, sit amet consectetur adipisicing elit." />
-        <ListRow title="2/3期" value="420.0" icon={icon} label="应支付日：2019年06月21日;应支付日：2019年06月21日" extra="已逾期" />
+        <ListRow title="2/3期" value="420.0" icon={icon} containerWrapStyle={{ paddingLeft: 20 }} containerStyle={{ paddingRight: 10, paddingLeft: 30 }} label="应支付日：2019年06月21日;应支付日：2019年06月21日" extra="已逾期" />
 
         <Card margin={15}>
           <ListRow title="2/1期" value="420.0" label="应支付日：2019年06月21日" extra="已逾期" />
@@ -42,7 +43,7 @@ export default class LoanPage extends Component {
         </Card>
 
         <Card margin={15}>
-          <ListRow title="2/1期" value="420.0" label="应支付日：2019年06月21日" extra="已逾期" contentOffset={15} />
+          <ListRow title="2/1期" value="420.0" label="应支付日：2019年06月21日" extra="已逾期" containerStyle={{ paddingRight: 0 }} />
           <ListRow title="2/2期" value="420.0" label="应支付日：2019年06月21日" extra="已逾期" />
           <ListRow title="2/3期" value="420.0" label="应支付日：2019年06月21日" extra="已逾期" />
         </Card>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { InputItem, Button } from '../../components';
+import { InputItem, Button } from '../components';
 
 
 export default class ModalDemo extends Component {

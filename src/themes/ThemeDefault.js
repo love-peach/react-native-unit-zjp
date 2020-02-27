@@ -73,6 +73,13 @@ export default {
   btn_font_lg: 18,
   btn_font_xl: 18,
 
+  // btn - font weight
+  btn_font_weight_xs: '400',
+  btn_font_weight_sm: '400',
+  btn_font_weight_md: '400',
+  btn_font_weight_lg: '400',
+  btn_font_weight_xl: '600',
+
   // btn padding Horizontal
   btn_padding_horizontal_xs: 4,
   btn_padding_horizontal_sm: 4,

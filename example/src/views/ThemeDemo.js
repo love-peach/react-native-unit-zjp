@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { ScrollView, Text, StyleSheet } from 'react-native';
-import { Button } from '../../components';
-import Theme from '../../themes/Theme';
-import myTheme from './ThemeCustom';
+import { Button } from '../components';
+import Theme from '../themes/Theme';
+import myTheme from './ThemeCustom.js';
 
 
 export default class ButtonDemo extends Component {

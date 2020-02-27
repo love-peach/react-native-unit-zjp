@@ -1,10 +1,6 @@
-/**
- * @format
- * @flow
- */
 import React, { Component } from 'react';
 import { ScrollView, View, Text } from 'react-native';
-import { Button, Modal } from '../../components';
+import { Button, Modal } from '../components';
 
 
 export default class ModalExample extends Component {
