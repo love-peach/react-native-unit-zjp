@@ -248,7 +248,7 @@ const styles = {
     alignItems: 'center',
     minHeight: 50,
     paddingVertical: 12,
-    paddingHorizontal: 10,
+    // paddingHorizontal: 10,
   },
   content: {
     flex: 1,

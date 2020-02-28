@@ -18,6 +18,7 @@ export default class HomeScreen extends Component {
       <ScrollView>
         <ListRow contentOffset={10} title="ThemeDemo" link onPress={this.goto.bind(this, 'ThemeDemo')} />
         <ListRow contentOffset={10} title="ButtonDemo" link onPress={this.goto.bind(this, 'ButtonDemo')} />
+        <ListRow contentOffset={10} title="ButtonGroupDemo" link onPress={this.goto.bind(this, 'ButtonGroupDemo')} />
         <ListRow contentOffset={10} title="ModalDemo" link onPress={this.goto.bind(this, 'ModalDemo')} />
         <ListRow contentOffset={10} title="CardDemo" link onPress={this.goto.bind(this, 'CardDemo')} />
         <ListRow contentOffset={10} title="ListRowDemo" link onPress={this.goto.bind(this, 'ListRowDemo')} />
