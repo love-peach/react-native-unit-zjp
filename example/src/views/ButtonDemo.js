@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ScrollView, View, Text, StyleSheet } from 'react-native';
 import { Button } from '../components';
 
-const buttonIcon = require('../../images/close_gray.png');
+const buttonIcon = require('../icons/close.png');
 
 export default class ButtonDemo extends Component {
   static navigationOptions = () => ({

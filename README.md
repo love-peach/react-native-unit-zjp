@@ -42,8 +42,8 @@
 
 **API**
 
-属性 | 说明 |  类型 | 默认值  
--|-|-|-
+属性 | 说明 |  类型 | 默认值
+- | - | - | -
 type | 按钮类型，可选值为 `default`、`primary`、`info`、`warning`、`success`、`error`、`gray`、`golden`、`text` | String | default
 size | 按钮大小，可选值为 `xs`、`sm`、`md`、`lg`、`xl` | String | lg
 shape | 按钮形状，可选值为 `rect`、`radius`、`circle` | String | circle
@@ -68,3 +68,41 @@ containerStyle | 容器样式 | Object | -
 clickInterval | 连续两次点击间隔 毫秒 | Numer | 1000
 onPress | 点击事件 | event | -
 onLongPress | 长按事件 | event | -
+
+### ListRow
+
+列表组件fe
+
+
+```html
+<ListRow title="2/1期" value="420.0" label="应支付日：2019年06月21日" extra="已逾期" />
+
+<ListRow title="验证码" value={<Button size="md" shape="radius" outline type="primary" outlineColor="#f00">获取验证码</Button>} />
+
+
+```
+
+**API**
+
+属性 | 说明 |  类型 | 默认值
+- | - | - | -
+title | 标题 左上角 | String \| element | -
+value | 值 右上角 | String \| element | -
+valuePlace | 空值 placeholder | String \| element | -
+label | 说明 左下角 | String \| element | -
+extra | 附加 右下角 | String \| element | -
+titleStyle | 标题样式。同理，还有 `valueStyle`、 `labelStyle`、`extraStyle`、`valuePlaceStyle` | Object | -
+icon | 设置图标 最左边 | Object \| Function \| element | -
+iconStyle | 图标样式 | Object | -
+link | 设置箭头样式 | Boolean | false
+indicator | 设置指示器 最右边。预设可选值为`arrow`、`plus`当给定 `onPress` 后，默认为小箭头 | Object \| Function \| element | arrow
+indicatorDirection | 指示器方向 可选值为 `up`、`down` | String | -
+indicatorStyle | 指示器样式 | Object | -
+splitLine | 设置底部分割线 | Boolean | -
+splitLineStyle | 分割线样式 | Object | -
+containerWrapStyle | 容器外层样式 包含内容 和 分割线 | Object | -
+containerStyle | 容器样式 包含 icon 文字 和 指示器 | Object | -
+activeOpacity | 点击透明度，同 TouchableHighlight 属性。当给定 `onPress` 后，默认为 0.5 | Number | 0.5 \| 1
+underlayColor | 底色，同 TouchableHighlight 属性。当给定 `onPress` 后，默认为 #eee | String | #eee \| transparent
+clickInterval | 点击间隔 毫秒 | Number | 0
+onPress | 点击事件 | Function | -

@@ -1,72 +1,35 @@
-/*
- * @Author: shawn
- * @LastEditTime: 2019-11-01 17:53:44
- */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, Image, StyleSheet, TouchableHighlight } from 'react-native';
 import SplitLine from '../SplitLine/SplitLine';
 
-const demoImage = require('./icon_arrow.png');
-
-const styles = {
-  wrapper: {
-    backgroundColor: '#fff',
-  },
-  content: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  container: {
-    flex: 1,
-  },
-  contentRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flex: 1,
-  },
-  contentRowBottom: {
-    marginTop: 4,
-  },
-  title: {
-    fontSize: 15,
-    color: '#121C32',
-    fontWeight: 'bold',
-    marginRight: 8,
-  },
-  value: {
-    fontSize: 15,
-    color: '#121C32',
-  },
-  valuePlace: {
-    fontSize: 15,
-    color: '#868E9E',
-  },
-  label: {
-    fontSize: 13,
-    color: '#868E9E',
-    flex: 1,
-  },
-  extra: {
-    fontSize: 13,
-    color: '#868E9E',
-  },
-  iconWrap: {
-    marginRight: 9,
-  },
-};
+import Theme from '../../themes/Theme';
 
 /**
  * @title 标题 左上
  * @label 说明 左下
  * @value 值 右上
  * @extra 附加 右下
- * @size 大小
+ * @valuePlace 空值 placeholder
+ * @titleStyle 标题 左上 样式
+ * @labelStyle 说明 左下 样式
+ * @valueStyle 值 右上 样式
+ * @extraStyle 附加 右下 样式
+ * @valuePlaceStyle 空值 placeholder 样式
  * @icon 图标
- * @Indicator 指示器
+ * @iconStyle 图标样式
  * @link 带箭头
+ * @indicator 指示器
+ * @indicatorDirection 指示器方向
+ * @indicatorStyle 指示器样式
  * @splitLine 分割线
+ * @splitLineStyle 分割线样式
+ * @containerWrapStyle 容器外层样式 包含内容 和 分割线
+ * @containerStyle 容器样式 包含 icon 文字 和 指示器
+ * @activeOpacity 同 TouchableHighlight 属性
+ * @underlayColor 同 TouchableHighlight 属性
+ * @clickInterval 点击间隔
+ * @onPress
  */
 
 export default class ListRow extends PureComponent {
@@ -75,73 +38,92 @@ export default class ListRow extends PureComponent {
     label: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.number]),
     value: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.number]),
     extra: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.number]),
+    valuePlace: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.number]),
     titleStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-    indicator: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+    labelStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+    valueStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+    valuePlaceStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+    extraStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+    icon: PropTypes.oneOfType([PropTypes.element, PropTypes.object, PropTypes.number, PropTypes.func]),
+    iconStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
     link: PropTypes.bool,
+    indicator: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+    indicatorDirection: PropTypes.string,
+    indicatorStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
     splitLine: PropTypes.bool,
     splitLineStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-    contentWrapOffset: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    contentOffset: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    contentOffsetVertical: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    containerWrapStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+    containerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+    activeOpacity: PropTypes.number,
     underlayColor: PropTypes.string,
     onPress: PropTypes.func,
     clickInterval: PropTypes.number,
   };
 
   static defaultProps = {
-    title: '',
-    label: '',
-    value: '',
-    extra: '',
-    link: false,
-    splitLine: true,
     indicator: 'arrow',
-    contentWrapOffset: 0,
-    contentOffset: 0,
-    contentOffsetVertical: 15,
-    clickInterval: 1600,
-    underlayColor: '#eee',
+    splitLine: true,
+    activeOpacity: 0.5,
+    underlayColor: Theme.border,
+    clickInterval: 0,
     onPress: null,
-    titleStyle: null,
-    splitLineStyle: null,
   };
 
   prePressTime = 0;
 
+  // 点击事件
+  handleClick = event => {
+    const { clickInterval, onPress } = this.props;
+    const now = Date.now();
 
+    if (clickInterval > 0 || this.prePressTime > 0) {
+      if (now - this.prePressTime > clickInterval) {
+        this.prePressTime = now;
+        !!onPress && onPress(event);
+      }
+    } else {
+      !!onPress && onPress(event);
+    }
+  };
+
+  // 生成标题 左上角
   renderTitle() {
     const { title, titleStyle } = this.props;
     if (React.isValidElement(title)) return title;
     return (
-      <Text numberOfLines={1} style={[styles.title, titleStyle]}>
+      <Text numberOfLines={1} style={StyleSheet.flatten([styles.title, titleStyle])}>
         {title}
       </Text>
     );
   }
 
-  renderLabel() {
-    const { label, labelStyle } = this.props;
-    if (React.isValidElement(label)) return label;
-    return <Text style={[styles.label, labelStyle]}>{label}</Text>;
-  }
-
+  // 生成值 左下角
   renderValue() {
     const { value, valueStyle, valuePlace, valuePlaceStyle } = this.props;
     if (value) {
       if (React.isValidElement(value)) return value;
-      return <Text style={[styles.value, valueStyle]}>{value}</Text>;
+      return <Text style={StyleSheet.flatten([styles.value, valueStyle])}>{value}</Text>;
     } else if (valuePlace) {
       if (React.isValidElement(valuePlace)) return valuePlace;
-      return <Text style={[styles.valuePlace, valuePlaceStyle]}>{valuePlace}</Text>;
+      return <Text style={StyleSheet.flatten([styles.valuePlace, valuePlaceStyle])}>{valuePlace}</Text>;
     }
   }
 
+  // 生成说明 右上角
+  renderLabel() {
+    const { label, labelStyle } = this.props;
+    if (React.isValidElement(label)) return label;
+    return <Text style={StyleSheet.flatten([styles.label, labelStyle])}>{label}</Text>;
+  }
+  
+  // 生成补充 右下角
   renderExtra() {
     const { extra, extraStyle } = this.props;
     if (React.isValidElement(extra)) return extra;
-    return <Text style={[styles.extra, extraStyle]}>{extra}</Text>;
+    return <Text style={StyleSheet.flatten([styles.extra, extraStyle])}>{extra}</Text>;
   }
 
+  // 组合 标题和值 上层
   renderContentRowTop() {
     const { title, value } = this.props;
     if (title || value) {
@@ -155,11 +137,12 @@ export default class ListRow extends PureComponent {
     return null;
   }
 
+  // 组合 说明和补充 下层
   renderContentRowBottom() {
     const { label, extra } = this.props;
     if (label || extra) {
       return (
-        <View style={[styles.contentRow, styles.contentRowBottom]}>
+        <View style={StyleSheet.flatten([styles.contentRow, styles.contentRowBottom])}>
           {this.renderLabel()}
           {this.renderExtra()}
         </View>
@@ -168,55 +151,58 @@ export default class ListRow extends PureComponent {
     return null;
   }
 
+  // 生成 图标
   renderIcon() {
     let { icon, iconStyle } = this.props;
-    if (icon === null || icon === undefined || React.isValidElement(icon)) return icon;
-    return (
-      <View style={styles.iconWrap}>
-        <Image style={[{ width: 20, height: 20 }, iconStyle]} source={icon} />
-      </View>
-    );
+
+    if (icon) {
+      if(React.isValidElement(icon)) {
+        return <View style={{ marginRight: 9 }}>{icon}</View>;
+      }
+      return <Image style={StyleSheet.flatten([styles.icon, iconStyle])} source={icon} />;
+    }
+    return null;
   }
 
+  // 生成 指示器
   renderIndicator() {
-    const { link, linkDirection, indicator, indicatorStyle, onPress } = this.props;
+    const { link, indicator, indicatorDirection, indicatorStyle, onPress } = this.props;
     if (React.isValidElement(indicator)) return indicator;
     if (!link || indicator === 'none' || !onPress) return null;
 
     let imageSource;
 
     if (indicator === 'arrow') {
-      imageSource = demoImage;
+      imageSource = require('../../icons/arrow.png');
+
     }
     if (indicator === 'plus') {
-      imageSource = demoImage;
+      imageSource = require('../../icons/plus.png');
     }
 
     let imageStyle = {
       width: 5,
       height: 10,
+      marginLeft: 8,
     };
-    if (linkDirection === 'up') {
+    if (indicatorDirection === 'up') {
       imageStyle.transform = [
         {
           rotate: '90deg',
         },
       ];
     }
-    if (linkDirection === 'down') {
+    if (indicatorDirection === 'down') {
       imageStyle.transform = [
         {
           rotate: '-90deg',
         },
       ];
     }
-    return (
-      <View style={{ paddingLeft: 8 }}>
-        <Image style={[imageStyle, indicatorStyle]} source={imageSource} />
-      </View>
-    );
+    return <Image style={StyleSheet.flatten([imageStyle, indicatorStyle])} source={imageSource} />;
   }
 
+  // 生成 分割线
   renderSplitLine() {
     const { splitLine, splitLineStyle } = this.props;
     if (splitLine) {
@@ -224,63 +210,86 @@ export default class ListRow extends PureComponent {
     }
     return null;
   }
-
-  buildContentWrapStyle() {
-    const { contentWrapOffset, contentWrapStyle } = this.props;
-    let contentWrapStyleFinaly = [
-      {
-        paddingHorizontal: contentWrapOffset,
-      },
-    ].concat(contentWrapStyle);
-    return StyleSheet.flatten(contentWrapStyleFinaly);
-  }
-
-  buildContentStyle() {
-    const { contentOffset, contentOffsetVertical, contentStyle } = this.props;
-    let contentStyleFinaly = [
-      styles.content,
-      {
-        paddingHorizontal: contentOffset,
-        paddingVertical: contentOffsetVertical,
-      },
-    ].concat(contentStyle);
-    return StyleSheet.flatten(contentStyleFinaly);
-  }
-
-  handleClick = event => {
-    const { disabled, loading, clickInterval, onPress } = this.props;
-    const now = Date.now();
-
-    if (disabled || loading) return;
-
-    if (clickInterval > 0 || this.prePressTime > 0) {
-      if (now - this.prePressTime > clickInterval) {
-        this.prePressTime = now;
-        !!onPress && onPress(event);
-      }
-    } else {
-      !!onPress && onPress(event);
-    }
+  
+  // 过滤不必要的 props
+  buildProps = () => {
+    const  { activeOpacity, underlayColor, onPress, ...restProps } = this.props;
+    const propsFinal = {
+      ...restProps, activeOpacity: onPress ? activeOpacity : 1, underlayColor: onPress ? underlayColor : 'transparent'
+    };
+    return propsFinal;
   };
 
   render() {
-    const { underlayColor, onPress } = this.props;
+    const { containerWrapStyle, containerStyle } = this.props;
     return (
-      <View style={styles.wrapper}>
-        <TouchableHighlight onPress={event => this.handleClick(event)} activeOpacity={onPress ? 0.5 : 1} underlayColor={onPress ? underlayColor : 'transparent'} style={this.buildContentWrapStyle()}>
-          <View>
-            <View style={this.buildContentStyle()}>
-              {this.renderIcon()}
-              <View style={styles.container}>
-                {this.renderContentRowTop()}
-                {this.renderContentRowBottom()}
-              </View>
-              {this.renderIndicator()}
+      <TouchableHighlight {...this.buildProps()} onPress={event => this.handleClick(event)} >
+        {/* 容器外层样式，包含 内容 和 分割线 */}
+        <View style={StyleSheet.flatten([containerWrapStyle])}>
+          {/* 容器样式，包含 图标 文字 指示器 */}
+          <View style={StyleSheet.flatten([styles.container, containerStyle])}>
+            {this.renderIcon()}
+            <View style={styles.content}>
+              {this.renderContentRowTop()}
+              {this.renderContentRowBottom()}
             </View>
-            {this.renderSplitLine()}
+            {this.renderIndicator()}
           </View>
-        </TouchableHighlight>
-      </View>
+          {this.renderSplitLine()}
+        </View>
+      </TouchableHighlight>
     );
   }
 }
+
+const styles = {
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    minHeight: 50,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+  },
+  content: {
+    flex: 1,
+  },
+  contentRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flex: 1,
+  },
+  contentRowBottom: {
+    marginTop: 4,
+  },
+  title: {
+    fontSize: 15,
+    color: Theme.titleMin,
+    fontWeight: 'bold',
+    marginRight: 8,
+  },
+  value: {
+    fontSize: 15,
+    color: Theme.titleMin,
+  },
+  valuePlace: {
+    fontSize: 15,
+    color: Theme.titleSub,
+  },
+  label: {
+    fontSize: 13,
+    color: Theme.titleSub,
+    flex: 1,
+    textAlign: 'justify'
+  },
+  extra: {
+    fontSize: 13,
+    color: Theme.titleSub,
+  },
+  icon: {
+    width: 20,
+    height: 20,
+    marginRight: 9,
+  },
+};
+
