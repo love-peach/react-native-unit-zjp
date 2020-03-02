@@ -101,4 +101,11 @@ export default {
 
   // btn - border-width
   btn_border_width: 1,
+
+  // btn-group width
+  btn_group_width_xs: 20,
+  btn_group_width_sm: 25,
+  btn_group_width_md: 32,
+  btn_group_width_lg: 40,
+  btn_group_width_xl: 50,
 };

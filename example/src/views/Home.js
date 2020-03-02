@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, Text, TouchableHighlight } from 'react-native';
-import Button from 'react-native-unit-zjp';
+import { ScrollView } from 'react-native';
 import { ListRow } from '../components';
 
 

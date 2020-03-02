@@ -1,5 +1,4 @@
 import { createStackNavigator } from 'react-navigation-stack';
-import { Easing, Animated } from 'react-native';
 
 import Home from '../views/Home';
 
