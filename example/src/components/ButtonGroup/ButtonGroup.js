@@ -1,11 +1,17 @@
 import React, { Component }from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, StyleSheet, ViewPropTypes } from 'react-native';
+import { View, StyleSheet, ViewPropTypes } from 'react-native';
 import Theme from '../../themes/Theme';
 
-export default class Button extends Component {
+/**
+ * @size 设置按钮组大小 [xl, lg, md, sm, xs] md
+ * @radius 设置按钮组圆角大小 1000
+ * @ghost 设置幽灵按钮组 false
+ * @vertical 设置按钮组垂直布局 false
+ */
+
+export default class ButtonGroup extends Component {
   static propTypes = {
-    type: PropTypes.oneOf(['default', 'primary', 'info', 'warning', 'success', 'error', 'gray', 'golden', 'text']),
     size: PropTypes.oneOf(['xl', 'lg', 'md', 'sm', 'xs']),
     radius: PropTypes.number,
     ghost: PropTypes.bool,
@@ -14,11 +20,11 @@ export default class Button extends Component {
     children: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.element]),
   }
   static defaultProps = {
-    type: 'primary',
     size: 'md',
     radius: 1000,
   }
 
+  // 构建容器样式 水平 和 垂直
   buildContainerStyle = () => {
     const { size, vertical, style } = this.props;
     let containerStyle = {};
@@ -27,8 +33,6 @@ export default class Button extends Component {
         flexDirection: 'column',
         justifyContent: 'center',
         width: Theme[`btn_group_width_${size}`] + 2,
-        // position: 'absolute',
-        // backgroundColor: 'red',
       };
     } else {
       containerStyle = {
@@ -40,67 +44,96 @@ export default class Button extends Component {
     return StyleSheet.flatten([containerStyle, style]);
   };
 
-  buildItemStyle = (index, length) => {
+  // 构建单个按钮样式 水平布局
+  buildItemStyle = (index, length, itemProps) => {
     const { radius } = this.props;
+    const { ghost } = itemProps;
     let itemStyle = {};
-    if (index === 0 && index !== length - 1) {
-      itemStyle = {
-        borderTopLeftRadius: radius,
-        borderBottomLeftRadius: radius,
-        borderRightWidth: 0.5,
-        borderRightColor: '#fff'
-      };
-    } else if (index === length - 1 && index !== 0){
+    if (index === 0) {
+      if (index === length - 1) {
+        itemStyle = {
+          borderRadius: radius,
+        };
+      } else {
+        itemStyle = {
+          borderTopLeftRadius: radius,
+          borderBottomLeftRadius: radius,
+          borderRightColor: ghost ? undefined : '#fff',
+          zIndex: length - index
+        };
+      }
+    } else if (index === length - 1) {
       itemStyle = {
         borderTopRightRadius: radius,
         borderBottomRightRadius: radius,
+        zIndex: length - index,
+        marginLeft: -Theme.pixelSize,
       };
     } else {
       itemStyle = {
         borderRadius: 0,
-        borderRightWidth: 0.5,
-        borderRightColor: '#fff'
+        borderRightColor: ghost ? undefined : '#fff',
+        marginLeft: -Theme.pixelSize,
+        zIndex: length - index
       };
     }
     return itemStyle;
   };
 
-  buildItemStyleVertical = (index, length) => {
+  // 构建单个按钮样式 垂直布局
+  buildItemStyleVertical = (index, length, itemProps) => {
+    const { ghost } = itemProps;
     const { radius } = this.props;
+
     let itemStyle = {};
     if (index === 0 && index !== length - 1) {
-      itemStyle = {
-        borderTopLeftRadius: radius,
-        borderTopRightRadius: radius,
-        borderBottomWidth: 0.5,
-        borderBottomColor: '#fff'
-      };
+      if (index === length - 1) {
+        itemStyle = {
+          borderRadius: radius,
+        };
+      } else {
+        itemStyle = {
+          borderTopLeftRadius: radius,
+          borderTopRightRadius: radius,
+          borderBottomColor: ghost ? undefined : '#fff',
+          zIndex: length - index
+        };
+      }
     } else if (index === length - 1 && index !== 0){
       itemStyle = {
         borderBottomLeftRadius: radius,
         borderBottomRightRadius: radius,
+        zIndex: length - index,
+        marginTop: -Theme.pixelSize,
       };
     } else {
       itemStyle = {
         borderRadius: 0,
-        borderBottomWidth: 0.5,
-        borderBottomColor: '#fff'
+        borderBottomColor: ghost ? undefined : '#fff',
+        zIndex: length - index,
+        marginTop: -Theme.pixelSize,
       };
     }
     return itemStyle;
   }
 
+  // 渲染每个按钮 并添加 props
   renderChild = () => {
-    const { size, type, ghost, vertical, children, ...restProps } = this.props;
+    const { size, ghost, vertical, children } = this.props;
     if (children) {
-      let childElements = [];
-      const childrenLength = children.length;
-      childElements = React.Children.map(children, (item, index) => {
-        const currentStyle = vertical ? this.buildItemStyleVertical(index, childrenLength) : this.buildItemStyle(index, childrenLength);
-        return React.cloneElement(item, { size, shape: 'rect', ghost: item.props.ghost || ghost, type: item.props.type || type, style: { ...currentStyle } });
+      const childrenLength = React.Children.toArray(children).length;
+      return React.Children.map(children, (item, index) => {
+        const itemProps = {
+          size,
+          shape: 'rect',
+          ghost: item.props.ghost === false ? false : item.props.ghost || ghost,
+        };
+        const currentStyle = vertical ? this.buildItemStyleVertical(index, childrenLength, itemProps) : this.buildItemStyle(index, childrenLength, itemProps);
+
+        return React.cloneElement(item, { ...itemProps, style: { ...currentStyle }});
       });
-      return childElements;
     }
+    return null;
   };
 
   render() {

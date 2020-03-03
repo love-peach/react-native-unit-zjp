@@ -5,7 +5,7 @@ import { Button, Modal } from '../components';
 
 export default class ModalExample extends Component {
   static navigationOptions = () => ({
-    title: 'modal',
+    title: 'ModalDemo',
   });
 
   state = {

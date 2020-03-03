@@ -1,3 +1,13 @@
+import { PixelRatio } from 'react-native';
+
+// 像素大小。通常用于边框粗细
+const pixelSize = (function() {
+  let pixelRatio = PixelRatio.get();
+  if (pixelRatio >= 3) return 0.3333333333333333;
+  else if (pixelRatio >= 2) return 0.5;
+  else return 1;
+})();
+
 const color = {
   white: '#fff',
 
@@ -27,6 +37,7 @@ const color = {
 
 export default {
   ...color,
+  pixelSize,
 
   // btn - background color
   btn_bg_default: color.gray,
@@ -100,5 +111,5 @@ export default {
   btn_radius_circle: 1000,
 
   // btn - border-width
-  btn_border_width: 1,
+  btn_border_width: pixelSize,
 };

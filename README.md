@@ -69,16 +69,38 @@ clickInterval | 连续两次点击间隔 毫秒 | Numer | 1000
 onPress | 点击事件 | event | -
 onLongPress | 长按事件 | event | -
 
-### ListRow
 
-列表组件fe
+### ButtonGroup
 
+按钮组 组件
+
+**代码示例**
 
 ```html
-<ListRow title="2/1期" value="420.0" label="应支付日：2019年06月21日" extra="已逾期" />
+<ButtonGroup style={styles.btnGroupWrap} size="xs">
+  <Button type="primary">是</Button>
+  <Button type="error">否</Button>
+</ButtonGroup>
+```
 
-<ListRow title="验证码" value={<Button size="md" shape="radius" outline type="primary" outlineColor="#f00">获取验证码</Button>} />
+**API**
 
+属性 | 说明 |  类型 | 默认值
+- | - | - | -
+size | 设置按钮组大小。可选值为：`xs`、`sm`、`md`、`lg`、`xl` | String | md
+radius | 设置按钮组圆角大小。| Number | 1000
+ghost | 设置幽灵按钮组 | Boolean | false
+vertical | 设置垂直按钮组 | Boolean | false
+style | 设置按钮组容器样式 | Object | -
+
+### Cell
+
+列表组件
+
+```html
+<Cell title="2/1期" value="420.0" label="应支付日：2019年06月21日" extra="已逾期" />
+
+<Cell title="验证码" value={<Button size="md" shape="radius" outline type="primary" outlineColor="#f00">获取验证码</Button>} />
 
 ```
 

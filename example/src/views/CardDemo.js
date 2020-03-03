@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { Card } from '../components';
 
-export default class LoanPage extends Component {
+export default class CardDemo extends Component {
   static navigationOptions = () => {
     return {
-      title: 'card',
+      title: 'CardDemo',
     };
   };
 

@@ -7,7 +7,7 @@ import myTheme from './ThemeCustom.js';
 
 export default class ButtonDemo extends Component {
   static navigationOptions = () => ({
-    title: 'button',
+    title: 'ThemeDemo',
   });
 
   handleSetThemeDefault = () => {

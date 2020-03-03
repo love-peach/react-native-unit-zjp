@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, Image, StyleSheet, TouchableHighlight } from 'react-native';
 import SplitLine from '../SplitLine/SplitLine';
@@ -32,7 +32,7 @@ import Theme from '../../themes/Theme';
  * @onPress
  */
 
-export default class ListRow extends PureComponent {
+export default class Cell extends Component {
   static propTypes = {
     title: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.number]),
     label: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.number]),
@@ -206,7 +206,7 @@ export default class ListRow extends PureComponent {
   renderSplitLine() {
     const { splitLine, splitLineStyle } = this.props;
     if (splitLine) {
-      return <SplitLine splitLineStyle={splitLineStyle} />;
+      return <SplitLine style={splitLineStyle} />;
     }
     return null;
   }
@@ -263,28 +263,28 @@ const styles = {
     marginTop: 4,
   },
   title: {
-    fontSize: 15,
-    color: Theme.titleMin,
+    fontSize: Theme.cell_font_size_title,
+    color: Theme.cell_color_title,
     fontWeight: 'bold',
     marginRight: 8,
   },
   value: {
-    fontSize: 15,
-    color: Theme.titleMin,
+    fontSize: Theme.cell_font_size_value,
+    color: Theme.cell_color_value,
   },
   valuePlace: {
-    fontSize: 15,
-    color: Theme.titleSub,
+    fontSize: Theme.cell_font_size_value_place,
+    color: Theme.cell_color_value_place,
   },
   label: {
-    fontSize: 13,
-    color: Theme.titleSub,
+    fontSize: Theme.cell_font_size_label,
+    color: Theme.cell_color_label,
     flex: 1,
     textAlign: 'justify'
   },
   extra: {
-    fontSize: 13,
-    color: Theme.titleSub,
+    fontSize: Theme.cell_font_size_extra,
+    color: Theme.cell_color_extra,
   },
   icon: {
     width: 20,

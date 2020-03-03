@@ -153,7 +153,11 @@ export default class Button extends Component {
   // 获取边框样式
   getOutLineStyle() {
     const { type, ghost, outlineColor, outlineWidth, outlineType, disabled } = this.props;
-    let outlineStyle = {};
+    let outlineStyle = {
+      borderColor: 'transparent',
+      borderWidth: outlineWidth || Theme.btn_border_width,
+      borderStyle: outlineType,
+    };
     if (ghost) {
       outlineStyle.borderWidth = outlineWidth || Theme.btn_border_width;
       outlineStyle.borderStyle = outlineType;

@@ -6,7 +6,7 @@ import { InputItem, Button } from '../components';
 
 export default class ModalDemo extends Component {
   static navigationOptions = () => ({
-    title: 'input-demo',
+    title: 'InputDemo',
   });
 
   constructor(props) {

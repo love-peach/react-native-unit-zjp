@@ -17,7 +17,7 @@ const deviceWidth = Dimensions.get('window').width;
  * @shadowOpt 阴影设置
  */
 
-export default class LoanPage extends PureComponent {
+export default class Card extends PureComponent {
   // 接收的属性
   // TODO: 接收属性校验
   static propTypes = {};

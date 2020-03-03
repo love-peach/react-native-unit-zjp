@@ -1,3 +1,13 @@
+import { PixelRatio } from 'react-native';
+
+// 像素大小。通常用于边框粗细
+const pixelSize = (function() {
+  let pixelRatio = PixelRatio.get();
+  if (pixelRatio >= 3) return 0.3333333333333333;
+  else if (pixelRatio >= 2) return 0.5;
+  else return 1;
+})();
+
 const color = {
   white: '#fff',
 
@@ -25,8 +35,10 @@ const color = {
   textTipAlert: '#fe6666',
 };
 
+
 export default {
   ...color,
+  pixelSize,
 
   // btn - background color
   btn_bg_default: color.gray,
@@ -100,7 +112,7 @@ export default {
   btn_radius_circle: 1000,
 
   // btn - border-width
-  btn_border_width: 1,
+  btn_border_width: pixelSize,
 
   // btn-group width
   btn_group_width_xs: 20,
@@ -108,4 +120,19 @@ export default {
   btn_group_width_md: 32,
   btn_group_width_lg: 40,
   btn_group_width_xl: 50,
+
+  // cell font-size
+  cell_font_size_title: 15,
+  cell_font_size_value: 15,
+  cell_font_size_value_place: 15,
+  cell_font_size_label: 13,
+  cell_font_size_extra: 13,
+
+  // cell color
+  cell_color_title: color.titleMin,
+  cell_color_value: color.titleMin,
+  cell_color_value_place: color.titleSub,
+  cell_color_label: color.titleSub,
+  cell_color_extra: color.titleSub,
+
 };

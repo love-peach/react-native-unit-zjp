@@ -6,7 +6,7 @@ const buttonIcon = require('../icons/close.png');
 
 export default class ButtonDemo extends Component {
   static navigationOptions = () => ({
-    title: 'button',
+    title: 'ButtonDemo',
   });
 
   constructor(props) {

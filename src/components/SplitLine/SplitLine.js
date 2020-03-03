@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
 
-export default class LoanPage extends PureComponent {
+export default class SplitLine extends PureComponent {
   static propTypes = {
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     type: PropTypes.oneOf(['solid', 'dotted', 'dashed']),

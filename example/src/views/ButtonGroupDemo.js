@@ -5,7 +5,7 @@ import { Button, ButtonGroup } from '../components';
 
 export default class ButtonDemo extends Component {
   static navigationOptions = () => ({
-    title: 'ButtonGroup',
+    title: 'ButtonGroupDemo',
   });
 
   constructor(props) {
@@ -29,6 +29,9 @@ export default class ButtonDemo extends Component {
       <ScrollView>
         <View>
           <Text style={styles.title}>size</Text>
+          <ButtonGroup style={styles.btnGroupWrap} radius={100} size="xs">
+            <Button type="primary"></Button>
+          </ButtonGroup>
           <ButtonGroup style={styles.btnGroupWrap} size="xs">
             <Button type="primary">是</Button>
             <Button type="error">否</Button>
@@ -91,10 +94,20 @@ export default class ButtonDemo extends Component {
             <Button type="golden">2#</Button>
             <Button type="golden">3#</Button>
           </ButtonGroup>
+          <ButtonGroup style={styles.btnGroupWrap} ghost>
+            <Button type="primary">1#</Button>
+            <Button type="golden">2#</Button>
+            <Button type="golden">3#</Button>
+          </ButtonGroup>
+          <ButtonGroup style={styles.btnGroupWrap} ghost>
+            <Button type="golden">1#</Button>
+            <Button type="warning" ghost={false}>2#</Button>
+            <Button type="golden">3#</Button>
+          </ButtonGroup>
           <ButtonGroup style={styles.btnGroupWrap} radius={0} ghost>
-            <Button ghost={false} outlineType="dashed" type="primary">1#</Button>
+            <Button type="primary" ghost={false}>1#</Button>
             <Button type="primary">2#</Button>
-            <Button type="primary">3#</Button>
+            <Button type="primary" outlineType="dashed">3#</Button>
           </ButtonGroup>
 
           <Text style={styles.title}>vertical</Text>
@@ -105,8 +118,8 @@ export default class ButtonDemo extends Component {
           </ButtonGroup>
           <ButtonGroup style={[styles.btnGroupWrap, { position: 'absolute', bottom: 0, right: 5}]} ghost vertical>
             <Button type="warning">1#</Button>
-            <Button type="warning">2#</Button>
-            <Button type="warning">3#</Button>
+            <Button type="warning" ghost={false}>2#</Button>
+            <Button type="warning" outlineType="dashed">3#</Button>
           </ButtonGroup>
         </View>
       </ScrollView>
@@ -122,5 +135,6 @@ const styles = StyleSheet.create({
   },
   btnGroupWrap: {
     margin: 5,
+    // borderWidth: 2,
   }
 });

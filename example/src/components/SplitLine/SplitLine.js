@@ -1,36 +1,37 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
-export default class LoanPage extends PureComponent {
+import Theme from '../../themes/Theme';
+
+
+export default class SplitLine extends Component {
   static propTypes = {
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     type: PropTypes.oneOf(['solid', 'dotted', 'dashed']),
     color: PropTypes.string,
-    splitLineStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+    style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
   };
 
   static defaultProps = {
-    color: '#F0F1F5',
+    color: Theme.border,
     type: 'solid',
     width: '100%',
-    splitLineStyle: {},
+    style: {},
   };
 
   buildStyle() {
-    const { width, color, type, splitLineStyle } = this.props;
-    let splitLineStyleFinaly = [
-      {
-        width,
-        marginRight: 'auto',
-        marginLeft: 'auto',
-        borderTopWidth: 1,
-        borderColor: color,
-        borderStyle: type,
-        opacity: 0.8,
-      },
-    ].concat(splitLineStyle);
-    return splitLineStyleFinaly;
+    const { width, color, type, style } = this.props;
+
+    return StyleSheet.flatten([{
+      width,
+      marginRight: 'auto',
+      marginLeft: 'auto',
+      borderTopWidth: Theme.pixelSize,
+      borderColor: color,
+      borderStyle: type,
+      opacity: 0.9,
+    }, style]);
   }
 
   render() {

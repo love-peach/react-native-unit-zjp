@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView } from 'react-native';
-import { ListRow } from '../components';
+import { CellGroup, Cell } from '../components';
 
 
 export default class HomeScreen extends Component {
@@ -15,13 +15,15 @@ export default class HomeScreen extends Component {
   render() {
     return (
       <ScrollView>
-        <ListRow contentOffset={10} title="ThemeDemo" link onPress={this.goto.bind(this, 'ThemeDemo')} />
-        <ListRow contentOffset={10} title="ButtonDemo" link onPress={this.goto.bind(this, 'ButtonDemo')} />
-        <ListRow contentOffset={10} title="ButtonGroupDemo" link onPress={this.goto.bind(this, 'ButtonGroupDemo')} />
-        <ListRow contentOffset={10} title="ModalDemo" link onPress={this.goto.bind(this, 'ModalDemo')} />
-        <ListRow contentOffset={10} title="CardDemo" link onPress={this.goto.bind(this, 'CardDemo')} />
-        <ListRow contentOffset={10} title="ListRowDemo" link onPress={this.goto.bind(this, 'ListRowDemo')} />
-        <ListRow contentOffset={10} title="InputDemo" link onPress={this.goto.bind(this, 'InputDemo')} />
+        <CellGroup borderOffset={0}>
+          <Cell contentOffset={10} title="ThemeDemo" link onPress={this.goto.bind(this, 'ThemeDemo')} />
+          <Cell contentOffset={10} title="ButtonDemo" link onPress={this.goto.bind(this, 'ButtonDemo')} />
+          <Cell contentOffset={10} title="ButtonGroupDemo" link onPress={this.goto.bind(this, 'ButtonGroupDemo')} />
+          <Cell contentOffset={10} title="CellDemo" link onPress={this.goto.bind(this, 'CellDemo')} />
+          <Cell contentOffset={10} title="ModalDemo" link onPress={this.goto.bind(this, 'ModalDemo')} />
+          <Cell contentOffset={10} title="CardDemo" link onPress={this.goto.bind(this, 'CardDemo')} />
+          <Cell contentOffset={10} title="InputDemo" link onPress={this.goto.bind(this, 'InputDemo')} />
+        </CellGroup>
       </ScrollView>
     );
   }
