@@ -5,18 +5,17 @@ import Theme from '../../themes/Theme';
 
 
 /**
- * @size 设置按钮组大小 [xl, lg, md, sm, xs] md
- * @radius 设置按钮组圆角大小 1000
- * @ghost 设置幽灵按钮组 false
- * @vertical 设置按钮组垂直布局 false
+ * @paddingOffset 内部 cell 左右间距
+ * @borderOffset 下滑线距离左边间距
+ * @style 容器样式
  */
 
 export default class CellGroup extends Component {
 
   static propTypes = {
-    style: ViewPropTypes.style,
-    borderOffset: PropTypes.number,
     paddingOffset: PropTypes.number,
+    borderOffset: PropTypes.number,
+    style: ViewPropTypes.style,
     children: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.element]),
   }
   static defaultProps = {

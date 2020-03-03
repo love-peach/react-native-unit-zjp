@@ -128,3 +128,25 @@ activeOpacity | 点击透明度，同 TouchableHighlight 属性。当给定 `onP
 underlayColor | 底色，同 TouchableHighlight 属性。当给定 `onPress` 后，默认为 #eee | String | #eee \| transparent
 clickInterval | 点击间隔 毫秒 | Number | 0
 onPress | 点击事件 | Function | -
+
+
+### CellGroup
+
+列表容器组件
+
+```html
+<CellGroup style={{ marginVertical: 20 }} borderOffset={0}>
+  <Cell title="2/1期" value="420.0" />
+  <Cell title="2/1期" value="420.0" />
+  <Cell title="2/1期" value="420.0" />
+  <Cell title="2/1期" value="420.0" />
+</CellGroup>
+```
+
+**API**
+
+属性 | 说明 |  类型 | 默认值
+- | - | - | -
+paddingOffset | 内部 cell 左右间距 | Number | 12
+borderOffset | 下滑线距离左边间距 | Number | 12
+style | 容器样式 | Object | -

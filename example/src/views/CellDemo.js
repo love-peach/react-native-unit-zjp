@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView } from 'react-native';
-import { Card, Button, Cell, CellGroup } from '../components';
+import { Button, Cell, CellGroup } from '../components';
 
 const icon = require('../icons/close.png');
 
