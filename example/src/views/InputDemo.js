@@ -29,6 +29,9 @@ export default class ModalDemo extends Component {
           <Text style={styles.titleText}>默认样式:</Text>
           <InputItem label="默认样式" />
 
+          <InputItem />
+
+
           <Text style={styles.titleText}>labelPosition</Text>
           <InputItem
             label="手机号"

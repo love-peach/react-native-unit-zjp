@@ -135,4 +135,7 @@ export default {
   cell_color_label: color.titleSub,
   cell_color_extra: color.titleSub,
 
+  // mask bg
+  mask_bg: 'rgba(0,0,0,0.6)',
+
 };
