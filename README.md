@@ -150,3 +150,30 @@ onPress | 点击事件 | Function | -
 paddingOffset | 内部 cell 左右间距 | Number | 12
 borderOffset | 下滑线距离左边间距 | Number | 12
 style | 容器样式 | Object | -
+
+
+### InputItem
+
+输入框组件
+
+```html
+<InputItem label="手机号" />
+```
+
+**API**
+
+属性 | 说明 |  类型 | 默认值
+- | - | - | -
+label | 标签文字 | String | -
+labelPosition | 标签位置。可选值为 `top`、`left`、`inside`。| String | left
+labelWidth | 标签宽度 | Number | -
+lableAlign | 标签对齐方式。可选值为 `left`、`right` | String | left
+labelStyle | 标签样式 | Object | -
+icon | 图标 | Object \| Function \| element | -
+iconStyle | 图标样式 | Object | -
+type | 输入框类型。可选值为 `textarea`、`number`、`password`、``、`` | String | text
+inputAlign | 输入框内文字方向。可选值为 `left`、`right` | String | left
+placeholder | 占位符 | String | 请输入
+placeholderTextColor | 占位符文字颜色 | String | -
+
+

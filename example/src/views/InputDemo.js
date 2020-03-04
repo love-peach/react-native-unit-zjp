@@ -29,7 +29,7 @@ export default class ModalDemo extends Component {
           <Text style={styles.titleText}>默认样式:</Text>
           <InputItem label="默认样式" />
 
-          <InputItem />
+          <InputItem label="密码：" type="password" tip="密码为 英文，数字，下划线组合" />
 
 
           <Text style={styles.titleText}>labelPosition</Text>

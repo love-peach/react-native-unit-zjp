@@ -1,66 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 const isIos = Platform.OS === 'ios';
 // const isIos = false;
-
-const styles = StyleSheet.create({
-  wrap: {
-    position: 'relative',
-  },
-  container: {
-    // borderColor: '#F0F1F5',
-    position: 'relative',
-  },
-  content: {},
-  inputStyle: {
-    flex: 1,
-    paddingTop: 12,
-    paddingBottom: 12,
-    fontSize: 15,
-    textAlignVertical: 'center',
-    color: '#121C32',
-    fontWeight: '500',
-  },
-  label: {
-    marginRight: 5,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  lableIcon: {
-    width: 20,
-    height: 20,
-  },
-  lableText: {
-    fontSize: 15,
-    color: '#121C32',
-  },
-  closeIconWrap: {
-    position: 'relative',
-    marginLeft: 5,
-    width: 18,
-    height: 18,
-  },
-  closeIconBtn: {
-    marginLeft: 5,
-    paddingHorizontal: 5,
-    paddingVertical: 4,
-  },
-  extraWrap: {
-    position: 'relative',
-    marginLeft: 5,
-  },
-  count: {
-    position: 'absolute',
-    bottom: 8,
-    right: 8,
-  },
-  tip: {
-    fontSize: 13,
-    fontWeight: '400',
-    color: '#C9CDD5',
-  },
-});
 
 export default class InputItem extends Component {
   constructor(props) {
@@ -69,6 +12,53 @@ export default class InputItem extends Component {
       isFocus: false,
       myValue: '',
     };
+  }
+
+  static propTypes = {
+    label: PropTypes.string,
+    labelPosition: PropTypes.oneOf(['left', 'top']),
+    labelWidth: PropTypes.number,
+    labelAlign: PropTypes.oneOf(['left', 'right']),
+    labelStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+    icon: PropTypes.oneOfType([PropTypes.element, PropTypes.object, PropTypes.number, PropTypes.func]),
+    iconStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+    inputAlign: PropTypes.oneOf(['left', 'right']),
+    placeholder: PropTypes.string,
+    placeholderTextColor: PropTypes.string,
+
+
+    labelTextStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+    labelIconStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+
+    containerType: PropTypes.oneOf(['line', 'box', 'fill']),
+    borderColor: PropTypes.string,
+    borderColorActive: PropTypes.string,
+    textAlign: PropTypes.oneOf(['left', 'right']),
+    
+    autoFocus: PropTypes.bool,
+    keyboardType: PropTypes.oneOf(['default', 'number']),
+    maxLength: PropTypes.number,
+    editable: PropTypes.bool,
+    clearButtonMode: PropTypes.oneOf(['while-editing']),
+    type: PropTypes.oneOfType(['textarea', 'number', 'password']),
+    extra: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.number]),
+    extraStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+    tip: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.number]),
+    tipStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+
+    containerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+    contentStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+    inputStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+    numberOfLines: PropTypes.number,
+
+    style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+
+
+    handleOnFocus: PropTypes.func,
+    handleOnBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    onBlur: PropTypes.func,
+    onFocus: PropTypes.func,
   }
 
   static defaultProps = {
@@ -323,7 +313,7 @@ export default class InputItem extends Component {
   }
 
   render() {
-    const { style, inputStyle, labelPosition, clearButtonMode, rows, ...rest } = this.props;
+    const { style } = this.props;
     return (
       <View style={[styles.wrap, style]}>
         <View style={this.buildContainerStyle()}>
@@ -351,3 +341,62 @@ export default class InputItem extends Component {
     );
   }
 }
+
+
+const styles = StyleSheet.create({
+  wrap: {
+    position: 'relative',
+  },
+  container: {
+    // borderColor: '#F0F1F5',
+    position: 'relative',
+  },
+  content: {},
+  inputStyle: {
+    flex: 1,
+    paddingTop: 12,
+    paddingBottom: 12,
+    fontSize: 15,
+    textAlignVertical: 'center',
+    color: '#121C32',
+    fontWeight: '500',
+  },
+  label: {
+    marginRight: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  lableIcon: {
+    width: 20,
+    height: 20,
+  },
+  lableText: {
+    fontSize: 15,
+    color: '#121C32',
+  },
+  closeIconWrap: {
+    position: 'relative',
+    marginLeft: 5,
+    width: 18,
+    height: 18,
+  },
+  closeIconBtn: {
+    marginLeft: 5,
+    paddingHorizontal: 5,
+    paddingVertical: 4,
+  },
+  extraWrap: {
+    position: 'relative',
+    marginLeft: 5,
+  },
+  count: {
+    position: 'absolute',
+    bottom: 8,
+    right: 8,
+  },
+  tip: {
+    fontSize: 13,
+    fontWeight: '400',
+    color: '#C9CDD5',
+  },
+});
