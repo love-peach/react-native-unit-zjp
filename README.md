@@ -43,7 +43,7 @@
 **API**
 
 属性 | 说明 |  类型 | 默认值
-- | - | - | -
+-| - | - | -
 type | 按钮类型，可选值为 `default`、`primary`、`info`、`warning`、`success`、`error`、`gray`、`golden`、`text` | String | default
 size | 按钮大小，可选值为 `xs`、`sm`、`md`、`lg`、`xl` | String | lg
 shape | 按钮形状，可选值为 `rect`、`radius`、`circle` | String | circle
@@ -86,7 +86,7 @@ onLongPress | 长按事件 | event | -
 **API**
 
 属性 | 说明 |  类型 | 默认值
-- | - | - | -
+-| - | - | -
 size | 设置按钮组大小。可选值为：`xs`、`sm`、`md`、`lg`、`xl` | String | md
 radius | 设置按钮组圆角大小。| Number | 1000
 ghost | 设置幽灵按钮组 | Boolean | false
@@ -107,7 +107,7 @@ style | 设置按钮组容器样式 | Object | -
 **API**
 
 属性 | 说明 |  类型 | 默认值
-- | - | - | -
+-| - | - | -
 title | 标题 左上角 | String \| element | -
 value | 值 右上角 | String \| element | -
 valuePlace | 空值 placeholder | String \| element | -
@@ -146,7 +146,7 @@ onPress | 点击事件 | Function | -
 **API**
 
 属性 | 说明 |  类型 | 默认值
-- | - | - | -
+-| - | - | -
 paddingOffset | 内部 cell 左右间距 | Number | 12
 borderOffset | 下滑线距离左边间距 | Number | 12
 style | 容器样式 | Object | -
@@ -158,12 +158,14 @@ style | 容器样式 | Object | -
 
 ```html
 <InputItem label="手机号" />
+
+<InputItem label="密码" type="password" value= {this.state.value1} />
 ```
 
 **API**
 
 属性 | 说明 |  类型 | 默认值
-- | - | - | -
+-| - | - | -
 type | 输入框类型。可选值为 `textarea`、`number`、`password` | String | default
 label | 标签文字 | String | -
 labelPosition | 标签位置。可选值为 `top`、`left`、`inside`。| String | left
