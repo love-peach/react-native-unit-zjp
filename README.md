@@ -178,7 +178,7 @@ line | 设置底部分割线 | Boolean | -
 lineColor | 设置分割线颜色 | String | Theme.border
 lineColorActive | 设置分割线高亮颜色 | String | Theme.split_line_active_color
 lineStyle | 分割线样式 | Object | -
-showPasswordControl | 是否显示密码明文控制。当 type 为 `password` | Boolean
+showPasswordControl | 是否显示密码明文控制。当 type 为 `password` | Boolean | -
 extra | 最右边部分 | String \| Element | -
 extraStyle | 最右边部分样式 | Object | -
 tip | 底部提示 | String \| Element | -
