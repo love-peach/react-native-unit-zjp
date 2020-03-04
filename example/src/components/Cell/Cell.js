@@ -22,8 +22,8 @@ import Theme from '../../themes/Theme';
  * @indicator 指示器
  * @indicatorDirection 指示器方向
  * @indicatorStyle 指示器样式
- * @splitLine 分割线
- * @splitLineStyle 分割线样式
+ * @line 分割线
+ * @lineStyle 分割线样式
  * @containerWrapStyle 容器外层样式 包含内容 和 分割线
  * @containerStyle 容器样式 包含 icon 文字 和 指示器
  * @activeOpacity 同 TouchableHighlight 属性
@@ -50,8 +50,8 @@ export default class Cell extends Component {
     indicator: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
     indicatorDirection: PropTypes.string,
     indicatorStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-    splitLine: PropTypes.bool,
-    splitLineStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+    line: PropTypes.bool,
+    lineStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
     containerWrapStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
     containerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
     activeOpacity: PropTypes.number,
@@ -62,7 +62,7 @@ export default class Cell extends Component {
 
   static defaultProps = {
     indicator: 'arrow',
-    splitLine: true,
+    line: true,
     activeOpacity: 0.5,
     underlayColor: Theme.border,
     clickInterval: 0,
@@ -204,9 +204,9 @@ export default class Cell extends Component {
 
   // 生成 分割线
   renderSplitLine() {
-    const { splitLine, splitLineStyle } = this.props;
-    if (splitLine) {
-      return <SplitLine style={splitLineStyle} />;
+    const { line, lineStyle } = this.props;
+    if (line) {
+      return <SplitLine style={lineStyle} />;
     }
     return null;
   }

@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import SplitLine from '../SplitLine/SplitLine';
+import Theme from '../../themes/Theme';
+
 const isIos = Platform.OS === 'ios';
 // const isIos = false;
 
@@ -9,12 +12,14 @@ export default class InputItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      showPassword: false,
       isFocus: false,
       myValue: '',
     };
   }
 
   static propTypes = {
+    type: PropTypes.oneOf(['textarea', 'number', 'password', 'default', 'number-pad', 'decimal-pad', 'numeric', 'email-address', 'phone-pad']),
     label: PropTypes.string,
     labelPosition: PropTypes.oneOf(['left', 'top']),
     labelWidth: PropTypes.number,
@@ -22,37 +27,25 @@ export default class InputItem extends Component {
     labelStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
     icon: PropTypes.oneOfType([PropTypes.element, PropTypes.object, PropTypes.number, PropTypes.func]),
     iconStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-    inputAlign: PropTypes.oneOf(['left', 'right']),
-    placeholder: PropTypes.string,
-    placeholderTextColor: PropTypes.string,
-
-
-    labelTextStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-    labelIconStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-
-    containerType: PropTypes.oneOf(['line', 'box', 'fill']),
-    borderColor: PropTypes.string,
-    borderColorActive: PropTypes.string,
-    textAlign: PropTypes.oneOf(['left', 'right']),
-    
-    autoFocus: PropTypes.bool,
-    keyboardType: PropTypes.oneOf(['default', 'number']),
-    maxLength: PropTypes.number,
-    editable: PropTypes.bool,
-    clearButtonMode: PropTypes.oneOf(['while-editing']),
-    type: PropTypes.oneOfType(['textarea', 'number', 'password']),
+    line: PropTypes.bool,
+    lineColor: PropTypes.string,
+    lineColorActive: PropTypes.string,
+    lineStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+    showPasswordControl: PropTypes.bool,
     extra: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.number]),
     extraStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
     tip: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.number]),
     tipStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-
-    containerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-    contentStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
     inputStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-    numberOfLines: PropTypes.number,
-
     style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-
+    
+    textAlign: PropTypes.oneOf(['left', 'right']),
+    placeholder: PropTypes.string,
+    placeholderTextColor: PropTypes.string,
+    maxLength: PropTypes.number,
+    keyboardType: PropTypes.oneOf(['default', 'number']),
+    clearButtonMode: PropTypes.oneOf(['while-editing']),
+    numberOfLines: PropTypes.number,
 
     handleOnFocus: PropTypes.func,
     handleOnBlur: PropTypes.func,
@@ -62,21 +55,18 @@ export default class InputItem extends Component {
   }
 
   static defaultProps = {
+    type: 'default',
     labelPosition: 'left',
-    containerType: 'line', // line box fill
     labelAlign: 'left',
-    borderColor: '#F0F1F5',
-    borderColorActive: '#317AF1',
-    onChange: null,
     textAlign: 'left',
+    lineColor: Theme.borderDark,
     placeholder: '请输入',
-    placeholderTextColor: '#C7C6CC',
-    autoFocus: false,
-    autoCorrect: true,
+    placeholderTextColor: Theme.textPlaceholder,
+    line: true,
+    showPasswordControl: true,
     keyboardType: 'default',
-    maxLength: null,
-    editable: true,
     clearButtonMode: 'while-editing',
+    onChange: null,
   };
 
   // componentDidMount() {
@@ -120,46 +110,53 @@ export default class InputItem extends Component {
     this.inputRef.focus();
   }
 
-  renderLabel() {
-    const { icon, label, labelStyle } = this.props;
-    if (!icon && !label) {
+  // 切换 密码显示 与隐藏
+  handleTogglePassword = () => {
+    this.setState({
+      showPassword: !this.state.showPassword,
+    });
+  };
+
+  // 生成 icon
+  renderIcon() {
+    const { icon, iconStyle } = this.props;
+    if(!icon) {
       return null;
     }
-    return (
-      <View style={[styles.label, labelStyle]}>
-        {icon ? this.renderLabelIcon() : null}
-        {label ? this.renderLabelText() : null}
-      </View>
-    );
-  }
-
-  renderLabelIcon() {
-    const { icon, labelIconStyle } = this.props;
     if (React.isValidElement(icon)) return icon;
-    return <Image source={icon} style={[styles.lableIcon, labelIconStyle]} />;
+    return <Image source={icon} style={[styles.icon, iconStyle]} />;
   }
 
-  renderLabelText() {
-    const { label, labelPosition, labelWidth, labelAlign, labelTextStyle } = this.props;
+  // 生成 label
+  renderLabel() {
+    const { label, labelPosition, labelWidth, labelAlign, labelStyle } = this.props;
+    if(!label) {
+      return null;
+    }
     if (React.isValidElement(label)) return label;
     let dynamicStyle = {};
+    let dynamicStyle2= {};
+
     switch (labelPosition) {
     case 'top':
-      dynamicStyle.fontSize = 12;
-      dynamicStyle.marginBottom = 4;
+      dynamicStyle = styles.labelTop;
       break;
     case 'left':
+      dynamicStyle = styles.labelLeft;
+      break;
     default:
-      dynamicStyle.fontSize = 15;
-      dynamicStyle.marginRight = 4;
+      dynamicStyle = styles.labelLeft;
     }
+    
     if (labelWidth) {
-      dynamicStyle.width = labelWidth;
-      dynamicStyle.textAlign = labelAlign;
+      dynamicStyle2.width = labelWidth;
+      dynamicStyle2.textAlign = labelAlign;
     }
-    return <Text style={[styles.lableText, dynamicStyle, labelTextStyle]}>{label}</Text>;
+
+    return <Text style={StyleSheet.flatten([styles.label, dynamicStyle, dynamicStyle2, labelStyle])}>{label}</Text>;
   }
 
+  // 生成关闭按钮
   renderClearIcon() {
     const { clearButtonMode, type } = this.props;
 
@@ -177,15 +174,32 @@ export default class InputItem extends Component {
     return null;
   }
 
+  // 生成最右部分
   renderExtra() {
     const { extra, extraStyle } = this.props;
     if (!extra) return null;
     if (React.isValidElement(extra)) {
       return <View style={[styles.extraWrap, extraStyle]}>{extra}</View>;
     }
-    return <View style={[styles.extraWrap, extraStyle]}>{extra}</View>;
+    return <Text style={[styles.extraWrap, extraStyle]}>{extra}</Text>;
   }
 
+  // 生成最右部分 显示密码控制
+  renderPasswordControl() {
+    const { type, showPasswordControl } = this.props;
+    const { showPassword } = this.state;
+    if (type === 'password' && showPasswordControl) {
+      let imageSource = showPassword ? require('../../icons/eyes_open.png') : require('../../icons/eyes_close.png');
+      return (
+        <TouchableOpacity style={styles.passwordControlWrap} onPress={this.handleTogglePassword}>
+          <Image style={styles.passwordControlImage} source={imageSource} />
+        </TouchableOpacity>
+      );
+    }
+    return null;
+  }
+
+  // 生成 输入计数
   renderCount() {
     const { type, maxLength } = this.props;
     const { myValue } = this.state;
@@ -199,95 +213,59 @@ export default class InputItem extends Component {
     return null;
   }
 
-  renderTip() {
-    const { tip, tipStyle } = this.props;
-    if (React.isValidElement(tip)) return tip;
-    if (tip) {
-      return <Text style={[styles.tip, tipStyle]}>{tip}</Text>;
+  // 生成 分割线
+  renderSplitLine() {
+    const { type, line, lineStyle, lineColor, lineColorActive } = this.props;
+    const { isFocus } = this.state;
+
+    if (type === 'textarea') {
+      return null;
+    }
+
+    const activeColor = lineColorActive === 'none' ? lineColor : lineColorActive || Theme.split_line_active_color;
+
+    if (line) {
+      return <SplitLine color={isFocus ? activeColor : lineColor} style={lineStyle} />;
     }
     return null;
   }
 
-  // 容器样式 包含 label input closeIcon 的容器，不包含 tip；控制 布局，label 和 input 是 上下 布局 还是 左右布局
-  buildContainerStyle() {
-    const { labelPosition, containerType, borderColor, borderColorActive, type, containerStyle } = this.props;
-    const { isFocus } = this.state;
-    const activeColor = borderColorActive === 'none' ? borderColor : borderColorActive;
-
-    let dynamicStyle = {};
-    switch (labelPosition) {
-    case 'top':
-      dynamicStyle.flexDirection = 'column';
-      break;
-    case 'left':
-      dynamicStyle.flexDirection = 'row';
-      dynamicStyle.alignItems = 'center';
-      break;
-    default:
-      dynamicStyle.flexDirection = 'column';
-    }
-    if (type !== 'textarea') {
-      if (containerType === 'line') {
-        dynamicStyle.borderBottomWidth = 1;
-        dynamicStyle.borderBottomColor = isFocus ? activeColor : borderColor;
+  // 生成底部 tip
+  renderTip() {
+    const { tip, tipStyle } = this.props;
+    if (tip) {
+      let tipEle = null;
+      if (React.isValidElement(tip)) {
+        tipEle = tip;
+      } else {
+        tipEle = <Text style={[styles.tip, tipStyle]}>{tip}</Text>;
       }
-      if (labelPosition === 'left') {
-        if (containerType === 'box') {
-          dynamicStyle.borderWidth = 1;
-          dynamicStyle.borderColor = isFocus ? activeColor : borderColor;
-        }
-        if (containerType === 'fill') {
-          dynamicStyle.backgroundColor = isFocus ? activeColor : borderColor;
-        }
-      }
+      return <View style={styles.tipWrap}>{tipEle}</View>;
     }
-    return [styles.container, dynamicStyle, containerStyle];
-  }
-
-  // 内容样式 包含 input closeIcon 的容器，不包含 label；控制 内容边框？
-  buidContentStyle() {
-    const { labelPosition, containerType, borderColor, borderColorActive, contentStyle } = this.props;
-    const { isFocus } = this.state;
-    const activeColor = borderColorActive === 'none' ? borderColor : borderColorActive;
-
-    let dynamicStyle = {};
-    if (labelPosition === 'left') {
-      dynamicStyle.flex = 1;
-    }
-    dynamicStyle.flexDirection = 'row';
-    dynamicStyle.alignItems = 'center';
-
-    if (labelPosition === 'top') {
-      if (containerType === 'box') {
-        dynamicStyle.borderWidth =0.5;
-        dynamicStyle.borderColor = isFocus ? activeColor : borderColor;
-      }
-      if (containerType === 'fill') {
-        dynamicStyle.backgroundColor = isFocus ? activeColor : borderColor;
-        dynamicStyle.borderWidth = 0.5;
-        dynamicStyle.borderColor = isFocus ? activeColor : borderColor;
-      }
-    }
-    return [styles.content, dynamicStyle, contentStyle];
+    return null;
   }
 
   // 输入框样式
   buildInputStyle() {
-    const { inputStyle, type, numberOfLines, borderColor } = this.props;
+    const { inputStyle, type, numberOfLines, lineColor } = this.props;
     let dynamicStyle = {};
     if (type === 'textarea') {
       dynamicStyle.height = (numberOfLines - 1) * 25;
       dynamicStyle.paddingLeft = 5;
       dynamicStyle.paddingRight = 5;
       dynamicStyle.borderWidth = 0.5;
-      dynamicStyle.borderColor = borderColor;
+      dynamicStyle.borderColor = lineColor;
       dynamicStyle.borderRadius = 5;
     }
     return [styles.inputStyle, dynamicStyle, inputStyle];
   }
 
+  // 过滤输入框属性
   buildInputProps() {
-    const { type, style, containerType, label, labelAlign, labelWidth, labelPosition, containerStyle, contentStyle, inputStyle, borderColor, borderColorActive, ...rest } = this.props;
+    
+    const { type, label, labelPosition, labelWidth, labelAlign, labelStyle, icon, iconStyle, line, lineColor, lineColorActive, lineStyle, showPasswordControl, extra, extraStyle, tip, tipStyle, inputStyle, style, ...rest } = this.props;
+    const { showPassword } = this.state;
+
     let inputProps = { ...rest };
 
     switch (type) {
@@ -296,7 +274,7 @@ export default class InputItem extends Component {
       inputProps.keyboardType = 'number-pad';
       break;
     case 'password':
-      inputProps.secureTextEntry = true;
+      inputProps.secureTextEntry = !showPassword;
       break;
     case 'textarea':
       inputProps.multiline = true;
@@ -315,27 +293,26 @@ export default class InputItem extends Component {
   render() {
     const { style } = this.props;
     return (
-      <View style={[styles.wrap, style]}>
-        <View style={this.buildContainerStyle()}>
-          {this.renderLabel()}
-          <View style={this.buidContentStyle()}>
-            <TextInput
-              {...this.buildInputProps()}
-              style={this.buildInputStyle()}
-              onChange={() => null}
-              onChangeText={this.handleChange}
-              onFocus={this.handleFocus}
-              onBlur={this.handleBlur}
-              underlineColorAndroid="transparent"
-              ref={ref => {
-                this.inputRef = ref;
-              }}
-            />
-            {this.renderClearIcon()}
-            {this.renderExtra()}
-            {this.renderCount()}
-          </View>
-        </View>
+      <View style={StyleSheet.flatten([styles.container, style])}>
+        {this.renderIcon()}
+        {this.renderLabel()}
+        <TextInput
+          {...this.buildInputProps()}
+          style={this.buildInputStyle()}
+          onChange={() => null}
+          onChangeText={this.handleChange}
+          onFocus={this.handleFocus}
+          onBlur={this.handleBlur}
+          underlineColorAndroid="transparent"
+          ref={ref => {
+            this.inputRef = ref;
+          }}
+        />
+        {this.renderClearIcon()}
+        {this.renderExtra()}
+        {this.renderPasswordControl()}
+        {this.renderCount()}
+        {this.renderSplitLine()}
         {this.renderTip()}
       </View>
     );
@@ -344,35 +321,40 @@ export default class InputItem extends Component {
 
 
 const styles = StyleSheet.create({
-  wrap: {
-    position: 'relative',
-  },
   container: {
-    // borderColor: '#F0F1F5',
     position: 'relative',
-  },
-  content: {},
-  inputStyle: {
-    flex: 1,
-    paddingTop: 12,
-    paddingBottom: 12,
-    fontSize: 15,
-    textAlignVertical: 'center',
-    color: '#121C32',
-    fontWeight: '500',
-  },
-  label: {
-    marginRight: 5,
     flexDirection: 'row',
     alignItems: 'center',
+    flexWrap: 'wrap',
   },
-  lableIcon: {
+  label: {
+    fontWeight: Theme.input_weight_label,
+    fontSize: Theme.input_font_size_label,
+    color: Theme.input_color_label,
+  },
+  labelLeft: {
+    marginRight: 8,
+    fontSize: Theme.input_font_size_label,
+  },
+  labelTop: {
+    width: '100%',
+    fontSize: Theme.input_font_size_label_top,
+    paddingTop: 15,
+  },
+  icon: {
+    marginRight: 8,
     width: 20,
     height: 20,
   },
-  lableText: {
-    fontSize: 15,
-    color: '#121C32',
+  inputStyle: {
+    flexBasis: 50,
+    flex: 1,
+    paddingTop: 12,
+    paddingBottom: 12,
+    fontSize: Theme.input_font_size_input,
+    textAlignVertical: 'top',
+    color: Theme.input_color_input,
+    fontWeight: Theme.input_weight_input,
   },
   closeIconWrap: {
     position: 'relative',
@@ -385,6 +367,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     paddingVertical: 4,
   },
+  passwordControlWrap: {
+    marginLeft: 10,
+    padding: 5,
+  },
+  passwordControlImage: {
+    width: 18,
+    height: 18,
+  },
   extraWrap: {
     position: 'relative',
     marginLeft: 5,
@@ -394,9 +384,13 @@ const styles = StyleSheet.create({
     bottom: 8,
     right: 8,
   },
+  tipWrap: {
+    width: '100%',
+    marginTop: 5,
+  },
   tip: {
-    fontSize: 13,
-    fontWeight: '400',
-    color: '#C9CDD5',
+    fontSize: Theme.input_font_size_tip,
+    fontWeight: Theme.input_weight_tip,
+    color: Theme.input_color_tip,
   },
 });

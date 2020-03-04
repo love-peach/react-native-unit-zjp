@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
 import { InputItem, Button } from '../components';
 
+const iconDemo = require('../icons/phone_green.png');
 
-export default class ModalDemo extends Component {
+
+export default class InputDemo extends Component {
   static navigationOptions = () => ({
     title: 'InputDemo',
   });
@@ -24,37 +25,36 @@ export default class ModalDemo extends Component {
 
   render() {
     return (
-      <ScrollView style={{ borderWidth: 1, backgroundColor: '#fff' }} keyboardShouldPersistTaps="handled">
+      <ScrollView keyboardShouldPersistTaps="handled">
+
         <View style={{ padding: 10 }}>
           <Text style={styles.titleText}>默认样式:</Text>
           <InputItem label="默认样式" />
 
-          <InputItem label="密码：" type="password" tip="密码为 英文，数字，下划线组合" />
-
-
           <Text style={styles.titleText}>labelPosition</Text>
           <InputItem
+            lineColorActive="red"
             label="手机号"
             value={this.state.value1}
+            labelPosition="top"
             onChange={v => {
               console.log(v, 'v');
               this.handleChangeValue(v, 'value1');
             }}
-            labelPosition="top"
           />
           <InputItem
             label="手机号"
             value={this.state.value1}
+            labelPosition="top"
             onChange={v => {
               console.log(v, 'v');
               this.handleChangeValue(v, 'value1');
             }}
-            labelPosition="left"
           />
 
           <Text style={styles.titleText}>icon</Text>
           <InputItem
-            icon={<Icon name="md-home" size={18} />}
+            icon={iconDemo}
             value={this.state.value1}
             onChange={v => {
               console.log(v, 'v');
@@ -62,7 +62,7 @@ export default class ModalDemo extends Component {
             }}
           />
           <InputItem
-            // icon={<Icon name="md-home" size={18} style={{ marginRight: 5 }} />}
+            icon={iconDemo}
             label="手机号"
             value={this.state.value1}
             onChange={v => {
@@ -79,7 +79,7 @@ export default class ModalDemo extends Component {
               console.log(v, 'v');
               this.handleChangeValue(v, 'value1');
             }}
-            extra={<Button size="md" label="发送验证码" outline />}
+            extra={<Button size="sm" type="primary"> 发送验证码 </Button>}
           />
 
           <Text style={styles.titleText}>textAlign</Text>
@@ -121,6 +121,16 @@ export default class ModalDemo extends Component {
             }}
           />
           <InputItem
+            showPasswordControl={false}
+            label="pwd"
+            type="password"
+            value={this.state.value1}
+            onChange={v => {
+              console.log(v, 'v');
+              this.handleChangeValue(v, 'value1');
+            }}
+          />
+          <InputItem
             type="textarea"
             borderColor="#C9CDD5"
             numberOfLines={6}
@@ -131,6 +141,10 @@ export default class ModalDemo extends Component {
               this.handleChangeValue(v, 'value1');
             }}
           />
+
+          <Text style={styles.titleText}>tip</Text>
+          <InputItem label="密码" type="password" tip="密码为 英文，数字，下划线组合" />
+
 
           <Text style={styles.titleText}>labelWidth</Text>
           <InputItem
@@ -182,15 +196,6 @@ export default class ModalDemo extends Component {
               this.handleChangeValue(v, 'value1');
             }}
           />
-
-          <Text style={styles.titleText}>线框 三种方式:</Text>
-          <InputItem placeholder="line" labelPosition="top" containerType="line" />
-          <InputItem label="line" labelPosition="top" containerType="line" />
-          <InputItem label="line" containerType="line" />
-          <InputItem label="box" labelPosition="top" containerType="box" />
-          <InputItem label="box" containerType="box" />
-          <InputItem label="fill" labelPosition="top" containerType="fill" />
-          <InputItem label="fill" containerType="fill" />
         </View>
       </ScrollView>
     );

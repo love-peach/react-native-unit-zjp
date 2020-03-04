@@ -3,7 +3,7 @@ import { ScrollView, View, Text } from 'react-native';
 import { Button, Modal } from '../components';
 
 
-export default class ModalExample extends Component {
+export default class ModalDemo extends Component {
   static navigationOptions = () => ({
     title: 'ModalDemo',
   });

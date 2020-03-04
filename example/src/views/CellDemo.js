@@ -31,7 +31,7 @@ export default class CellDemo extends Component {
         <Cell title="验证码" value={<Button size="md" shape="radius" outline type="primary" outlineColor="#f00">获取验证码</Button>} />
         <Cell title="label 可以很长" label="Lorem ipsum dolor, sit amet consectetur adipisicing elit.Lorem ipsum dolor, sit amet consectetur adipisicing elit." />
 
-        <Cell title="没有下划线" splitLine={false} />
+        <Cell title="没有下划线" line={false} />
         <Cell title="可以设置两边间距" containerStyle={{ paddingHorizontal: 10 }} onPress={() => {console.log(1);}} />
         <Cell title="这样也可以，注意看下划线的间距" containerWrapStyle={{ paddingHorizontal: 10 }} onPress={() => {console.log(1);}} />
 

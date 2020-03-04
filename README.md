@@ -120,8 +120,8 @@ link | 设置箭头样式 | Boolean | false
 indicator | 设置指示器 最右边。预设可选值为`arrow`、`plus`当给定 `onPress` 后，默认为小箭头 | Object \| Function \| element | arrow
 indicatorDirection | 指示器方向 可选值为 `up`、`down` | String | -
 indicatorStyle | 指示器样式 | Object | -
-splitLine | 设置底部分割线 | Boolean | -
-splitLineStyle | 分割线样式 | Object | -
+line | 设置底部分割线 | Boolean | -
+lineStyle | 分割线样式 | Object | -
 containerWrapStyle | 容器外层样式 包含内容 和 分割线 | Object | -
 containerStyle | 容器样式 包含 icon 文字 和 指示器 | Object | -
 activeOpacity | 点击透明度，同 TouchableHighlight 属性。当给定 `onPress` 后，默认为 0.5 | Number | 0.5 \| 1
@@ -164,6 +164,7 @@ style | 容器样式 | Object | -
 
 属性 | 说明 |  类型 | 默认值
 - | - | - | -
+type | 输入框类型。可选值为 `textarea`、`number`、`password` | String | default
 label | 标签文字 | String | -
 labelPosition | 标签位置。可选值为 `top`、`left`、`inside`。| String | left
 labelWidth | 标签宽度 | Number | -
@@ -171,9 +172,20 @@ lableAlign | 标签对齐方式。可选值为 `left`、`right` | String | left
 labelStyle | 标签样式 | Object | -
 icon | 图标 | Object \| Function \| element | -
 iconStyle | 图标样式 | Object | -
-type | 输入框类型。可选值为 `textarea`、`number`、`password`、``、`` | String | text
-inputAlign | 输入框内文字方向。可选值为 `left`、`right` | String | left
-placeholder | 占位符 | String | 请输入
-placeholderTextColor | 占位符文字颜色 | String | -
-
-
+line | 设置底部分割线 | Boolean | -
+lineColor | 设置分割线颜色 | String | Theme.border
+lineColorActive | 设置分割线高亮颜色 | String | Theme.split_line_active_color
+lineStyle | 分割线样式 | Object | -
+showPasswordControl | 是否显示密码明文控制。当 type 为 `password` | Boolean
+extra | 最右边部分 | String \| Element | -
+extraStyle | 最右边部分样式 | Object | -
+tip | 底部提示 | String \| Element | -
+tipStyle | 底部提示样式 | Object | -
+inputStyle | 输入框样式 | Object | -
+style | 容器样式 | Object | -
+textAlign | 输入框内文字方向。`TextInput` 原生属性。可选值为 `left`、`right` | String | left
+placeholder | 占位符。`TextInput` 原生属性 | String | 请输入
+placeholderTextColor | 占位符文字颜色 。`TextInput` 原生属性 | String | -
+maxLength | 限制文本框中最多的字符数。当 type 为 `textarea` 时，会显示出来。 `TextInput` 原生属性 | Number | -
+keyboardType | 键盘类型。`TextInput` 原生属性 | String | -
+clearButtonMode | 如何展示清除按钮。`TextInput` 原生属性 | String | -

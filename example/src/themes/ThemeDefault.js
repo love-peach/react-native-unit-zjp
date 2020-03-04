@@ -138,4 +138,23 @@ export default {
   // mask bg
   mask_bg: 'rgba(0,0,0,0.6)',
 
+  // input color
+  input_color_label: color.titleMain,
+  input_color_input: color.titleMain,
+  input_color_tip: color.textTip,
+
+  // input font-size
+  input_font_size_label: 15,
+  input_font_size_label_top: 12,
+  input_font_size_input: 15,
+  input_font_size_tip: 13,
+
+  // input font-weight
+  input_weight_label: 'normal',
+  input_weight_input: '500',
+  input_weight_tip: 'normal',
+
+  // 分割线高亮颜色
+  split_line_active_color: color.primary,
+
 };

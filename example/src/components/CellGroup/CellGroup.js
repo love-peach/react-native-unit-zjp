@@ -44,11 +44,11 @@ export default class CellGroup extends Component {
 
       return React.Children.map(children, (item, index) => {
         const itemProps = {
-          splitLine: index === childrenLength - 1 ? false : true,
+          line: index === childrenLength - 1 ? false : true,
           containerStyle: {
             paddingHorizontal: paddingOffset,
           },
-          splitLineStyle: {
+          lineStyle: {
             marginLeft: borderOffset,
           }
         };

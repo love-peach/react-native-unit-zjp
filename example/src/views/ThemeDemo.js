@@ -5,7 +5,7 @@ import Theme from '../themes/Theme';
 import myTheme from './ThemeCustom.js';
 
 
-export default class ButtonDemo extends Component {
+export default class ThemeDemo extends Component {
   static navigationOptions = () => ({
     title: 'ThemeDemo',
   });

@@ -3,7 +3,7 @@ import { ScrollView, View, Text, StyleSheet } from 'react-native';
 import { Button, ButtonGroup } from '../components';
 
 
-export default class ButtonDemo extends Component {
+export default class ButtonGroupDemo extends Component {
   static navigationOptions = () => ({
     title: 'ButtonGroupDemo',
   });
