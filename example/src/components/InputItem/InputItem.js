@@ -256,6 +256,7 @@ export default class InputItem extends Component {
       dynamicStyle.borderWidth = 0.5;
       dynamicStyle.borderColor = lineColor;
       dynamicStyle.borderRadius = 5;
+      dynamicStyle.textAlignVertical = 'top';
     }
     return [styles.inputStyle, dynamicStyle, inputStyle];
   }
@@ -352,7 +353,7 @@ const styles = StyleSheet.create({
     paddingTop: 12,
     paddingBottom: 12,
     fontSize: Theme.input_font_size_input,
-    textAlignVertical: 'top',
+    textAlignVertical: 'center',
     color: Theme.input_color_input,
     fontWeight: Theme.input_weight_input,
   },
