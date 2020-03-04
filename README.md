@@ -26,6 +26,14 @@
 **注意：** 首次 `publish` 只要有个版本号就可以，再次 `publish` 之前，必须更新版本号，也就是执行 `npm version xxx` 命令，否者会报错：
 `You cannot publish over the previously published versions: x.x.x`;
 
+## 问题
+
+### 1、TextInput multiline 为 true，也就是 textarea 时，上下对齐兼容问题
+
+我们使用 `TextInput` 时，一般会让 lable input 水平居中。但，当 `TextInput` 表现为 `textarea` 时候，我们发现，输入框的文字也是是水平居中的。
+
+可以通过设置 `textAlignVertical: top` 样式解决。
+
 ## 组件使用说明
 
 ### Button
