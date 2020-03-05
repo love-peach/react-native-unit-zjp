@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { InputItem, Button } from '../components';
+import { InputItem, InputItemGroup, Button, ButtonGroup } from '../components';
 
 const iconDemo = require('../icons/phone_green.png');
 
@@ -13,7 +13,7 @@ export default class InputDemo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value1: '123',
+      value: '333'
     };
   }
 
@@ -27,176 +27,72 @@ export default class InputDemo extends Component {
     return (
       <ScrollView keyboardShouldPersistTaps="handled">
 
-        <View style={{ padding: 10 }}>
+        <View>
           <Text style={styles.titleText}>默认样式:</Text>
-          <InputItem label="默认样式" />
+          <Text>{this.state.value}</Text>
+          <InputItem type="card" defaultValue="456" value={this.state.value} onChangeText={(v) => {this.handleChangeValue(v, 'value');}} />
+
+          <Text>{this.state.value2}</Text>
+          <InputItem type="phone" defaultValue="456" value={this.state.value2} onChangeText={(v) => {this.handleChangeValue(v, 'value2');}} />
+
+          <Text>{this.state.value3}</Text>
+          <InputItem type="email" defaultValue="456" value={this.state.value3} onChangeText={(v) => {this.handleChangeValue(v, 'value3');}} />
 
           <Text style={styles.titleText}>labelPosition</Text>
-          <InputItem
-            lineColorActive="red"
-            label="手机号"
-            value={this.state.value1}
-            labelPosition="top"
-            onChange={v => {
-              console.log(v, 'v');
-              this.handleChangeValue(v, 'value1');
-            }}
-          />
-          <InputItem
-            label="手机号"
-            value={this.state.value1}
-            labelPosition="top"
-            onChange={v => {
-              console.log(v, 'v');
-              this.handleChangeValue(v, 'value1');
-            }}
-          />
-
-          <Text style={styles.titleText}>icon</Text>
-          <InputItem
-            icon={iconDemo}
-            value={this.state.value1}
-            onChange={v => {
-              console.log(v, 'v');
-              this.handleChangeValue(v, 'value1');
-            }}
-          />
-          <InputItem
-            icon={iconDemo}
-            label="手机号"
-            value={this.state.value1}
-            onChange={v => {
-              console.log(v, 'v');
-              this.handleChangeValue(v, 'value1');
-            }}
-          />
-
-          <Text style={styles.titleText}>extra</Text>
-          <InputItem
-            label="手机号"
-            value={this.state.value1}
-            onChange={v => {
-              console.log(v, 'v');
-              this.handleChangeValue(v, 'value1');
-            }}
-            extra={<Button size="sm" type="primary"> 发送验证码 </Button>}
-          />
-
-          <Text style={styles.titleText}>textAlign</Text>
-          <InputItem
-            label="手机号"
-            value={this.state.value1}
-            onChange={v => {
-              console.log(v, 'v');
-              this.handleChangeValue(v, 'value1');
-            }}
-          />
-          <InputItem
-            label="手机号"
-            textAlign="right"
-            value={this.state.value1}
-            onChange={v => {
-              console.log(v, 'v');
-              this.handleChangeValue(v, 'value1');
-            }}
-          />
-
-          <Text style={styles.titleText}>type</Text>
-          <InputItem
-            label="number"
-            type="number"
-            value={this.state.value1}
-            onChange={v => {
-              console.log(v, 'v');
-              this.handleChangeValue(v, 'value1');
-            }}
-          />
-          <InputItem
-            label="pwd"
-            type="password"
-            value={this.state.value1}
-            onChange={v => {
-              console.log(v, 'v');
-              this.handleChangeValue(v, 'value1');
-            }}
-          />
-          <InputItem
-            showPasswordControl={false}
-            label="pwd"
-            type="password"
-            value={this.state.value1}
-            onChange={v => {
-              console.log(v, 'v');
-              this.handleChangeValue(v, 'value1');
-            }}
-          />
-          <InputItem
-            type="textarea"
-            borderColor="#C9CDD5"
-            numberOfLines={6}
-            maxLength={70}
-            value={this.state.value1}
-            onChange={v => {
-              console.log(v, 'v');
-              this.handleChangeValue(v, 'value1');
-            }}
-          />
-
-          <Text style={styles.titleText}>tip</Text>
-          <InputItem label="密码" type="password" tip="密码为 英文，数字，下划线组合" />
-
+          <InputItem label="默认在左边" />
+          <InputItem label="也可以在顶部" labelPosition="top" />
+          <InputItem placeholder="或者放这里" />
 
           <Text style={styles.titleText}>labelWidth</Text>
-          <InputItem
-            label="邮箱"
-            labelWidth={70}
-            value={this.state.value1}
-            onChange={v => {
-              console.log(v, 'v');
-              this.handleChangeValue(v, 'value1');
-            }}
-          />
-          <InputItem
-            label="手机号"
-            labelWidth={70}
-            value={this.state.value1}
-            onChange={v => {
-              console.log(v, 'v');
-              this.handleChangeValue(v, 'value1');
-            }}
-          />
-          <InputItem
-            label="家庭住址"
-            labelWidth={70}
-            value={this.state.value1}
-            onChange={v => {
-              console.log(v, 'v');
-              this.handleChangeValue(v, 'value1');
-            }}
-          />
+          <InputItem label="邮箱" type="email" labelWidth={70} />
+          <InputItem label="手机号" type="phone" labelWidth={70} />
+          <InputItem label="家庭住址" labelWidth={70} />
 
           <Text style={styles.titleText}>labelAlign</Text>
-          <InputItem
-            label="邮箱"
-            labelWidth={70}
-            labelAlign="right"
-            value={this.state.value1}
-            onChange={v => {
-              console.log(v, 'v');
-              this.handleChangeValue(v, 'value1');
-            }}
-          />
-          <InputItem
-            label="家庭住址"
-            labelWidth={70}
-            labelAlign="right"
-            value={this.state.value1}
-            onChange={v => {
-              console.log(v, 'v');
-              this.handleChangeValue(v, 'value1');
-            }}
-          />
+          <InputItem labelAlign="right" label="邮箱" type="email" labelWidth={70} />
+          <InputItem labelAlign="right" label="手机号" type="phone" labelWidth={70} />
+          <InputItem labelAlign="right" label="家庭住址" labelWidth={70} />
+          
+
+          <Text style={styles.titleText}>icon</Text>
+          <InputItem icon={iconDemo} />
+
+          <Text style={styles.titleText}>extra</Text>
+          <InputItem label="验证码" extra={<Button size="sm" type="primary"> 发送验证码 </Button>} />
+
+          <Text style={styles.titleText}>textAlign</Text>
+          <InputItem label="默认输入文字靠左" />
+          <InputItem label="设置输入文字靠右" textAlign="right" />
+
+          <Text style={styles.titleText}>tip</Text>
+          <InputItem label="姓名" tip="姓名不可超过10个字符" />
+
+          <Text style={styles.titleText}>type</Text>
+          <InputItem label="card" type="card" />
+          <InputItem label="email" type="email" />
+          <InputItem label="number" type="number" />
+          <InputItem label="password" type="password" />
+          <InputItem label="不显示控制眼睛" type="password" showPasswordControl={false} />
+          <InputItem placeholder="textarea" type="textarea" borderColor="#C9CDD5" numberOfLines={6} maxLength={70} />
+
+          <Text style={styles.titleText}>ref</Text>
+          <ButtonGroup>
+            <Button type="primary" onPress={() => {
+              this.refFun.focus();
+            }}>聚焦</Button>
+          </ButtonGroup>
+          <InputItem label="ref phone" type="card" inputRef={ref => this.refFun = ref} />
+
+          <Text style={styles.titleText}>InputItemGroup</Text>
+          <InputItemGroup>
+            <InputItem label="体重" type="number" labelWidth={70} extra="kg" />
+            <InputItem label="银行卡号" type="card" labelWidth={70} />
+            <InputItem label="手机号" type="phone" labelWidth={70} />
+            <InputItem label="邮箱"  type="email" labelWidth={70} />
+            <InputItem label="家庭住址" labelWidth={70} />
+          </InputItemGroup>
         </View>
+        
       </ScrollView>
     );
   }

@@ -8,7 +8,8 @@ import Theme from '../../themes/Theme';
 const isIos = Platform.OS === 'ios';
 // const isIos = false;
 
-export default class InputItem extends Component {
+
+class InputItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,14 +17,16 @@ export default class InputItem extends Component {
       isFocus: false,
       myValue: '',
     };
+
+    this.inputRef = React.createRef();
   }
 
   static propTypes = {
-    type: PropTypes.oneOf(['textarea', 'number', 'password', 'default', 'number-pad', 'decimal-pad', 'numeric', 'email-address', 'phone-pad']),
+    type: PropTypes.oneOf(['textarea', 'number', 'password', 'default', 'phone', 'card', 'email', 'number-pad', 'decimal-pad', 'numeric', 'email-address', 'phone-pad']),
     label: PropTypes.string,
     labelPosition: PropTypes.oneOf(['left', 'top']),
     labelWidth: PropTypes.number,
-    labelAlign: PropTypes.oneOf(['left', 'right']),
+    labelAlign: PropTypes.oneOf(['left', 'right', 'justify']),
     labelStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
     icon: PropTypes.oneOfType([PropTypes.element, PropTypes.object, PropTypes.number, PropTypes.func]),
     iconStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
@@ -38,7 +41,10 @@ export default class InputItem extends Component {
     tipStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
     inputStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
     style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+    inputRef: PropTypes.func,
     
+    value: PropTypes.string,
+    defaultValue: PropTypes.string,
     textAlign: PropTypes.oneOf(['left', 'right']),
     placeholder: PropTypes.string,
     placeholderTextColor: PropTypes.string,
@@ -52,6 +58,7 @@ export default class InputItem extends Component {
     onChange: PropTypes.func,
     onBlur: PropTypes.func,
     onFocus: PropTypes.func,
+    onChangeText: PropTypes.func,
   }
 
   static defaultProps = {
@@ -78,37 +85,82 @@ export default class InputItem extends Component {
   //   }
   // }
 
+  UNSAFE_componentWillMount() {
+    const { value, defaultValue } = this.props;
+    this.renderValue(value || defaultValue);
+  }
+
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    const { value, defaultValue } = nextProps;
+    this.renderValue(value || defaultValue);
+  }
+
   //
-  handleChange = value => {
-    this.setState({
-      myValue: value,
-    });
-    this.props.onChange && this.props.onChange(value);
+  handleOnChangeText = value => {
+    const renerValue = this.renderValue(value);
+    this.props.onChangeText && this.props.onChangeText(renerValue.finalyValue);
   };
 
-  handleFocus = () => {
-    // 这个是触发 formItem 的聚焦事件
-    const { myValue } = this.state;
-    this.props.handleOnFocus && this.props.handleOnFocus(myValue);
-    this.props.onFocus && this.props.onFocus(myValue);
+  renderValue(value = '') {
+    const { type } = this.props;
+    let formatValue = '';
+    let finalyValue = '';
+    switch(type) {
+      case 'phone':
+        formatValue = this.formatPhoneValue(value);
+        finalyValue = value.replace(/\s?/g, '');
+        break;
+      case 'card':
+        formatValue = this.formatCardValue(value);
+        finalyValue = value.replace(/\s?/g, '');
+        break;
+      default:
+        formatValue = value;
+        finalyValue = value;
+    }
+
+    this.setState({
+      myValue: value,
+      formatValue: formatValue,
+    });
+    return {
+      myValue: value,
+      formatValue,
+      finalyValue,
+    };
+  }
+
+  formatCardValue = (value) => {
+    return value.replace(/\s?/g, '')
+      .replace(/(\d{4})/g, '$1 ')
+      .trim();
+  }
+
+  formatPhoneValue = (value) => {
+    let valueStr = value.replace(/\s?/g, '');
+    let len = valueStr.length;
+
+    if (len > 3 && len < 8) {
+      valueStr = valueStr.replace(/^(...)/g, '$1 ');
+    } else if (len >= 8) {
+      valueStr = valueStr.replace(/^(...)(....)/g, '$1 $2 ');
+    }
+    return valueStr;
+  }
+
+  handleFocus = (e) => {
+    this.props.onFocus && this.props.onFocus(e);
     this.setState({
       isFocus: true,
     });
   };
 
-  handleBlur = () => {
-    // 这个是触发 formItem 的失焦事件
-    const { myValue } = this.state;
-    this.props.handleOnBlur && this.props.handleOnBlur(myValue);
-    this.props.onBlur && this.props.onBlur(myValue);
+  handleBlur = (e) => {
+    this.props.onBlur && this.props.onBlur(e);
     this.setState({
       isFocus: false,
     });
   };
-
-  focus() {
-    this.inputRef.focus();
-  }
 
   // 切换 密码显示 与隐藏
   handleTogglePassword = () => {
@@ -138,14 +190,14 @@ export default class InputItem extends Component {
     let dynamicStyle2= {};
 
     switch (labelPosition) {
-    case 'top':
-      dynamicStyle = styles.labelTop;
-      break;
-    case 'left':
-      dynamicStyle = styles.labelLeft;
-      break;
-    default:
-      dynamicStyle = styles.labelLeft;
+      case 'top':
+        dynamicStyle = styles.labelTop;
+        break;
+      case 'left':
+        dynamicStyle = styles.labelLeft;
+        break;
+      default:
+        dynamicStyle = styles.labelLeft;
     }
     
     if (labelWidth) {
@@ -165,7 +217,7 @@ export default class InputItem extends Component {
 
     if (!isIos && myValue && isFocus && androidClearButtonMode && type !== 'textarea') {
       return (
-        <TouchableOpacity style={styles.closeIconBtn} onPress={this.handleChange.bind(this, '')}>
+        <TouchableOpacity style={styles.closeIconBtn} onPress={this.handleOnChangeText.bind(this, '')}>
           <Icon name="md-close-circle" size={18} color="#ccc" />
         </TouchableOpacity>
       );
@@ -247,16 +299,15 @@ export default class InputItem extends Component {
 
   // 输入框样式
   buildInputStyle() {
-    const { inputStyle, type, numberOfLines, lineColor } = this.props;
+    const { labelPosition, inputStyle, type, numberOfLines, lineColor } = this.props;
     let dynamicStyle = {};
     if (type === 'textarea') {
+      dynamicStyle = { ...styles.textareaStyle };
       dynamicStyle.height = (numberOfLines - 1) * 25;
-      dynamicStyle.paddingLeft = 5;
-      dynamicStyle.paddingRight = 5;
-      dynamicStyle.borderWidth = 0.5;
       dynamicStyle.borderColor = lineColor;
-      dynamicStyle.borderRadius = 5;
-      dynamicStyle.textAlignVertical = 'top';
+    }
+    if (labelPosition === 'top') {
+      dynamicStyle.paddingTop = 8;
     }
     return [styles.inputStyle, dynamicStyle, inputStyle];
   }
@@ -269,30 +320,44 @@ export default class InputItem extends Component {
 
     let inputProps = { ...rest };
 
-    switch (type) {
-    case 'number':
-      inputProps.dataDetectorTypes = 'phoneNumber';
-      inputProps.keyboardType = 'number-pad';
-      break;
-    case 'password':
-      inputProps.secureTextEntry = !showPassword;
-      break;
-    case 'textarea':
-      inputProps.multiline = true;
-      inputProps.numberOfLines = this.props.numberOfLines || 6;
-      inputProps.maxLength = this.props.maxLength || 180;
-      break;
-    default:
-      inputProps.keyboardType = 'default';
-    }
     if (!isIos) {
       inputProps.clearButtonMode = 'never';
     }
+
+    switch (type) {
+      case 'email':
+        inputProps.keyboardType = 'email-address';
+        break;
+      case 'phone':
+        inputProps.keyboardType = 'number-pad';
+        inputProps.maxLength = 13;
+        break;
+      case 'card':
+        inputProps.keyboardType = 'number-pad';
+        break;
+      case 'number':
+        inputProps.keyboardType = 'decimal-pad';
+        break;
+      case 'password':
+        inputProps.secureTextEntry = !showPassword;
+        inputProps.keyboardType = 'default';
+        break;
+      case 'textarea':
+        inputProps.multiline = true;
+        inputProps.numberOfLines = this.props.numberOfLines || 6;
+        inputProps.maxLength = this.props.maxLength || 180;
+        inputProps.keyboardType = 'default';
+        break;
+      default:
+        inputProps.keyboardType = type || 'default';
+    }
+    
     return inputProps;
   }
+  
 
   render() {
-    const { style } = this.props;
+    const { inputRef, style } = this.props;
     return (
       <View style={StyleSheet.flatten([styles.container, style])}>
         {this.renderIcon()}
@@ -300,14 +365,12 @@ export default class InputItem extends Component {
         <TextInput
           {...this.buildInputProps()}
           style={this.buildInputStyle()}
-          onChange={() => null}
-          onChangeText={this.handleChange}
+          onChangeText={this.handleOnChangeText}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
           underlineColorAndroid="transparent"
-          ref={ref => {
-            this.inputRef = ref;
-          }}
+          ref={inputRef}
+          value={this.state.formatValue}
         />
         {this.renderClearIcon()}
         {this.renderExtra()}
@@ -321,12 +384,16 @@ export default class InputItem extends Component {
 }
 
 
+export default InputItem;
+
+
 const styles = StyleSheet.create({
   container: {
     position: 'relative',
     flexDirection: 'row',
     alignItems: 'center',
     flexWrap: 'wrap',
+    // backgroundColor: '#fff',
   },
   label: {
     fontWeight: Theme.input_weight_label,
@@ -340,7 +407,7 @@ const styles = StyleSheet.create({
   labelTop: {
     width: '100%',
     fontSize: Theme.input_font_size_label_top,
-    paddingTop: 15,
+    paddingTop: 12,
   },
   icon: {
     marginRight: 8,
@@ -352,10 +419,18 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 12,
     paddingBottom: 12,
+    
     fontSize: Theme.input_font_size_input,
     textAlignVertical: 'center',
     color: Theme.input_color_input,
     fontWeight: Theme.input_weight_input,
+  },
+  textareaStyle: {
+    borderWidth: Theme.pixelSize,
+    borderRadius: 5,
+    paddingLeft: 5,
+    paddingRight: 5,
+    textAlignVertical: 'top',
   },
   closeIconWrap: {
     position: 'relative',

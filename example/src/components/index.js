@@ -5,7 +5,8 @@ import CellGroup from './CellGroup/CellGroup';
 import Card from './Card/Card';
 import Modal from './Modal/Modal';
 import InputItem from './InputItem/InputItem';
+import InputItemGroup from './InputItemGroup/InputItemGroup';
 import SplitLine from './SplitLine/SplitLine';
 import Mask from './Mask/Mask';
 
-export { Button, ButtonGroup, Cell, CellGroup, Card, Modal,  InputItem, SplitLine, Mask };
+export { Button, ButtonGroup, Cell, CellGroup, Card, Modal,  InputItem, InputItemGroup, SplitLine, Mask };

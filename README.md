@@ -193,6 +193,7 @@ tip | 底部提示 | String \| Element | -
 tipStyle | 底部提示样式 | Object | -
 inputStyle | 输入框样式 | Object | -
 style | 容器样式 | Object | -
+inputRef | ref。暂时没有搞明白，怎么通过 ref 转发，或者高阶组件的方式实现，只能通过传递属性实现，并且只能是函数 | Function | -
 textAlign | 输入框内文字方向。`TextInput` 原生属性。可选值为 `left`、`right` | String | left
 placeholder | 占位符。`TextInput` 原生属性 | String | 请输入
 placeholderTextColor | 占位符文字颜色 。`TextInput` 原生属性 | String | -

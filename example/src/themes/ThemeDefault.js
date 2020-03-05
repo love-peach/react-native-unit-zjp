@@ -147,7 +147,7 @@ export default {
   input_font_size_label: 15,
   input_font_size_label_top: 12,
   input_font_size_input: 15,
-  input_font_size_tip: 13,
+  input_font_size_tip: 12,
 
   // input font-weight
   input_weight_label: 'normal',
