@@ -70,6 +70,7 @@ export default class InputDemo extends Component {
           <Text style={styles.titleText}>type</Text>
           <InputItem label="card" type="card" />
           <InputItem label="email" type="email" />
+          <InputItem label="phone" type="phone" />
           <InputItem label="number" type="number" />
           <InputItem label="password" type="password" />
           <InputItem label="不显示控制眼睛" type="password" showPasswordControl={false} />

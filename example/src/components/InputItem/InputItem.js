@@ -76,24 +76,15 @@ class InputItem extends Component {
     onChange: null,
   };
 
-  // componentDidMount() {
-  //   const { value } = this.props;
-  //   if (value) {
-  //     this.setState({
-  //       myValue: value,
-  //     });
-  //   }
-  // }
-
   UNSAFE_componentWillMount() {
     const { value, defaultValue } = this.props;
     this.renderValue(value || defaultValue);
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const { value, defaultValue } = nextProps;
-    this.renderValue(value || defaultValue);
-  }
+  // UNSAFE_componentWillReceiveProps(nextProps) {
+  //   const { value, defaultValue } = nextProps;
+  //   this.renderValue(value || defaultValue);
+  // }
 
   //
   handleOnChangeText = value => {
