@@ -7,6 +7,7 @@ import Modal from './Modal/Modal';
 import InputItem from './InputItem/InputItem';
 import InputItemGroup from './InputItemGroup/InputItemGroup';
 import SplitLine from './SplitLine/SplitLine';
+import Tip from './Tip/Tip';
 import Mask from './Mask/Mask';
 
-export { Button, ButtonGroup, Cell, CellGroup, Card, Modal,  InputItem, InputItemGroup, SplitLine, Mask };
+export { Button, ButtonGroup, Cell, CellGroup, Card, Modal,  InputItem, InputItemGroup, SplitLine, Tip, Mask };

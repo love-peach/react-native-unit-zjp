@@ -9,6 +9,7 @@ import ModalDemo from '../views/ModalDemo.js';
 import CardDemo from '../views/CardDemo.js';
 import CellDemo from '../views/CellDemo.js';
 import InputDemo from '../views/InputDemo.js';
+import TipDemo from '../views/TipDemo.js';
 import WebviewDemo from '../views/WebviewDemo.js';
 
 const RootStack = createStackNavigator(
@@ -21,6 +22,7 @@ const RootStack = createStackNavigator(
     CardDemo: CardDemo,
     CellDemo: CellDemo,
     InputDemo: InputDemo,
+    TipDemo: TipDemo,
     WebviewDemo: WebviewDemo,
   },
   {
