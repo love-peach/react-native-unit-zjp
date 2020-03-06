@@ -2,7 +2,7 @@ import React, { Component }from 'react';
 import PropTypes from 'prop-types';
 import { View, StyleSheet, Image, Text } from 'react-native';
 import Theme from '../../themes/Theme';
-import { HexToRGBA, HexToRgb, RgbToHex, getDarkColor, getLightColor} from '../../utils/color';
+import { getLightColor} from '../../utils/color';
 
 /**
  * @type 按钮主题 [default, primary, info, warning, success, error, gray, golden, text]
@@ -15,23 +15,29 @@ export default class Tip extends Component {
   static propTypes = {
     type: PropTypes.oneOf(['default', 'primary', 'info', 'warning', 'success', 'error', 'gray', 'golden', 'text']),
     title: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.element]),
+    color: PropTypes.string,
+    radius: PropTypes.number,
     icon: PropTypes.oneOfType([PropTypes.element, PropTypes.object, PropTypes.number, PropTypes.func]),
     iconStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+    extra: PropTypes.oneOfType([PropTypes.element, PropTypes.object, PropTypes.number, PropTypes.func]),
+    extraStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
     style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
     children: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.element]),
   }
 
   static defaultProps = {
     type: 'primary',
+    radius: 4,
+    color: '',
   }
 
   buildContainerStyle() {
-    const { type, style } = this.props;
-    console.log(type, 'type');
+    const { type, radius, color, style } = this.props;
     
     let dynamicStyle = {
-      borderColor: Theme[type],
-      backgroundColor: HexToRGBA(Theme[type], .1),
+      borderRadius: radius,
+      borderColor: color ? color : Theme[type],
+      backgroundColor: getLightColor(color || Theme[type], .88),
     };
 
 
@@ -81,6 +87,22 @@ export default class Tip extends Component {
     return null;
   }
 
+  // 生成 extra
+  renderExtra() {
+    let { extra, extraStyle } = this.props;
+
+    if (extra) {
+      if(React.isValidElement(extra)) {
+        return <View style={styles.extraWrap}>{extra}</View>;
+      }
+      if (typeof extra === 'string') {
+        return <Text style={styles.extraWrap}>{extra}</Text>;
+      }
+      return <Image style={StyleSheet.flatten([styles.extraWrap, styles.extra, extraStyle])} source={extra} />;
+    }
+    return null;
+  }
+
   render() {
     return (
       <View style={this.buildContainerStyle()}>
@@ -89,6 +111,7 @@ export default class Tip extends Component {
           {this.renderTitle()}
           {this.renderLabel()}
         </View>
+        {this.renderExtra()}
       </View>
     );
   }
@@ -99,9 +122,8 @@ const styles = StyleSheet.create({
     borderWidth: Theme.pixelSize,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 8,
-    paddingHorizontal: 10,
-    borderRadius: 5,
+    paddingVertical: 6,
+    paddingHorizontal: 8,
   },
   iconWrap: {
     marginRight: 9,
@@ -113,14 +135,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontSize: 16,
-    color: Theme.title,
+    fontSize: 15,
+    color: Theme.titleMain,
     marginBottom: 5,
   },
   label: {
-    fontSize: 15,
-    color: Theme.titleSub,
+    fontSize: 12,
+    color: getLightColor(Theme.title, 0.28),
     // lineHeight: 15,
     textAlign: 'justify'
+  },
+  extraWrap: {
+    marginLeft: 9
   }
 });

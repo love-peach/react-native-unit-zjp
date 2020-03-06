@@ -200,3 +200,28 @@ placeholderTextColor | 占位符文字颜色 。`TextInput` 原生属性 | Strin
 maxLength | 限制文本框中最多的字符数。当 type 为 `textarea` 时，会显示出来。 `TextInput` 原生属性 | Number | -
 keyboardType | 键盘类型。`TextInput` 原生属性 | String | -
 clearButtonMode | 如何展示清除按钮。`TextInput` 原生属性 | String | -
+
+### Tip
+
+提示组件
+
+```html
+<Tip type="error" radius={0}>radius: 0</Tip>
+
+<Tip icon={tipIcon} extra={<Button type="primary" size="xs">立即拨打</Button>}>客服热线：400-0000-0000</Tip>
+```
+
+**API**
+
+属性 | 说明 |  类型 | 默认值
+-| - | - | -
+type | 主题类型，可选值为 `primary`、`info`、`warning`、`success`、`error`、`gray`、`golden` | String | primary
+title | 标题。| String | -
+color | 自定义主题颜色。边框颜色就是这个值。背景颜色会根据这个颜色变浅。| String | -
+radius | 圆角大小 | Number | 4
+icon | 左边图标 | Object | -
+iconStyle | 图标样式 | Object | -
+extra | 右边追加内容 | String \| Element | -
+extraStyle | 右边追加内容样式 | Object | -
+style | 容器样式 | Object | -
+children | 提示文字 | String \| Element | -
