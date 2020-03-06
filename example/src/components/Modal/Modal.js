@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Modal, ScrollView, View, TouchableWithoutFeedback, TouchableOpacity, Text, Image, Platform, NativeModules } from 'react-native';
+import { StyleSheet, Modal, View, TouchableOpacity, Image, Platform, NativeModules } from 'react-native';
 
-import Mask from './Mask';
-import AnimateViewOfFade from './AnimateViewOfFade';
+import Mask from '../Mask/Mask';
+
+// import AnimateViewOfFade from './AnimateViewOfFade';
 import AnimateViewOfScale from './AnimateViewOfScale';
 import AnimateViewOfSliderBottom from './AnimateViewOfSliderBottom';
 import AnimateViewOfSliderTop from './AnimateViewOfSliderTop';
@@ -12,75 +13,45 @@ import AnimateViewOfSliderRight from './AnimateViewOfSliderRight';
 
 const { StatusBarManager } = NativeModules;
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBarManager.HEIGHT;
+const closeIconDefaultSource = require('../../icons/close.png');
 
-const closeIconDefaultSource = require('./close_gray.png');
-
-const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    // alignItems: 'center',
-  },
-  center: {
-    justifyContent: 'center',
-  },
-  top: {
-    justifyContent: 'flex-start',
-  },
-  bottom: {
-    justifyContent: 'flex-end',
-  },
-  left: {},
-  right: {
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-  },
-  container: {
-    position: 'relative',
-    padding: 10,
-    backgroundColor: '#fff',
-    borderRadius: 3,
-  },
-  closeIcon: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    zIndex: 99,
-    padding: 8,
-  },
-});
-
+/**
+ * @param {Boolean} visible 控制 modal 是否显示
+ * @param {String} placement 弹框内容出现位置，可选值为 [center, bottom, top, left, right]
+ * @param {Number|String} width 内容块宽度 可以设置数值 或者 '100%'
+ * @param {Object} contentStyle 内容块样式
+ * 
+ * @param {Boolean} closable 是否显示关闭按钮
+ * @param {Object} closeStyle 关闭按钮样式
+ * @param {Function} onClosePress 关闭按钮点击事件
+ * 
+ * @param {Function} maskBgColor 遮罩层的背景色
+ * @param {Function} maskClosable 是否允许点击遮罩层关闭弹框
+ * @param {Function} onMaskPress 遮罩层点击事件
+ * 
+ */
 export default class MyModal extends Component {
   static propTypes = {
-    // modal 动画类型; 默认: fade
-    modalAnimationType: PropTypes.oneOfType(['fade', 'slider', 'none']),
-    // content 动画类型; 默认: scale
-    // contentAnimationType: PropTypes.oneOfType(['scale', 'slider', 'none']),
-    // 是否显示右上角的关闭按钮; 默认: true
-    closable: PropTypes.bool,
-    // 关闭按钮样式
-    closeStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-    // 是否允许点击遮罩层关闭弹框; 默认: true
-    maskClosable: PropTypes.bool,
-    // 遮罩层的背景色; 默认: rgba(0, 0, 0, .4)
-    maskBackgroundColor: PropTypes.string,
-    // 内容块的位置; 默认: center
-    placement: PropTypes.oneOfType(['center', 'top', 'bottom', 'left', 'right']),
-    // 内容块的宽度;
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    // 内容块样式
-    containerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
     visible: PropTypes.bool,
-    onMaskPress: PropTypes.func,
+    placement: PropTypes.oneOfType(['center', 'top', 'bottom', 'left', 'right']),
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    contentStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+
+    closable: PropTypes.bool,
+    closeStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
     onClosePress: PropTypes.func,
-    onBackdropPress: PropTypes.func,
+
+    maskClosable: PropTypes.bool,
+    maskBgColor: PropTypes.string,
+    onMaskPress: PropTypes.func,
+
+    children: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.element]),
   };
 
   static defaultProps = {
-    modalAnimationType: 'fade',
-    // contentAnimationType: 'scale',
     closable: true,
-    maskClosable: true,
-    maskBackgroundColor: 'rgba(0, 0, 0, .5)',
+    maskClosable: false,
+    maskBgColor: 'rgba(0, 0, 0, .5)',
     placement: 'center',
     // width: '100%',
   };
@@ -109,10 +80,6 @@ export default class MyModal extends Component {
     }
   }
 
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
   show() {
     this.setState({
       isVisible: true,
@@ -128,54 +95,41 @@ export default class MyModal extends Component {
     }, 150);
   }
 
-  buildWrapperStyle() {
-    const { placement } = this.props;
-    return StyleSheet.flatten([styles.wrapper, styles[placement]]);
-  }
-
-  buildContainerStyle() {
-    const { placement, width, containerStyle } = this.props;
+  // 构建内容容器样式
+  buildContentStyle() {
+    const { placement, width, contentStyle } = this.props;
     let additionStyle = {};
     switch (placement) {
       case 'center':
         additionStyle = {
           width: width || '80%',
-          marginHorizontal: '10%',
+          borderRadius: 5,
+          padding: 10,
         };
         break;
       case 'top':
         additionStyle = {
           width: width || '100%',
-          borderRadius: 0,
+          borderBottomLeftRadius: 5,
+          borderBottomRightRadius: 5,
+          padding: 10,
           paddingTop: STATUSBAR_HEIGHT,
         };
         break;
       case 'bottom':
         additionStyle = {
           width: width || '100%',
-          borderRadius: 0,
+          padding: 10,
+          borderTopLeftRadius: 5,
+          borderTopRightRadius: 5,
         };
         break;
       case 'left':
-        additionStyle = {
-          width: width || '80%',
-          borderRadius: 0,
-          height: '100%',
-          paddingTop: STATUSBAR_HEIGHT,
-          paddingBottom: 0,
-          paddingLeft: 0,
-          paddingRight: 0,
-        };
-        break;
       case 'right':
         additionStyle = {
           width: width || '80%',
-          borderRadius: 0,
           height: '100%',
           paddingTop: STATUSBAR_HEIGHT,
-          paddingBottom: 0,
-          paddingLeft: 0,
-          paddingRight: 0,
         };
         break;
       default:
@@ -183,14 +137,61 @@ export default class MyModal extends Component {
           width: width || '100%',
         };
     }
-    return StyleSheet.flatten([styles.container, additionStyle, containerStyle]);
+    return StyleSheet.flatten([styles.content, additionStyle, contentStyle]);
   }
 
+  // 生成动画视图组件
+  renderAnimateView() {
+    const { placement, visible } = this.props;
+    let WrapComponent = null;
+    switch(placement) {
+      case 'center':
+        WrapComponent = AnimateViewOfScale;
+        break;
+      case 'bottom':
+        WrapComponent = AnimateViewOfSliderBottom;
+        break;
+      case 'top':
+        WrapComponent = AnimateViewOfSliderTop;
+        break;
+      case 'left':
+        WrapComponent = AnimateViewOfSliderLeft;
+        break;
+      case 'right':
+        WrapComponent = AnimateViewOfSliderRight;
+        break;
+    }
+    if(!WrapComponent) {
+      return this.renderContent();
+    }
+    return (
+      <WrapComponent
+        ref={ref => {
+          this.animateView = ref;
+        }}
+        visible={visible}
+      >
+        {this.renderContent()}
+      </WrapComponent>
+    );
+  }
+
+  // 生成内容
+  renderContent() {
+    return (
+      <View style={this.buildContentStyle()}>
+        {this.renderCloseIcon()}
+        {this.props.children}
+      </View>
+    );
+  }
+
+  // 生成关闭按钮
   renderCloseIcon() {
-    let { closable, onClosePress, onMaskPress, placement, closeStyle } = this.props;
+    let { closable, onClosePress, placement, closeStyle } = this.props;
     if (closable) {
       return (
-        <TouchableOpacity onPress={onClosePress || onMaskPress} style={[styles.closeIcon, { top: placement === 'bottom' || placement === 'center' ? 0 : 8 + STATUSBAR_HEIGHT }, { ...closeStyle }]}>
+        <TouchableOpacity onPress={onClosePress} style={[styles.closeIcon, { top: placement === 'bottom' || placement === 'center' ? 0 : 8 + STATUSBAR_HEIGHT }, { ...closeStyle }]}>
           <Image style={{ width: 15, height: 15 }} source={closeIconDefaultSource} />
         </TouchableOpacity>
       );
@@ -198,96 +199,51 @@ export default class MyModal extends Component {
     return null;
   }
 
-  renderContent() {
-    return (
-      <View style={this.buildContainerStyle()}>
-        {this.renderCloseIcon()}
-        {this.props.children}
-      </View>
-    );
-  }
-
-  renderAnimateView() {
-    const { placement, visible } = this.props;
-    if (placement === 'center') {
-      return (
-        <AnimateViewOfScale
-          ref={ref => {
-            this.animateView = ref;
-          }}
-          visible={visible}
-        >
-          {this.renderContent()}
-        </AnimateViewOfScale>
-      );
-    }
-
-    if (placement === 'bottom') {
-      return (
-        <AnimateViewOfSliderBottom
-          visible={visible}
-          ref={ref => {
-            this.animateView = ref;
-          }}
-        >
-          {this.renderContent()}
-        </AnimateViewOfSliderBottom>
-      );
-    }
-
-    if (placement === 'top') {
-      return (
-        <AnimateViewOfSliderTop
-          ref={ref => {
-            this.animateView = ref;
-          }}
-          visible={visible}
-        >
-          {this.renderContent()}
-        </AnimateViewOfSliderTop>
-      );
-    }
-
-    if (placement === 'left') {
-      return (
-        <AnimateViewOfSliderLeft
-          ref={ref => {
-            this.animateView = ref;
-          }}
-          visible={visible}
-        >
-          {this.renderContent()}
-        </AnimateViewOfSliderLeft>
-      );
-    }
-
-    if (placement === 'right') {
-      return (
-        <AnimateViewOfSliderRight
-          ref={ref => {
-            this.animateView = ref;
-          }}
-          visible={visible}
-        >
-          {this.renderContent()}
-        </AnimateViewOfSliderRight>
-      );
-    }
-
-    return this.renderContent();
-  }
-
   render() {
-    const { modalAnimationType, maskBackgroundColor, maskClosable, onMaskPress, onBackdropPress } = this.props;
+    const { placement, maskBgColor, maskClosable, onMaskPress, onClosePress, ...resProps } = this.props;
     const { isVisible } = this.state;
 
     return (
-      <Modal visible={isVisible} transparent animationType={modalAnimationType} onRequestClose={onBackdropPress}>
-        <Mask onMaskPress={maskClosable ? onMaskPress : null} maskBackgroundColor={maskBackgroundColor} />
-        <View style={this.buildWrapperStyle()} pointerEvents="box-none">
+      <Modal visible={isVisible} transparent hardwareAccelerated animationType="fade" {...resProps }>
+        <Mask onPress={maskClosable ? (onMaskPress || onClosePress) : null} bgColor={maskBgColor} />
+        <View style={StyleSheet.flatten([styles.container, styles[placement]])} pointerEvents="box-none">
           {this.renderAnimateView()}
         </View>
       </Modal>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  center: {
+    justifyContent: 'center',
+    alignItems: 'center',
+
+  },
+  top: {
+    justifyContent: 'flex-start',
+  },
+  bottom: {
+    justifyContent: 'flex-end',
+  },
+  left: {
+    alignItems: 'flex-start',
+  },
+  right: {
+    alignItems: 'flex-end',
+  },
+  content: {
+    position: 'relative',
+    backgroundColor: '#fff',
+  },
+  closeIcon: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    zIndex: 99,
+    padding: 8,
+  },
+});

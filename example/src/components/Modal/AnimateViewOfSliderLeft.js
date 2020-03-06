@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Animated } from 'react-native';
+import { Animated } from 'react-native';
 
 /**
  * @title 标题 左上
@@ -8,8 +8,9 @@ import { StyleSheet, Animated } from 'react-native';
 
 export default class ScaleAnimateView extends Component {
   // 接收的属性
-  // TODO: 接收属性校验
-  static propTypes = {};
+  static propTypes = {
+    children: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.element]),
+  };
 
   static defaultProps = {};
 

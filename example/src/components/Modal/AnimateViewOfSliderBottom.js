@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Dimensions } from 'react-native';
 import { Animated } from 'react-native';
 const { height } = Dimensions.get('window');
@@ -9,8 +10,9 @@ const { height } = Dimensions.get('window');
 
 export default class ScaleAnimateView extends Component {
   // 接收的属性
-  // TODO: 接收属性校验
-  static propTypes = {};
+  static propTypes = {
+    children: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.element]),
+  };
 
   static defaultProps = {};
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text } from 'react-native';
-import { Button, Modal } from '../components';
+import { ButtonGroup, Button, Modal } from '../components';
 
 
 export default class ModalDemo extends Component {
@@ -37,23 +37,13 @@ export default class ModalDemo extends Component {
   render() {
     return (
       <ScrollView>
-        <Button onPress={this.setModalVisibleByKey.bind(this, 'modal1', true)}>
-          <Text>center</Text>
-        </Button>
-        <Button onPress={this.setModalVisibleByKey.bind(this, 'modal2', true)}>
-          <Text>bottom</Text>
-        </Button>
-
-        <Button onPress={this.setModalVisibleByKey.bind(this, 'modal3', true)}>
-          <Text>top</Text>
-        </Button>
-
-        <Button onPress={this.setModalVisibleByKey.bind(this, 'modal4', true)}>
-          <Text>left</Text>
-        </Button>
-        <Button onPress={this.setModalVisibleByKey.bind(this, 'modal5', true)}>
-          <Text>right</Text>
-        </Button>
+        <ButtonGroup>
+          <Button type="primary" onPress={this.setModalVisibleByKey.bind(this, 'modal1', true)}>center</Button>
+          <Button type="primary" onPress={this.setModalVisibleByKey.bind(this, 'modal2', true)}>bottom</Button>
+          <Button type="primary" onPress={this.setModalVisibleByKey.bind(this, 'modal3', true)}>top</Button>
+          <Button type="primary" onPress={this.setModalVisibleByKey.bind(this, 'modal4', true)}>left</Button>
+          <Button type="primary" onPress={this.setModalVisibleByKey.bind(this, 'modal5', true)}>right</Button>
+        </ButtonGroup>
 
         <Modal visible={this.state.modal1} placement="center" onMaskPress={this.setModalVisibleByKey.bind(this, 'modal1', false)}>
           {this.renderDemoText()}

@@ -29,14 +29,7 @@ export default class InputDemo extends Component {
 
         <View>
           <Text style={styles.titleText}>默认样式:</Text>
-          <Text>{this.state.value}</Text>
-          <InputItem type="card" defaultValue="456" value={this.state.value} onChangeText={(v) => {this.handleChangeValue(v, 'value');}} />
-
-          <Text>{this.state.value2}</Text>
-          <InputItem type="phone" defaultValue="456" value={this.state.value2} onChangeText={(v) => {this.handleChangeValue(v, 'value2');}} />
-
-          <Text>{this.state.value3}</Text>
-          <InputItem type="email" defaultValue="456" value={this.state.value3} onChangeText={(v) => {this.handleChangeValue(v, 'value3');}} />
+          <InputItem />
 
           <Text style={styles.titleText}>labelPosition</Text>
           <InputItem label="默认在左边" />
