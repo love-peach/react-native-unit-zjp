@@ -47,7 +47,11 @@ export default class ScaleAnimateView extends Component {
   render() {
     return (
       <Animated.View
+        onPress={() => {console.log(222);}}
         style={{
+          position: 'absolute',
+          width: '100%',
+          height: '100%',
           opacity: this.state.opacity,
         }}
       >

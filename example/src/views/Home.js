@@ -24,6 +24,7 @@ export default class HomeScreen extends Component {
           <Cell title="CardDemo" link onPress={this.goto.bind(this, 'CardDemo')} />
           <Cell title="TipDemo" link onPress={this.goto.bind(this, 'TipDemo')} />
           <Cell title="ModalDemo" link onPress={this.goto.bind(this, 'ModalDemo')} />
+          <Cell title="PopupDemo" link onPress={this.goto.bind(this, 'PopupDemo')} />
           <Cell title="WebviewDemo" link onPress={this.goto.bind(this, 'WebviewDemo')} />
         </CellGroup>
       </ScrollView>

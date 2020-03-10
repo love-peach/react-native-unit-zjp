@@ -32,31 +32,24 @@ export default class ScaleAnimateView extends Component {
     Animated.parallel([
       Animated.spring(this.state.scaleRatio, {
         toValue: 1,
-        duration: 150,
-        friction: 5,
-        tension: 150,
+        duration: 200,
       }),
       Animated.timing(this.state.opacity, {
         toValue: 1,
-        duration: 150,
+        duration: 200,
       }),
     ]).start();
   }
 
   out() {
-    Animated.timing(this.state.scaleRatio, {
-      toValue: 1.2,
-      duration: 150,
-    }).start();
-
     Animated.parallel([
       Animated.timing(this.state.scaleRatio, {
-        toValue: 1.2,
-        duration: 150,
+        toValue: 1.1,
+        duration: 200,
       }),
       Animated.timing(this.state.opacity, {
         toValue: 0,
-        duration: 150,
+        duration: 200,
       }),
     ]).start();
   }

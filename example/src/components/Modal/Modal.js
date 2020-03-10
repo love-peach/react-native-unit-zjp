@@ -30,6 +30,8 @@ const closeIconDefaultSource = require('../../icons/close.png');
  * @param {Function} onMaskPress 遮罩层点击事件
  * 
  */
+
+// TODO: 如果没有提供 onMaskPress 或者 onClosePress 函数，并且 设置 closable = true maskClosable = true，则关闭后，父组件 state 改变后，会自动弹出弹框。所以最好提供手动关闭的函数。
 export default class MyModal extends Component {
   static propTypes = {
     visible: PropTypes.bool,
@@ -71,7 +73,7 @@ export default class MyModal extends Component {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps.visible === this.props.visible) {
+    if (nextProps.visible === this.props.visible && nextProps.visible === this.state.isVisible) {
       return;
     }
     if (nextProps.visible) {
@@ -88,13 +90,22 @@ export default class MyModal extends Component {
   }
 
   hide() {
-    this.animateView.out();
+    this.animateView && this.animateView.out();
+    this.maskAnimateView && this.maskAnimateView.out();
     setTimeout(() => {
       this.setState({
         isVisible: false,
       });
-    }, 150);
+    }, 200);
   }
+
+  handleMaskClick = () => {
+    this.hide();
+  };
+
+  handleCloseClick = () => {
+    this.hide();
+  };
 
   // 构建内容容器样式
   buildContentStyle() {
@@ -213,7 +224,7 @@ export default class MyModal extends Component {
     let { closable, onClosePress, placement, closeStyle } = this.props;
     if (closable) {
       return (
-        <TouchableOpacity onPress={onClosePress} style={[styles.closeIcon, { top: placement === 'bottom' || placement === 'center' ? 0 : 8 + STATUSBAR_HEIGHT }, { ...closeStyle }]}>
+        <TouchableOpacity onPress={onClosePress || this.handleCloseClick} style={[styles.closeIcon, { top: placement === 'bottom' || placement === 'center' ? 0 : 8 + STATUSBAR_HEIGHT }, { ...closeStyle }]}>
           <Image style={{ width: 15, height: 15 }} source={closeIconDefaultSource} />
         </TouchableOpacity>
       );
@@ -227,7 +238,12 @@ export default class MyModal extends Component {
 
     return (
       <Modal visible={isVisible} {...resProps } transparent hardwareAccelerated animationType="fade">
-        <Mask onPress={maskClosable ? (onMaskPress || onClosePress) : null} bgColor={maskBgColor} />
+        <AnimateViewOfFade ref={ref => {
+          this.maskAnimateView = ref;
+        }}>
+          <Mask onPress={maskClosable ? (onMaskPress || this.handleMaskClick) : null} bgColor={maskBgColor} />
+        </AnimateViewOfFade>
+
         <View style={StyleSheet.flatten([styles.container, styles[placement]])} pointerEvents="box-none">
           {this.renderAnimateView()}
         </View>
@@ -247,9 +263,11 @@ const styles = StyleSheet.create({
   },
   top: {
     justifyContent: 'flex-start',
+    alignItems: 'center',
   },
   bottom: {
     justifyContent: 'flex-end',
+    alignItems: 'center',
   },
   left: {
     alignItems: 'flex-start',

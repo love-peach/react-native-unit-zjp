@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Dimensions, Animated } from 'react-native';
+import { Dimensions, Easing, Animated } from 'react-native';
 const RNWindow = Dimensions.get('window');
 
 export default class ScaleAnimateView extends Component {
@@ -27,16 +27,17 @@ export default class ScaleAnimateView extends Component {
   in() {
     Animated.spring(this.state.offset, {
       toValue: 0,
-      duration: 150,
-      friction: 8,
-      tension: 100,
+      duration: 200,
+      friction: 10,
+      tension: 50,
     }).start();
   }
 
   out() {
-    Animated.spring(this.state.offset, {
+    Animated.timing(this.state.offset, {
       toValue: this.props.height * 1.3, // *1.3 是保证内容完全退出屏幕 
-      duration: 150,
+      duration: 200,
+      easing: Easing.cubic,
     }).start();
   }
 
