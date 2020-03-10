@@ -17,7 +17,6 @@ export default class ModalDemo extends Component {
   };
 
   setModalVisibleByKey = (key, visible) => {
-    console.log(1);
     this.setState({ [key]: visible });
   };
 
@@ -26,9 +25,9 @@ export default class ModalDemo extends Component {
   renderDemoText() {
     return (
       <View>
-        <Text style={{ fontSize: 18, fontWeight: 'bold', textAlign: 'center', marginBottom: 20, marginTop: 15 }}>随行付用户隐私权政策</Text>
+        <Text style={{ fontSize: 18, fontWeight: 'bold', textAlign: 'center', marginBottom: 20, marginTop: 15 }}>Lorem ipsum dolor sit</Text>
         <Text style={{ marginBottom: 10, marginRight: 15, marginLeft: 15, textAlign: 'justify' }}>
-          用于显示多种不同类型图片的 React 组件，包括网络图片、静态资源、形式提供的图片。
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veniam quia dolore deleniti vel fuga omnis repellat ut! Voluptates expedita ipsum ex commodi tenetur debitis animi asperiores. Eius alias corrupti deleniti?
         </Text>
       </View>
     );
@@ -45,32 +44,32 @@ export default class ModalDemo extends Component {
           <Button type="primary" onPress={this.setModalVisibleByKey.bind(this, 'modal5', true)}>right</Button>
         </ButtonGroup>
 
-        <Modal visible={this.state.modal1} placement="center" onMaskPress={this.setModalVisibleByKey.bind(this, 'modal1', false)}>
+        <Modal visible={this.state.modal1} width="90"onClosePress={this.setModalVisibleByKey.bind(this, 'modal1', false)}>
           {this.renderDemoText()}
-          <Button type="primary" size="lg" label="关闭" onPress={this.setModalVisibleByKey.bind(this, 'modal1', false)} />
+          <Button type="primary" size="lg" onPress={this.setModalVisibleByKey.bind(this, 'modal1', false)}>Yes</Button>
         </Modal>
 
-        <Modal visible={this.state.modal2} placement="bottom">
+        <Modal visible={this.state.modal2} placement="bottom" contentStyle={{padding: 0}}>
           {this.renderDemoText()}
-          <Button type="primary" size="lg" label="关闭" onPress={this.setModalVisibleByKey.bind(this, 'modal2', false)} />
+          <Button type="primary" size="lg" onPress={this.setModalVisibleByKey.bind(this, 'modal2', false)}>关闭</Button>
         </Modal>
 
         <Modal visible={this.state.modal3} placement="top">
           {this.renderDemoText()}
-          <Button type="primary" size="lg" label="关闭" onPress={this.setModalVisibleByKey.bind(this, 'modal3', false)} />
+          <Button type="primary" size="lg" onPress={this.setModalVisibleByKey.bind(this, 'modal3', false)}>关闭</Button>
         </Modal>
 
         <Modal visible={this.state.modal4} placement="left">
           <ScrollView contentContainerStyle={{ padding: 10 }}>
             {this.renderDemoText()}
-            <Button type="primary" size="lg" label="关闭" onPress={this.setModalVisibleByKey.bind(this, 'modal4', false)} />
-            <View style={{ height: 500, borderWidth: 1 }} />
+            <Button type="primary" size="lg" onPress={this.setModalVisibleByKey.bind(this, 'modal4', false)}>关闭</Button>
+            <View style={{ height: 700, borderWidth: 1 }} />
           </ScrollView>
         </Modal>
 
         <Modal visible={this.state.modal5} placement="right">
           {this.renderDemoText()}
-          <Button type="primary" size="lg" label="关闭" onPress={this.setModalVisibleByKey.bind(this, 'modal5', false)} />
+          <Button type="primary" size="lg" onPress={this.setModalVisibleByKey.bind(this, 'modal5', false)}>关闭</Button>
         </Modal>
       </ScrollView>
     );

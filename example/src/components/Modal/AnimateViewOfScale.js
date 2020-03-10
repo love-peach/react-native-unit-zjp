@@ -28,11 +28,6 @@ export default class ScaleAnimateView extends Component {
     this.in();
   }
 
-  componentWillUnmount() {
-    // TODO: 退出的时候 希望以动画的形式退出 目前没实现
-    this.out();
-  }
-
   in() {
     Animated.parallel([
       Animated.spring(this.state.scaleRatio, {

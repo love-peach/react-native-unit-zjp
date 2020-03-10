@@ -225,3 +225,30 @@ extra | 右边追加内容 | String \| Element | -
 extraStyle | 右边追加内容样式 | Object | -
 style | 容器样式 | Object | -
 children | 提示文字 | String \| Element | -
+
+### Modal
+
+弹框组件
+
+```html
+<Modal visible={this.state.isShowModal} width="90">
+  {this.renderDemoText()}
+  <Button type="primary" size="lg">Yes</Button>
+</Modal>
+```
+
+**API**
+
+属性 | 说明 |  类型 | 默认值
+-| - | - | -
+visible | 控制弹框显示隐藏 | Boolean | false
+placement | 弹框出现位置。可选值为 `center`、`top`、`bottom`、`left`、`right` | String | center
+width | 控制容器宽度。当为数值，则宽度为具体值；当为字符串，则宽度为百分比 | String \| Number | 100%
+contentStyle | 容器样式 | Object | -
+closable | 是否显示关闭按钮 | Boolean | false
+closeStyle | 关闭按钮样式 | Object | -
+onClosePress | 关闭事件 | Event | -
+maskBgColor | 遮罩层背景色 | String | rgba(0,0,0,0.6)
+maskClosable | 控制点击遮罩层是否可以关闭 | Boolean | false
+onMaskPress | 遮罩层点击事件 | Event | -
+

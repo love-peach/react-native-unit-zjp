@@ -2,23 +2,20 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Animated } from 'react-native';
 
-/**
- * @title 标题 左上
- */
-
 export default class ScaleAnimateView extends Component {
-  // 接收的属性
-  // TODO: 接收属性校验
   static propTypes = {
+    width: PropTypes.number,
     children: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.element]),
   };
 
-  static defaultProps = {};
+  static defaultProps = {
+    width: 300,
+  };
 
   constructor(props) {
     super(props);
     this.state = {
-      offset: new Animated.Value(300),
+      offset: new Animated.Value(this.props.width),
     };
   }
 
@@ -40,7 +37,7 @@ export default class ScaleAnimateView extends Component {
 
   out() {
     Animated.timing(this.state.offset, {
-      toValue: 300,
+      toValue: this.props.width,
       duration: 150,
     }).start();
   }

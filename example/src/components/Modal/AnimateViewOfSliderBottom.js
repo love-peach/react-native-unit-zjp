@@ -1,37 +1,27 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Dimensions } from 'react-native';
-import { Animated } from 'react-native';
-const { height } = Dimensions.get('window');
-
-/**
- * @title 标题 左上
- */
+import { Dimensions, Animated } from 'react-native';
+const RNWindow = Dimensions.get('window');
 
 export default class ScaleAnimateView extends Component {
-  // 接收的属性
   static propTypes = {
+    height: PropTypes.number,
     children: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.element]),
   };
 
-  static defaultProps = {};
+  static defaultProps = {
+    height: RNWindow.height * 0.5
+  };
 
   constructor(props) {
     super(props);
-    // TODO: height 应该有个默认值 也接受外部传值
     this.state = {
-      offset: new Animated.Value(height * 0.8),
+      offset: new Animated.Value(this.props.height),
     };
   }
 
-
   componentDidMount() {
     this.in();
-  }
-
-  componentWillUnmount() {
-    // TODO: 退出的时候 希望以动画的形式退出 目前没实现
-    this.out();
   }
 
   in() {
@@ -45,7 +35,7 @@ export default class ScaleAnimateView extends Component {
 
   out() {
     Animated.spring(this.state.offset, {
-      toValue: height * 0.8,
+      toValue: this.props.height * 1.3, // *1.3 是保证内容完全退出屏幕 
       duration: 150,
     }).start();
   }
