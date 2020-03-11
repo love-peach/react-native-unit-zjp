@@ -11,5 +11,8 @@ import Tip from './Tip/Tip';
 import Mask from './Mask/Mask';
 import Modal from './Modal/Modal';
 import Popup from './Popup/Popup';
+import ActionSheet from './ActionSheet/ActionSheet';
+import Dialog from './Dialog/Dialog';
+import Toast from './Toast/Toast';
 
-export { Button, ButtonGroup, ButtonRadio, Cell, CellGroup, Card, Modal,  InputItem, InputItemGroup, SplitLine, Tip, Mask, Popup };
+export { Button, ButtonGroup, ButtonRadio, Cell, CellGroup, Card, Modal,  InputItem, InputItemGroup, SplitLine, Tip, Mask, Popup, ActionSheet, Dialog, Toast };

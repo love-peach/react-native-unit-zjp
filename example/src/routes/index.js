@@ -13,6 +13,9 @@ import TipDemo from '../views/TipDemo.js';
 import WebviewDemo from '../views/WebviewDemo.js';
 import ModalDemo from '../views/ModalDemo.js';
 import PopupDemo from '../views/PopupDemo.js';
+import ActionSheetDemo from '../views/ActionSheetDemo.js';
+import DialogDemo from '../views/DialogDemo.js';
+import ToastDemo from '../views/ToastDemo.js';
 
 const RootStack = createStackNavigator(
   {
@@ -27,6 +30,9 @@ const RootStack = createStackNavigator(
     InputDemo: InputDemo,
     TipDemo: TipDemo,
     PopupDemo: PopupDemo,
+    ActionSheetDemo: ActionSheetDemo,
+    DialogDemo: DialogDemo,
+    ToastDemo: ToastDemo,
     WebviewDemo: WebviewDemo,
   },
   {

@@ -24,8 +24,17 @@ export default class HomeScreen extends Component {
           <Cell title="InputDemo" link onPress={this.goto.bind(this, 'InputDemo')} />
           <Cell title="CardDemo" link onPress={this.goto.bind(this, 'CardDemo')} />
           <Cell title="TipDemo" link onPress={this.goto.bind(this, 'TipDemo')} />
+        </CellGroup>
+
+        <CellGroup style={{ marginVertical: 20 }}>
           <Cell title="ModalDemo" link onPress={this.goto.bind(this, 'ModalDemo')} />
           <Cell title="PopupDemo" link onPress={this.goto.bind(this, 'PopupDemo')} />
+          <Cell title="ActionSheetDemo" link onPress={this.goto.bind(this, 'ActionSheetDemo')} />
+          <Cell title="DialogDemo" link onPress={this.goto.bind(this, 'DialogDemo')} />
+          <Cell title="ToastDemo" link onPress={this.goto.bind(this, 'ToastDemo')} />
+        </CellGroup>
+
+        <CellGroup style={{ marginVertical: 20 }}>
           <Cell title="WebviewDemo" link onPress={this.goto.bind(this, 'WebviewDemo')} />
         </CellGroup>
       </ScrollView>
