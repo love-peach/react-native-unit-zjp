@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Animated } from 'react-native';
 
-/**
- * @title 标题 左上
- */
-
 export default class ScaleAnimateView extends Component {
   // 接收的属性
   static propTypes = {
@@ -25,22 +21,17 @@ export default class ScaleAnimateView extends Component {
     this.in();
   }
 
-  componentWillUnmount() {
-    // TODO: 退出的时候 希望以动画的形式退出 目前没实现
-    this.out();
-  }
-
   in() {
     Animated.timing(this.state.opacity, {
       toValue: 1,
-      duration: 300,
+      duration: 200,
     }).start();
   }
 
   out() {
     Animated.timing(this.state.opacity, {
       toValue: 0,
-      duration: 300,
+      duration: 200,
     }).start();
   }
 

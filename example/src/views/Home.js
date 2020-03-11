@@ -19,6 +19,7 @@ export default class HomeScreen extends Component {
           <Cell title="ThemeDemo" link onPress={this.goto.bind(this, 'ThemeDemo')} />
           <Cell title="ButtonDemo" link onPress={this.goto.bind(this, 'ButtonDemo')} />
           <Cell title="ButtonGroupDemo" link onPress={this.goto.bind(this, 'ButtonGroupDemo')} />
+          <Cell title="ButtonRadioDemo" link onPress={this.goto.bind(this, 'ButtonRadioDemo')} />
           <Cell title="CellDemo" link onPress={this.goto.bind(this, 'CellDemo')} />
           <Cell title="InputDemo" link onPress={this.goto.bind(this, 'InputDemo')} />
           <Cell title="CardDemo" link onPress={this.goto.bind(this, 'CardDemo')} />

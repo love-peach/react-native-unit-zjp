@@ -5,6 +5,7 @@ import Home from '../views/Home';
 import ThemeDemo from '../views/ThemeDemo.js';
 import ButtonDemo from '../views/ButtonDemo.js';
 import ButtonGroupDemo from '../views/ButtonGroupDemo.js';
+import ButtonRadioDemo from '../views/ButtonRadioDemo.js';
 import CardDemo from '../views/CardDemo.js';
 import CellDemo from '../views/CellDemo.js';
 import InputDemo from '../views/InputDemo.js';
@@ -19,6 +20,7 @@ const RootStack = createStackNavigator(
     ThemeDemo: ThemeDemo,
     ButtonDemo: ButtonDemo,
     ButtonGroupDemo: ButtonGroupDemo,
+    ButtonRadioDemo: ButtonRadioDemo,
     ModalDemo: ModalDemo,
     CardDemo: CardDemo,
     CellDemo: CellDemo,

@@ -58,9 +58,12 @@ export default class ButtonGroup extends Component {
         itemStyle = {
           borderTopLeftRadius: radius,
           borderBottomLeftRadius: radius,
-          borderRightColor: ghost ? undefined : '#fff',
+          // borderRightColor: ghost ? undefined : '#fff',
           zIndex: length - index
         };
+        if (!ghost) {
+          itemStyle.borderRightColor = '#fff';
+        }
       }
     } else if (index === length - 1) {
       itemStyle = {
@@ -72,10 +75,13 @@ export default class ButtonGroup extends Component {
     } else {
       itemStyle = {
         borderRadius: 0,
-        borderRightColor: ghost ? undefined : '#fff',
+        // borderRightColor: ghost ? undefined : '#fff',
         marginLeft: -Theme.pixelSize,
         zIndex: length - index
       };
+      if (!ghost) {
+        itemStyle.borderRightColor = '#fff';
+      }
     }
     return itemStyle;
   };

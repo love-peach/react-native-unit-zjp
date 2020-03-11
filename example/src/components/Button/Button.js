@@ -61,7 +61,7 @@ export default class Button extends Component {
     activityIndicatorColor: PropTypes.string,
     containerStyle: ViewPropTypes.style,
     style: ViewPropTypes.style,
-    children: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.element]),
+    children: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool, PropTypes.node, PropTypes.element]),
     clickInterval: PropTypes.number,
     onPress: PropTypes.func,
     onLongPress: PropTypes.func,
@@ -266,9 +266,10 @@ export default class Button extends Component {
     if (children) {
       let childElements = [];
       React.Children.forEach(children, (item) => {
-        if (typeof item === 'string' || typeof item === 'number') {
-          const element = <Text key={item} style={labelStyleFinaly} numberOfLines={1}>{item}</Text>;
-          childElements.push(element);
+        if (typeof item === 'string') {
+          childElements.push(<Text key={item} style={labelStyleFinaly} numberOfLines={1}>{item}</Text>);
+        } else if (typeof item === 'number') {
+          childElements.push(<Text key={item} style={labelStyleFinaly} numberOfLines={1}>{item + ''}</Text>);
         } else if (React.isValidElement(item)) {
           childElements.push(item);
         }
