@@ -3,12 +3,7 @@ import PropTypes from 'prop-types';
 import { StyleSheet, Modal, View, TouchableOpacity, Image, Platform, NativeModules, Dimensions } from 'react-native';
 
 import Mask from '../Mask/Mask';
-import AnimateViewOfFade from './AnimateViewOfFade';
-import AnimateViewOfScale from './AnimateViewOfScale';
-import AnimateViewOfSliderBottom from './AnimateViewOfSliderBottom';
-import AnimateViewOfSliderTop from './AnimateViewOfSliderTop';
-import AnimateViewOfSliderLeft from './AnimateViewOfSliderLeft';
-import AnimateViewOfSliderRight from './AnimateViewOfSliderRight';
+import AnimateView from '../AnimateView/AnimateView';
 
 const RNWindow = Dimensions.get('window');
 const { StatusBarManager } = NativeModules;
@@ -154,69 +149,46 @@ export default class MyModal extends Component {
   }
 
   // 生成动画视图组件
-  renderAnimateView() {
+  buildAnimateViewProps = () => {
     const { fade, placement, width } = this.props;
-    let WrapComponent = null;
     let WrapComponentProps = {};
     const isWidthNum = typeof width === 'number';
 
     switch(placement) {
       case 'center':
-        WrapComponent = AnimateViewOfScale;
+        WrapComponentProps.type = 'scale';
         break;
       case 'bottom':
-        WrapComponent = AnimateViewOfSliderBottom;
+        WrapComponentProps.type = 'slide-bottom';
         WrapComponentProps.height = this.state.contentHeight;
         break;
       case 'top':
-        WrapComponent = AnimateViewOfSliderTop;
+        WrapComponentProps.type = 'slide-top';
         WrapComponentProps.height = this.state.contentHeight;
         break;
       case 'left':
-        WrapComponent = AnimateViewOfSliderLeft;
+        WrapComponentProps.type = 'slide-left';
         WrapComponentProps.width = width ? (isWidthNum ? width : RNWindow.width * width / 100) : RNWindow.width * 0.8;
         break;
       case 'right':
-        WrapComponent = AnimateViewOfSliderRight;
+        WrapComponentProps.type = 'slide-right';
         WrapComponentProps.width = width ? (isWidthNum ? width : RNWindow.width * width / 100) : RNWindow.width * 0.8;
         break;
     }
     if (fade) {
-      WrapComponent = AnimateViewOfFade;
+      WrapComponentProps.type = 'fade';
     }
-    if(!WrapComponent) {
-      return this.renderContent();
-    }
-    return (
-      <WrapComponent
-        ref={ref => {
-          this.animateView = ref;
-        }}
-        {...WrapComponentProps }
-      >
-        {this.renderContent()}
-      </WrapComponent>
-    );
+    return WrapComponentProps;
   }
   
+  // 内容 onLayout
   measureView(event) {
     const { placement } = this.props;
-
     if (placement === 'top' || placement === 'bottom') {
       this.setState({
         contentHeight: event.nativeEvent.layout.height,
       });
     }
-  }
-
-  // 生成内容
-  renderContent() {
-    return (
-      <View style={this.buildContentStyle()}  onLayout={(event) => this.measureView(event)}>
-        {this.renderCloseIcon()}
-        {this.props.children}
-      </View>
-    );
   }
 
   // 生成关闭按钮
@@ -238,14 +210,28 @@ export default class MyModal extends Component {
 
     return (
       <Modal visible={isVisible} {...resProps } transparent hardwareAccelerated animationType="fade">
-        <AnimateViewOfFade ref={ref => {
-          this.maskAnimateView = ref;
-        }}>
+        <AnimateView
+          type="fade"
+          style={styles.maskWrap}
+          ref={ref => {
+            this.maskAnimateView = ref;
+          }}
+        >
           <Mask onPress={maskClosable ? (onMaskPress || this.handleMaskClick) : null} bgColor={maskBgColor} />
-        </AnimateViewOfFade>
+        </AnimateView>
 
         <View style={StyleSheet.flatten([styles.container, styles[placement]])} pointerEvents="box-none">
-          {this.renderAnimateView()}
+          <AnimateView
+            ref={ref => {
+              this.animateView = ref;
+            }}
+            {...this.buildAnimateViewProps() }
+          >
+            <View style={this.buildContentStyle()}  onLayout={(event) => this.measureView(event)}>
+              {this.renderCloseIcon()}
+              {this.props.children}
+            </View>
+          </AnimateView>
         </View>
       </Modal>
     );
@@ -285,5 +271,10 @@ const styles = StyleSheet.create({
     right: 0,
     zIndex: 99,
     padding: 8,
+  },
+  maskWrap: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
   },
 });

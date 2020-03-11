@@ -1,22 +1,33 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Animated } from 'react-native';
+import { Dimensions, Animated, Easing } from 'react-native';
+const RNWindow = Dimensions.get('window');
+
 
 export default class ScaleAnimateView extends Component {
   static propTypes = {
-    type: PropTypes.oneOf(['fade', 'slide-bottom', 'slide-top', 'slide-left', 'slide-right']),
+    type: PropTypes.oneOf(['scale', 'fade', 'slide-bottom', 'slide-top', 'slide-left', 'slide-right']),
+
+    height: PropTypes.number,
+    width: PropTypes.number,
+
     style: PropTypes.object,
     children: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.element]),
   };
 
   static defaultProps = {
     type: 'fade',
+    height: RNWindow.height * 0.5,
+    width: RNWindow.width * 0.8,
   };
 
   constructor(props) {
     super(props);
     this.state = {
+      scaleRatio: new Animated.Value(1.2),
       opacity: new Animated.Value(0),
+      offsetH: new Animated.Value(props.type === 'slide-top' ? -this.props.height : this.props.height),
+      offsetW: new Animated.Value(props.type === 'slide-left' ? -this.props.width : this.props.width),
     };
   }
 
@@ -25,24 +36,104 @@ export default class ScaleAnimateView extends Component {
   }
 
   in(callback) {
-    console.log('in');
-    Animated.timing(this.state.opacity, {
-      toValue: 1,
-      duration: 200,
-    }).start(() => {
-      console.log('in callback');
+    const { type } = this.props;
+    let animateObj = {};
+    switch(type) {
+      case 'scale':
+        animateObj = Animated.parallel([
+          Animated.spring(this.state.scaleRatio, {
+            toValue: 1,
+            duration: 200,
+          }),
+          Animated.timing(this.state.opacity, {
+            toValue: 1,
+            duration: 200,
+          }),
+        ]);
+        break;
+      case 'slide-bottom':
+      case 'slide-top':
+        animateObj = Animated.spring(this.state.offsetH, {
+          toValue: 0,
+          duration: 200,
+          friction: 10,
+          tension: 50,
+        });
+        break;
+      case 'slide-left':
+      case 'slide-right':
+        animateObj = Animated.spring(this.state.offsetW, {
+          toValue: 0,
+          duration: 200,
+          friction: 10,
+          tension: 50,
+        });
+        break;
+      default:
+        animateObj = Animated.timing(this.state.opacity, {
+          toValue: 1,
+          duration: 200,
+        });
+    }
+
+    animateObj.start(() => {
       callback && callback();
     });
   }
 
   out(callback) {
-    console.log('out');
 
-    Animated.timing(this.state.opacity, {
-      toValue: 0,
-      duration: 200,
-    }).start(() => {
-      console.log('out callback');
+    const { type } = this.props;
+    let animateObj = {};
+    switch(type) {
+      case 'scale':
+        animateObj = Animated.parallel([
+          Animated.timing(this.state.scaleRatio, {
+            toValue: 1.1,
+            duration: 200,
+          }),
+          Animated.timing(this.state.opacity, {
+            toValue: 0,
+            duration: 200,
+          }),
+        ]);
+        break;
+      case 'slide-bottom':
+        animateObj = Animated.timing(this.state.offsetH, {
+          toValue: this.props.height * 1.3, // *1.3 是保证内容完全退出屏幕 
+          duration: 200,
+          easing: Easing.cubic,
+        });
+        break;
+      case 'slide-top':
+        animateObj = Animated.timing(this.state.offsetH, {
+          toValue: -this.props.height * 1.3, // *1.3 是保证内容完全退出屏幕 
+          duration: 200,
+          easing: Easing.cubic,
+        });
+        break;
+      case 'slide-left':
+        animateObj = Animated.timing(this.state.offsetW, {
+          toValue: -this.props.width * 1.2,
+          duration: 200,
+          easing: Easing.cubic,
+        });
+        break;
+      case 'slide-right':
+        animateObj = Animated.timing(this.state.offsetW, {
+          toValue: this.props.width * 1.2,
+          duration: 200,
+          easing: Easing.cubic,
+        });
+        break;
+      default:
+        animateObj = Animated.timing(this.state.opacity, {
+          toValue: 0,
+          duration: 200,
+        });
+    }
+
+    animateObj.start(() => {
       callback && callback();
     });
   }
@@ -51,16 +142,17 @@ export default class ScaleAnimateView extends Component {
     const { style, type } = this.props;
     let animateViewStyle = { ...style };
     switch(type) {
-      case 'fade':
+      case 'scale':
         animateViewStyle.opacity = this.state.opacity;
+        animateViewStyle.transform = [{ scale: this.state.scaleRatio }];
         break;
       case 'slide-bottom':
       case 'slide-top':
-        animateViewStyle.transform = [{ translateY: this.state.offset }];
+        animateViewStyle.transform = [{ translateY: this.state.offsetH }];
         break;
       case 'slide-left':
       case 'slide-right':
-        animateViewStyle.transform = [{ translateX: this.state.offset }];
+        animateViewStyle.transform = [{ translateX: this.state.offsetW }];
         break;
       default:
         animateViewStyle.opacity = this.state.opacity;

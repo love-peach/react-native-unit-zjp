@@ -10,9 +10,9 @@ export default class Toast extends Component {
     children: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.element]),
   }
 
-  static show = (message, options = {}) => {
+  static show = (message, options = { }) => {
     return new RootSiblings(<ToastContainer
-      {...options}
+      { ...options }
       visible={true}
     >
       {message}

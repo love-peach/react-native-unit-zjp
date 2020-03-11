@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text } from 'react-native';
-import { ButtonGroup, Button, Modal, Toast } from '../components';
+import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import { ButtonRadio, Button, Toast,  } from '../components';
 
 
 export default class ToastDemo extends Component {
@@ -9,31 +9,24 @@ export default class ToastDemo extends Component {
   });
 
   state = {
-    modal1: false,
+    theme: 'default',
+    placement: 'center',
+    animateType: 'scale', 
   };
 
   setModalVisibleByKey = (key, visible) => {
     this.setState({ [key]: visible });
   };
 
-  handleMaskPress() {}
-
-  renderDemoText() {
-    return (
-      <View>
-        <Text style={{ fontSize: 18, fontWeight: 'bold', textAlign: 'center', marginBottom: 20, marginTop: 15 }}>Lorem ipsum dolor sit</Text>
-        <Text style={{ marginBottom: 10, marginRight: 15, marginLeft: 15, textAlign: 'justify' }}>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veniam quia dolore deleniti vel fuga omnis repellat ut! Voluptates expedita ipsum ex commodi tenetur debitis animi asperiores. Eius alias corrupti deleniti?
-        </Text>
-      </View>
-    );
-  }
-
   handleShowToast() {
-    this.MyToast = Toast.show('fefeff', {
-      onHidden: () => {
-        this.handleCloseToast();
-      }
+    this.MyToast && this.MyToast.destroy();
+    this.MyToast = Toast.show('There are some msg', {
+      theme: this.state.theme,
+      placement: this.state.placement,
+      animateType: this.state.animateType,
+      // onHidden: () => {
+      //   this.handleCloseToast();
+      // }
     });
   }
 
@@ -44,20 +37,33 @@ export default class ToastDemo extends Component {
   render() {
     return (
       <ScrollView>
-        <View>
-          <ButtonGroup>
-            <Button type="primary" onPress={this.setModalVisibleByKey.bind(this, 'modal1', true)}>center</Button>
-          </ButtonGroup>
+        <View none>
+          <Text style={styles.title}>placement</Text>
+          <ButtonRadio value={this.state.placement} options={['center', 'top', 'bottom', 'left', 'right']} onPress={v => {this.setModalVisibleByKey('placement', v);}} />
 
-          <View style={{ margin: 20 }}>
-            <Button onPress={() => {this.handleShowToast();}}>show</Button>
-          </View>
+          <Text style={styles.title}>animateType</Text>
+          <ButtonRadio value={this.state.animateType} options={['scale', 'fade', 'slide-top', 'slide-bottom', 'slide-left', 'slide-right']} onPress={v => {this.setModalVisibleByKey('animateType', v);}} />
 
-          <View style={{ margin: 20 }}>
-            <Button onPress={() => {this.handleCloseToast();}}>close</Button>
-          </View>
+          <Text style={styles.title}>theme</Text>
+          <ButtonRadio value={this.state.theme} options={['default', 'info', 'success', 'error']} onPress={v => {this.setModalVisibleByKey('theme', v);}} />
+
+          <Button type="primary" style={styles.btnDemo} onPress={() => {this.handleShowToast();}}>show</Button>
+          <Button type="error" style={styles.btnDemo} onPress={() => {this.handleCloseToast();}}>close</Button>
         </View>
       </ScrollView>
     );
   }
 }
+
+
+const styles = StyleSheet.create({
+  title: {
+    fontSize: 16,
+    marginTop: 20,
+    marginLeft: 20,
+    marginBottom: 15,
+  },
+  btnDemo: {
+    margin: 10
+  }
+});
