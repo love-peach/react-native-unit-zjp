@@ -36,7 +36,7 @@ export default class ButtonGroup extends Component {
       };
     } else {
       containerStyle = {
-        flex: 1,
+        // flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
       };
@@ -131,8 +131,8 @@ export default class ButtonGroup extends Component {
       return React.Children.map(children, (item, index) => {
         const itemProps = {
           size,
-          shape: 'rect',
           ghost: item.props.ghost === false ? false : item.props.ghost || ghost,
+          radius: 0
         };
         const currentStyle = vertical ? this.buildItemStyleVertical(index, childrenLength, itemProps) : this.buildItemStyle(index, childrenLength, itemProps);
 

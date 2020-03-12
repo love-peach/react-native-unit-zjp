@@ -3,9 +3,9 @@ import { ScrollView, View, Text, StyleSheet } from 'react-native';
 import { ButtonRadio } from '../components';
 
 
-export default class ButtonGroupDemo extends Component {
+export default class ButtonRadioDemo extends Component {
   static navigationOptions = () => ({
-    title: 'ButtonGroupDemo',
+    title: 'ButtonRadioDemo',
   });
 
   state = {

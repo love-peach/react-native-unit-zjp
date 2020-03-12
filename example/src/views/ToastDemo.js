@@ -78,12 +78,9 @@ export default class ToastDemo extends Component {
 
   render() {
     return (
-      <ScrollView>
-        <View none>
-          <ButtonGroup size="xl" style={styles.btnWrap}>
-            <Button type="primary" style={styles.btnDemo} onPress={() => {this.handleShowToast();}}>show</Button>
-            <Button type="error" style={styles.btnDemo} onPress={() => {this.handleCloseToast();}}>close</Button>
-          </ButtonGroup>
+      <View style={{ flex: 1 }}>
+        <ScrollView style={{ flex: 1 }}>
+          
 
           <Text style={styles.title}>placement</Text>
           <ButtonRadio value={this.state.placement} options={['center', 'top', 'bottom', 'left', 'right']} onPress={v => {this.setModalVisibleByKey('placement', v);}} />
@@ -126,35 +123,45 @@ export default class ToastDemo extends Component {
             <Button type="error" style={styles.btnDemo} onPress={() => {this.handleShowToastByError();}}>error</Button>
             <Button backgroundColor={Theme.title} style={styles.btnDemo} onPress={() => {this.handleShowToastByLoading();}}>loading</Button>
           </ButtonGroup>
+        </ScrollView>
 
-          
-          
+        <View>
+          <ButtonGroup size="md" style={styles.btnWrap}>
+            <Button backgroundColor={Theme.title} style={styles.btnDemo} onPress={() => {this.handleShowToast();}}>show</Button>
+            <Button type="success" style={styles.btnDemo} onPress={() => {this.handleShowToastBySuccess();}}>success</Button>
+            <Button type="error" style={styles.btnDemo} onPress={() => {this.handleShowToastByError();}}>error</Button>
+            <Button backgroundColor={Theme.title} style={styles.btnDemo} onPress={() => {this.handleShowToastByLoading();}}>loading</Button>
+          </ButtonGroup>
+          <ButtonGroup size="xl" style={styles.btnWrap}>
+            <Button type="primary" style={styles.btnDemo} onPress={() => {this.handleShowToast();}}>show</Button>
+            <Button type="error" style={styles.btnDemo} onPress={() => {this.handleCloseToast();}}>close</Button>
+          </ButtonGroup>
           <ButtonGroup size="xl" style={styles.btnWrap}>
             <Button type="primary" style={styles.btnDemo} onPress={() => {this.setModalVisibleByKey('isShowToast', true);}}>show component</Button>
             <Button type="error" style={styles.btnDemo} onPress={() => {this.setModalVisibleByKey('isShowToast', false);}}>close component</Button>
           </ButtonGroup>
-
-          <Toast
-            visible={this.state.isShowToast}
-            theme={this.state.theme}
-            placement={this.state.placement}
-            animateType={this.state.animateType}
-            backgroundColor={this.state.backgroundColor || undefined}
-            color={this.state.color}
-            icon={this.state.icon}
-            mask={this.state.mask}
-            maskBgColor={this.state.maskBgColor}
-            maskClosable={this.state.maskClosable}
-            width={this.state.width || undefined}
-            radius={parseInt(this.state.radius, 10)}
-            onHidden={() => {
-              this.setModalVisibleByKey('isShowToast', false);
-            }}
-          >
-            component
-          </Toast>
         </View>
-      </ScrollView>
+
+        <Toast
+          visible={this.state.isShowToast}
+          theme={this.state.theme}
+          placement={this.state.placement}
+          animateType={this.state.animateType}
+          backgroundColor={this.state.backgroundColor || undefined}
+          color={this.state.color}
+          icon={this.state.icon}
+          mask={this.state.mask}
+          maskBgColor={this.state.maskBgColor}
+          maskClosable={this.state.maskClosable}
+          width={this.state.width || undefined}
+          radius={parseInt(this.state.radius, 10)}
+          onHidden={() => {
+            this.setModalVisibleByKey('isShowToast', false);
+          }}
+        >
+            component
+        </Toast>
+      </View>
     );
   }
 }

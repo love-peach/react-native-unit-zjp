@@ -13,6 +13,7 @@ export default class ButtonRadio extends Component {
     activeType: PropTypes.oneOf(['default', 'primary', 'info', 'warning', 'success', 'error', 'gray', 'golden']),
     ghost: PropTypes.bool,
     activeGhost: PropTypes.bool,
+    braceUp: PropTypes.bool,
     radius: PropTypes.number,
     clickInterval: PropTypes.number,
     style: ViewPropTypes.style,
@@ -30,9 +31,10 @@ export default class ButtonRadio extends Component {
   handleOnPress = (data) => {
     const dataType = typeof data;
     let passData = data;
+
     switch(dataType) {
       case 'object':
-        if (typeof data.value === 'boolean' || typeof data.value === 'string') { // 如果 data.value 为 false 或者 空字符串 也原样返回
+        if (typeof data.value === 'boolean' || typeof data.value === 'string' || typeof data.value === 'number') { // 如果 data.value 为 false 或者 空字符串 也原样返回
           passData = data.value;
         } else {
           passData = data.value || data;
