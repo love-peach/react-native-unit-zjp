@@ -1,9 +1,8 @@
 import React, { Component }from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, StyleSheet, ViewPropTypes } from 'react-native';
+import {  StyleSheet, ViewPropTypes } from 'react-native';
 import ButtonGroup from '../ButtonGroup/ButtonGroup';
 import Button from '../Button/Button';
-import Theme from '../../themes/Theme';
 
 export default class ButtonRadio extends Component {
   static propTypes = {
@@ -60,7 +59,7 @@ export default class ButtonRadio extends Component {
   }
 
   render() {
-    const { value, options, type, activeType, ghost, activeGhost,  clickInterval, onPress, ...restProps } = this.props;
+    const { value, options, type, activeType, ghost, activeGhost, braceUp, clickInterval, onPress, ...restProps } = this.props;
     return (
       <ButtonGroup {...restProps}>
         {
@@ -70,6 +69,10 @@ export default class ButtonRadio extends Component {
             if (isActive) {
               isGhost = activeGhost;
             }
+            let dynamicStyle = {};
+            if (braceUp) {
+              dynamicStyle.flex = 1;
+            }
             
             return (
               <Button
@@ -78,6 +81,7 @@ export default class ButtonRadio extends Component {
                 ghost={isGhost}
                 key={index}
                 onPress={() => {this.handleOnPress(item);}}
+                style={StyleSheet.flatten([dynamicStyle, item.style])}
               >
                 {item.label || item}
               </Button>

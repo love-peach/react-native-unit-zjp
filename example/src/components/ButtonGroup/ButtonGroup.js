@@ -125,7 +125,7 @@ export default class ButtonGroup extends Component {
 
   // 渲染每个按钮 并添加 props
   renderChild = () => {
-    const { style, size, ghost, vertical, children } = this.props;
+    const { size, ghost, vertical, children } = this.props;
     if (children) {
       const childrenLength = React.Children.toArray(children).length;
       return React.Children.map(children, (item, index) => {
