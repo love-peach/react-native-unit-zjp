@@ -125,7 +125,7 @@ export default class ButtonGroup extends Component {
 
   // 渲染每个按钮 并添加 props
   renderChild = () => {
-    const { size, ghost, vertical, children } = this.props;
+    const { style, size, ghost, vertical, children } = this.props;
     if (children) {
       const childrenLength = React.Children.toArray(children).length;
       return React.Children.map(children, (item, index) => {
@@ -136,7 +136,7 @@ export default class ButtonGroup extends Component {
         };
         const currentStyle = vertical ? this.buildItemStyleVertical(index, childrenLength, itemProps) : this.buildItemStyle(index, childrenLength, itemProps);
 
-        return React.cloneElement(item, { ...itemProps, style: { ...currentStyle }});
+        return React.cloneElement(item, { ...itemProps, style: { ...currentStyle, ...item.props.style }});
       });
     }
     return null;

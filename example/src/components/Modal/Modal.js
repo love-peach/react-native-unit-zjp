@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, Modal, View, TouchableOpacity, Image, Platform, NativeModules, Dimensions } from 'react-native';
 
-import Mask from '../Mask/Mask';
+import ContainerView from '../ContainerView/ContainerView';
 import AnimateView from '../AnimateView/AnimateView';
+import Mask from '../Mask/Mask';
 
 const RNWindow = Dimensions.get('window');
 const { StatusBarManager } = NativeModules;
@@ -220,7 +221,7 @@ export default class MyModal extends Component {
           <Mask onPress={maskClosable ? (onMaskPress || this.handleMaskClick) : null} bgColor={maskBgColor} />
         </AnimateView>
 
-        <View style={StyleSheet.flatten([styles.container, styles[placement]])} pointerEvents="box-none">
+        <ContainerView placement={placement}>
           <AnimateView
             ref={ref => {
               this.animateView = ref;
@@ -232,35 +233,13 @@ export default class MyModal extends Component {
               {this.props.children}
             </View>
           </AnimateView>
-        </View>
+        </ContainerView>
       </Modal>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  center: {
-    justifyContent: 'center',
-    alignItems: 'center',
-
-  },
-  top: {
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-  },
-  bottom: {
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  left: {
-    alignItems: 'flex-start',
-  },
-  right: {
-    alignItems: 'flex-end',
-  },
   content: {
     position: 'relative',
     backgroundColor: '#fff',

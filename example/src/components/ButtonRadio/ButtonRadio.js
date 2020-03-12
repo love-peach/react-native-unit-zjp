@@ -30,25 +30,32 @@ export default class ButtonRadio extends Component {
 
   handleOnPress = (data) => {
     const dataType = typeof data;
+    let passData = data;
     switch(dataType) {
       case 'object':
-        if(typeof data.value === 'boolean') {
-          this.props.onPress && this.props.onPress(data.value);
+        if (typeof data.value === 'boolean' || typeof data.value === 'string') { // 如果 data.value 为 false 或者 空字符串 也原样返回
+          passData = data.value;
         } else {
-          this.props.onPress && this.props.onPress(data.value || data);
+          passData = data.value || data;
         }
         break;
       case 'boolean':
-        this.props.onPress && this.props.onPress(data);
+        passData = data;
         break;
       case 'string':
-        this.props.onPress && this.props.onPress(data);
+        passData = data;
         break;
       case 'number':
-        this.props.onPress && this.props.onPress(data);
+        passData = data;
         break;
       default:
-        this.props.onPress && this.props.onPress(data);
+        passData = data;
+    }
+    
+    if (data.onPress) {
+      data.onPress(passData);
+    } else {
+      this.props.onPress && this.props.onPress(passData);
     }
   }
 

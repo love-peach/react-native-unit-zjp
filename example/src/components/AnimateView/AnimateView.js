@@ -31,9 +31,9 @@ export default class ScaleAnimateView extends Component {
     };
   }
 
-  componentDidMount() {
-    this.in();
-  }
+  // componentDidMount() {
+  //   this.in();
+  // }
 
   in(callback) {
     const { type } = this.props;

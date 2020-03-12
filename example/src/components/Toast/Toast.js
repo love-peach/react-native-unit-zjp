@@ -3,14 +3,16 @@ import PropTypes from 'prop-types';
 import RootSiblings from 'react-native-root-siblings';
 import ToastContainer from './ToastContainer';
 
-
+export {
+  RootSiblings as Manager
+};
 export default class Toast extends Component {
   static propTypes = {
     visible: PropTypes.bool,
     children: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.element]),
   }
 
-  static show = (message, options = { }) => {
+  static show = (message, options) => {
     return new RootSiblings(<ToastContainer
       { ...options }
       visible={true}
@@ -25,6 +27,38 @@ export default class Toast extends Component {
     } else {
       console.warn(`Toast.hide expected a \`RootSiblings\` instance as argument.\nBut got \`${typeof toast}\` instead.`);
     }
+  };
+
+  static success = (message, options) => {
+    return new RootSiblings(<ToastContainer
+      theme="success"
+      icon="success"
+      { ...options }
+      visible={true}
+    >
+      {message}
+    </ToastContainer>);
+  };
+
+  static error = (message, options) => {
+    return new RootSiblings(<ToastContainer
+      theme="error"
+      icon="warning"
+      { ...options }
+      visible={true}
+    >
+      {message}
+    </ToastContainer>);
+  };
+
+  static loading = (message, options) => {
+    return new RootSiblings(<ToastContainer
+      icon="loading"
+      { ...options }
+      visible={true}
+    >
+      {message}
+    </ToastContainer>);
   };
 
   _toast = null
