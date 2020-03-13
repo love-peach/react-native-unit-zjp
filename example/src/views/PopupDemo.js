@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text } from 'react-native';
-import { ButtonGroup, Button, Modal, Popup } from '../components';
+import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import { ButtonRadio, Button, Popup, Cell, CellGroup, PopupHeader } from '../components';
 
 
 export default class PopupDemo extends Component {
@@ -9,40 +9,63 @@ export default class PopupDemo extends Component {
   });
 
   state = {
-    modal1: false,
+    isShow: false,
+    maskClosable: false,
+    header: false,
   };
 
-  setModalVisibleByKey = (key, visible) => {
+  setValueByKey = (key, visible) => {
     this.setState({ [key]: visible });
   };
 
   handleMaskPress() {}
 
-  renderDemoText() {
-    return (
-      <View>
-        <Text style={{ fontSize: 18, fontWeight: 'bold', textAlign: 'center', marginBottom: 20, marginTop: 15 }}>Lorem ipsum dolor sit</Text>
-        <Text style={{ marginBottom: 10, marginRight: 15, marginLeft: 15, textAlign: 'justify' }}>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veniam quia dolore deleniti vel fuga omnis repellat ut! Voluptates expedita ipsum ex commodi tenetur debitis animi asperiores. Eius alias corrupti deleniti?
-        </Text>
-      </View>
-    );
-  }
-
   render() {
     return (
       <ScrollView>
-        <ButtonGroup>
-        </ButtonGroup>
+        <View style={{ paddingHorizontal: 10 }}>
 
-        <Button type="primary" onPress={this.setModalVisibleByKey.bind(this, 'modal1', true)}>show</Button>
+          <Text style={styles.styles}>maskClosable</Text>
+          <ButtonRadio
+            value={this.state.maskClosable}
+            options={[{label: 'false', value: false}, {label: 'true', value: true}]}
+            onPress={(v) => {this.setValueByKey('maskClosable', v); }}
+          />
 
-        <Popup visible={this.state.modal1} onClosePress={this.setModalVisibleByKey.bind(this, 'modal1', false)}>
-          {this.renderDemoText()}
-          <Button type="primary" size="lg" onPress={this.setModalVisibleByKey.bind(this, 'modal1', false)}>Yes</Button>
+          <Text style={styles.title}>header</Text>
+          <ButtonRadio
+            value={this.state.header}
+            options={[{label: 'false', value: false}, {label: 'true', value: true}]}
+            onPress={(v) => {this.setValueByKey('header', v); }}
+          />
+
+          <Button style={{ marginTop: 10 }} type="primary" onPress={this.setValueByKey.bind(this, 'isShow', true)}>show</Button>
+        </View>
+        
+        <Popup
+          maskClosable={this.state.maskClosable}
+          visible={this.state.isShow}
+          onMaskPress={() => {this.setValueByKey('isShow', false); }}
+          onCancelPress={() => {this.setValueByKey('isShow', false); }}
+        >
+          {this.state.header ? <PopupHeader title='选择期数'/> : null}
+          <CellGroup style={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
+            <Cell title="2/1期" value="420.0" label="应支付日：2019年06月21日" extra="已逾期" onPress={() => {this.setValueByKey('isShow', false); }} />
+            <Cell title="2/1期" value="420.0" label="应支付日：2019年06月21日" extra="已逾期" />
+            <Cell title="2/1期" value="420.0" label="应支付日：2019年06月21日" extra="已逾期" />
+            <Cell title="2/1期" value="420.0" label="应支付日：2019年06月21日" extra="已逾期" />
+          </CellGroup>
         </Popup>
 
       </ScrollView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  title: {
+    fontSize: 16,
+    marginTop: 10,
+    marginBottom: 10,
+  },
+});

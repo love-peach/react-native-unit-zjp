@@ -45,6 +45,8 @@ export default class MyModal extends Component {
     maskBgColor: PropTypes.string,
     onMaskPress: PropTypes.func,
 
+    onRequestClose: PropTypes.func,
+
     children: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.element]),
   };
 
@@ -53,6 +55,7 @@ export default class MyModal extends Component {
     closable: false,
     maskClosable: false,
     maskBgColor: 'rgba(0, 0, 0, .5)',
+    onRequestClose: () => {},
   };
 
   constructor(props) {
@@ -210,7 +213,7 @@ export default class MyModal extends Component {
     const { isVisible } = this.state;
 
     return (
-      <Modal visible={isVisible} {...resProps } transparent hardwareAccelerated animationType="fade">
+      <Modal visible={isVisible} {...resProps } transparent hardwareAccelerated animationType="none">
         <AnimateView
           type="fade"
           style={styles.maskWrap}

@@ -27,7 +27,6 @@ export default class CellGroup extends Component {
   buildContainerStyle = () => {
     const { style } = this.props;
     let containerStyle = {
-      // paddingLeft: 16,
       borderTopWidth: Theme.pixelSize,
       borderTopColor: Theme.border,
       borderBottomWidth: Theme.pixelSize,

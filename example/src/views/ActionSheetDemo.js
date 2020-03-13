@@ -24,6 +24,7 @@ export default class ActionSheetDemo extends Component {
     isShow: false,
     menus: 'strArr',
     theme: 'ios',
+    maskClosable: true,
     showCancel: false,
     cancelText: '取消',
     header: '',
@@ -62,6 +63,13 @@ export default class ActionSheetDemo extends Component {
             onPress={(v) => {this.setValueByKey('theme', v); }}
           />
 
+          <Text style={styles.styles}>maskClosable</Text>
+          <ButtonRadio
+            value={this.state.maskClosable}
+            options={[{label: 'false', value: false}, {label: 'true', value: true}]}
+            onPress={(v) => {this.setValueByKey('maskClosable', v); }}
+          />
+
           <Text style={styles.styles}>showCancel</Text>
           <ButtonRadio
             value={this.state.showCancel}
@@ -94,6 +102,7 @@ export default class ActionSheetDemo extends Component {
           onMaskPress={() => {this.setValueByKey('isShow', false); }}
           onCancelPress={() => {this.setValueByKey('isShow', false); }}
           menus={menusObj[this.state.menus]}
+          maskClosable={this.state.maskClosable}
           showCancel={this.state.showCancel}
           cancelText={this.state.cancelText}
           header={this.state.header ? headerObj[this.state.header] : undefined}
