@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text } from 'react-native';
-import { ButtonGroup, Button, Modal, Dialog } from '../components';
+import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import { ButtonRadio, Button, Dialog } from '../components';
 
 
 export default class DialogDemo extends Component {
@@ -9,39 +9,72 @@ export default class DialogDemo extends Component {
   });
 
   state = {
-    modal1: false,
+    isShow: false,
+    maskClosable: false,
+    header: false,
   };
 
-  setModalVisibleByKey = (key, visible) => {
+  setValueByKey = (key, visible) => {
     this.setState({ [key]: visible });
   };
 
   handleMaskPress() {}
 
-  renderDemoText() {
-    return (
-      <View>
-        <Text style={{ fontSize: 18, fontWeight: 'bold', textAlign: 'center', marginBottom: 20, marginTop: 15 }}>Lorem ipsum dolor sit</Text>
-        <Text style={{ marginBottom: 10, marginRight: 15, marginLeft: 15, textAlign: 'justify' }}>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veniam quia dolore deleniti vel fuga omnis repellat ut! Voluptates expedita ipsum ex commodi tenetur debitis animi asperiores. Eius alias corrupti deleniti?
-        </Text>
-      </View>
-    );
-  }
-
   render() {
     return (
       <ScrollView>
-        <ButtonGroup>
-          <Button type="primary" onPress={this.setModalVisibleByKey.bind(this, 'modal1', true)}>center</Button>
-        </ButtonGroup>
+        <View style={{ paddingHorizontal: 10 }}>
 
-        <Dialog visible={this.state.modal1} onClosePress={this.setModalVisibleByKey.bind(this, 'modal1', false)}>
-          {this.renderDemoText()}
-          <Button type="primary" size="lg" onPress={this.setModalVisibleByKey.bind(this, 'modal1', false)}>Yes</Button>
+          <Text style={styles.title}>header</Text>
+          <ButtonRadio
+            value={this.state.header}
+            options={[{label: 'false', value: false}, {label: 'true', value: true}]}
+            onPress={(v) => {this.setValueByKey('header', v); }}
+          />
+
+          <Button style={{ marginTop: 10 }} type="primary" onPress={this.setValueByKey.bind(this, 'isShow', true)}>show</Button>
+        </View>
+        
+        <Dialog
+          visible={this.state.isShow}
+          onCancelPress={() => {this.setValueByKey('isShow', false); }}
+          onMenuPress={(v) => {console.log(v, 'menu');}}
+          title="弹框标题"
+          // msg="弹窗内容，告知当前状态、信息和解决方法，描述文字尽量控制在三行内"
+          menus={[
+            {
+              label: '取消',
+              onPress: (v) => {
+                console.log(v);
+                this.setValueByKey('isShow', false);
+              }
+            },
+            {
+              label: '确定',
+              type: 'success',
+              disabled: true,
+              onPress: () => {
+                this.setValueByKey('isShow', false);
+              }
+            },
+            {
+              label: '确定',
+              type: 'success',
+            }
+          ]}
+        >
+          <Text>1212</Text>
+          <Button>fefe</Button>
         </Dialog>
-
       </ScrollView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  title: {
+    fontSize: 16,
+    marginTop: 10,
+    marginBottom: 10,
+  },
+});

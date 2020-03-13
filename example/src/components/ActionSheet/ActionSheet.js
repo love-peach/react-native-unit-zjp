@@ -78,8 +78,8 @@ export default class ActionSheet extends Component {
     });
   }
 
-  // 生成按钮文字
-  renderLabel() {
+  // 生成header
+  renderHeader() {
     const { header } = this.props;
 
     if (React.isValidElement(header)) {
@@ -93,7 +93,6 @@ export default class ActionSheet extends Component {
         {header.titleSub ? <Text style={StyleSheet.flatten([styles.headerTitleSub, header.title ? { marginTop: 8 } : null])} numberOfLines={2}>{header.titleSub}</Text> : null}
       </View>
     );
-
   }
 
   render() {
@@ -101,10 +100,9 @@ export default class ActionSheet extends Component {
     const menusLength = menus.length;
     return(
       <Modal visible={this.state.isVisible} {...restProps} placement={theme === 'ios' ? 'bottom' : 'center'} fade={theme === 'android'} contentStyle={{ padding: 0, backgroundColor: Theme.grayLight, overflow: 'hidden' }}>
-        {header ? this.renderLabel() : null}
+        {header ? this.renderHeader() : null}
         {header ? <SplitLine color={Theme.grayDark} /> : null}
         
-
         {menus.map((item, index) => {
           return (
             <View key={`buttonWrap${index}`}>
@@ -146,7 +144,6 @@ export default class ActionSheet extends Component {
     );
   }
 }
-
 
 const styles = StyleSheet.create({
   headerWrap: {

@@ -117,6 +117,8 @@ export default class MyModal extends Component {
           width: width ? (isWidthNum ? width : `${width}%`) : RNWindow.width * 0.8,
           borderRadius: 5,
           padding: 10,
+          // borderWidth: 10,
+          // width: '90%',
         };
         break;
       case 'top':
