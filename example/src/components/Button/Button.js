@@ -38,7 +38,7 @@ import Theme from '../../themes/Theme';
  */
 export default class Button extends Component {
   static propTypes = {
-    type: PropTypes.oneOf(['default', 'primary', 'info', 'warning', 'success', 'error', 'gray', 'golden', 'text']),
+    type: PropTypes.oneOf(['default', 'primary', 'info', 'warning', 'success', 'error', 'gray', 'golden', 'text', 'white']),
     size: PropTypes.oneOf(['xl', 'lg', 'md', 'sm', 'xs']),
     radius: PropTypes.number,
     color: PropTypes.string,
@@ -142,12 +142,13 @@ export default class Button extends Component {
     const { type, ghost, outlineColor, outlineWidth, outlineType, disabled } = this.props;
     let outlineStyle = {
       borderColor: 'transparent',
-      borderWidth: outlineWidth || Theme.btn_border_width,
+      borderWidth: outlineWidth === 0 ? outlineWidth : outlineWidth || Theme.btn_border_width,
       borderStyle: outlineType,
     };
     if (ghost) {
-      outlineStyle.borderWidth = outlineWidth || Theme.btn_border_width;
+      outlineStyle.borderWidth = outlineWidth === 0 ? outlineWidth : outlineWidth || Theme.btn_border_width;
       outlineStyle.borderStyle = outlineType;
+
       if (outlineColor) {
         outlineStyle.borderColor = outlineColor;
       } else if (type === 'default') {

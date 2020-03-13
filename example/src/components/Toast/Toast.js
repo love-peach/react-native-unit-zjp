@@ -78,6 +78,7 @@ export default class Toast extends Component {
   }
 
   componentWillUnmount = () => {
+    console.log(1);
     this._toast.destroy();
   };
 

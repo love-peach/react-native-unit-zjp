@@ -33,8 +33,9 @@ export default class PopupDemo extends Component {
     return (
       <ScrollView>
         <ButtonGroup>
-          <Button type="primary" onPress={this.setModalVisibleByKey.bind(this, 'modal1', true)}>center</Button>
         </ButtonGroup>
+
+        <Button type="primary" onPress={this.setModalVisibleByKey.bind(this, 'modal1', true)}>show</Button>
 
         <Popup visible={this.state.modal1} onClosePress={this.setModalVisibleByKey.bind(this, 'modal1', false)}>
           {this.renderDemoText()}

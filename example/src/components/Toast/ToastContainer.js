@@ -59,7 +59,6 @@ export default class ToastContainer extends Component {
     super(...arguments);
     this.state = {
       visible: this.props.visible,
-      contentHeight: 0,
     };
   }
 
@@ -86,7 +85,8 @@ export default class ToastContainer extends Component {
   };
 
   componentWillUnmount = () => {
-    this._hide();
+    console.log(2);
+    // this._hide();
   };
 
   _animating = false;
@@ -177,6 +177,7 @@ export default class ToastContainer extends Component {
         break;
     }
     WrapComponentProps.type = animateType;
+    console.log(WrapComponentProps, 'WrapComponentProps');
     return WrapComponentProps;
   }
 

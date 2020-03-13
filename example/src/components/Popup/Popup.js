@@ -4,14 +4,16 @@ import PropTypes from 'prop-types';
 
 export default class Popup extends Component {
   static propTypes = {
-    visible: PropTypes.bool,
     full: PropTypes.bool,
     children: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.element]),
   }
+  static defaultProps = {
+    maskClosable: true,
+  }
   render() {
-    const { visible, ...restProps } = this.props;
+    const { ...restProps } = this.props;
     return(
-      <Modal visible={visible} {...restProps} placement="bottom">
+      <Modal {...restProps} placement="bottom">
         {this.props.children}
       </Modal>
     );

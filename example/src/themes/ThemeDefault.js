@@ -50,6 +50,7 @@ export default {
   btn_bg_gray: color.grayLight,
   btn_bg_golden: color.golden,
   btn_bg_text: 'transparent',
+  btn_bg_white: color.white,
   btn_bg_disabled: color.gray,
 
   // btn - text color
@@ -62,6 +63,7 @@ export default {
   btn_text_gray: color.titleSub,
   btn_text_golden: color.titleMain,
   btn_text_text: color.primary,
+  btn_text_white: color.titleMain,
   btn_text_disabled: color.white,
 
   // btn - height

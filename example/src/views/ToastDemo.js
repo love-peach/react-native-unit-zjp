@@ -52,12 +52,34 @@ export default class ToastDemo extends Component {
 
   handleShowToastBySuccess() {
     this.MyToast && this.MyToast.destroy();
-    this.MyToast = Toast.success('Success!');
+    this.MyToast = Toast.success('Success!', {
+      // theme: this.state.theme,
+      placement: this.state.placement,
+      animateType: this.state.animateType,
+      // backgroundColor: this.state.backgroundColor || undefined,
+      // color: this.state.color,
+      mask: this.state.mask,
+      maskBgColor: this.state.maskBgColor,
+      maskClosable: this.state.maskClosable,
+      width: this.state.width || undefined,
+      radius: parseInt(this.state.radius, 10)
+    });
   }
 
   handleShowToastByError() {
     this.MyToast && this.MyToast.destroy();
-    this.MyToast = Toast.error('fail!');
+    this.MyToast = Toast.error('fail!', {
+      // theme: this.state.theme,
+      placement: this.state.placement,
+      animateType: this.state.animateType,
+      // backgroundColor: this.state.backgroundColor || undefined,
+      // color: this.state.color,
+      mask: this.state.mask,
+      maskBgColor: this.state.maskBgColor,
+      maskClosable: this.state.maskClosable,
+      width: this.state.width || undefined,
+      radius: parseInt(this.state.radius, 10)
+    });
   }
 
   handleShowToastByLoading() {
