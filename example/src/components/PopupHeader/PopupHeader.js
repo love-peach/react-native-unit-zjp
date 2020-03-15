@@ -17,30 +17,32 @@ export default class PopupHeader extends Component {
     onLeftPress: PropTypes.func,
     onRightPress: PropTypes.func,
 
+    splitLineProps: PropTypes.object,
+
     style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
     children: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.element]),
   }
   static defaultProps = {
     leftText: '取消',
     rightText: '确认',
+    splitLineProps: {},
   }
 
 
   render() {
-    const { style, title, leftText, rightText, onLeftPress, onRightPress } = this.props;
+    const { style, title, leftText, rightText, onLeftPress, onRightPress, splitLineProps } = this.props;
     return(
       <View>
         <View style={StyleSheet.flatten([styles.headerWrap, style])}>
-          <Button size="lg" radius={0} type="text" color={Theme.title} onPress={() => { onLeftPress && onLeftPress(); }}>{leftText}</Button>
+          <Button size="lg" radius={0} type="text" color={Theme.title} onPress={() => { onLeftPress && onLeftPress(); }} containerStyle={{ paddingVertical: 15 }}>{leftText}</Button>
           <Text style={styles.title}>{title}</Text>
-          <Button size="lg" radius={0}  type="text" color={Theme.warning} onPress={() => { onRightPress && onRightPress(); }}>{rightText}</Button>
+          <Button size="lg" radius={0}  type="text" color={Theme.warning} onPress={() => { onRightPress && onRightPress(); }} containerStyle={{ paddingVertical: 15 }}>{rightText}</Button>
         </View>
-        <SplitLine />
+        <SplitLine { ...splitLineProps } />
       </View>
     );
   }
 }
-
 
 const styles = StyleSheet.create({
   headerWrap: {
@@ -48,6 +50,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 5,
     flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor: Theme.grayLight,
   },
   title: {
     flex: 1,

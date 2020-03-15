@@ -31,22 +31,21 @@ const closeIconDefaultSource = require('../../icons/close.png');
 export default class MyModal extends Component {
   static propTypes = {
     visible: PropTypes.bool,
-    animateType: PropTypes.string, // PropTypes.oneOfType(['fade', 'scale', 'slide-top', 'slide-bottom', 'slide-left', 'slide-right']),
     placement: PropTypes.oneOfType(['center', 'top', 'bottom', 'left', 'right']),
+    animateType: PropTypes.oneOfType(['fade', 'scale', 'slide-top', 'slide-bottom', 'slide-left', 'slide-right']),
+    animateDuration: PropTypes.number,
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     radius: PropTypes.number,
     contentStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-
-    fade: PropTypes.bool,
-
-    closable: PropTypes.bool,
-    closeStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
-    onClosePress: PropTypes.func,
 
     mask: PropTypes.bool,
     maskClosable: PropTypes.bool,
     maskBgColor: PropTypes.string,
     onMaskPress: PropTypes.func,
+
+    closable: PropTypes.bool,
+    closeStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+    onClosePress: PropTypes.func,
 
     onRequestClose: PropTypes.func,
 
@@ -55,6 +54,7 @@ export default class MyModal extends Component {
 
   static defaultProps = {
     placement: 'center',
+    animateDuration: 200,
     radius: 5,
     closable: false,
     mask: true,
@@ -94,13 +94,14 @@ export default class MyModal extends Component {
   }
 
   hide() {
+    const { animateDuration } = this.props;
     this.animateView && this.animateView.out();
     this.maskAnimateView && this.maskAnimateView.out();
     setTimeout(() => {
       this.setState({
         isVisible: false,
       });
-    }, 200);
+    }, animateDuration);
   }
 
   handleMaskClick = () => {
@@ -160,7 +161,7 @@ export default class MyModal extends Component {
 
   // 生成动画视图组件
   buildAnimateViewProps = () => {
-    const { fade, placement, animateType, width } = this.props;
+    const { placement, animateType, width } = this.props;
     let WrapComponentProps = {};
     const widthNum = parseFloat(width, 10);
 
@@ -185,9 +186,8 @@ export default class MyModal extends Component {
         WrapComponentProps.type = animateType || 'slide-right';
         WrapComponentProps.widthNum ? (widthNum > 100 ? widthNum : RNWindow.width * widthNum / 100 ) : RNWindow.width * 0.8;
         break;
-    }
-    if (fade) {
-      WrapComponentProps.type = animateType || 'fade';
+      default:
+        WrapComponentProps.type = animateType || 'scale';
     }
     return WrapComponentProps;
   }
@@ -216,18 +216,18 @@ export default class MyModal extends Component {
   }
 
   render() {
-    const { visible, placement, mask, maskBgColor, maskClosable, onMaskPress, onClosePress, ...resProps } = this.props;
+    const { visible, placement, animateType, animateDuration, width, radius, contentStyle, mask, maskBgColor, maskClosable, onMaskPress, closable, onClosePress, closeStyle, ...resProps } = this.props;
     const { isVisible } = this.state;
 
     return (
       <Modal visible={isVisible} {...resProps } transparent hardwareAccelerated animationType="none">
         {mask ? (
           <AnimateView
-            type="fade"
             style={styles.maskWrap}
             ref={ref => {
               this.maskAnimateView = ref;
             }}
+            duration={animateDuration || undefined}
           >
             <Mask onPress={maskClosable ? (onMaskPress || this.handleMaskClick) : null} bgColor={maskBgColor} />
           </AnimateView>
@@ -238,7 +238,8 @@ export default class MyModal extends Component {
             ref={ref => {
               this.animateView = ref;
             }}
-            {...this.buildAnimateViewProps() }
+            duration={animateDuration || undefined}
+            {...this.buildAnimateViewProps()}
           >
             <View style={this.buildContentStyle()}  onLayout={(event) => this.measureView(event)}>
               {this.renderCloseIcon()}

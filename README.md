@@ -201,6 +201,24 @@ maxLength | 限制文本框中最多的字符数。当 type 为 `textarea` 时�
 keyboardType | 键盘类型。`TextInput` 原生属性 | String | -
 clearButtonMode | 如何展示清除按钮。`TextInput` 原生属性 | String | -
 
+### SplitLine
+
+下划线
+
+```html
+<SplitLine />
+```
+
+**API**
+属性 | 说明 |  类型 | 默认值
+-| - | - | -
+width | 下划线宽度。数字 或者 百分比 '50%' | number \| string | -
+type | 下换线类型。可选值为`solid`、`dotted`、`dashed` | String | solid
+color | 下划线颜色 | String | Theme.border
+size | 下划线粗细 | Number | Theme.pixelSize
+opacity | 下划线透明度 | number | 0.9
+style | 自定义下划线样式 | Object | -
+
 ### Tip
 
 提示组件
@@ -233,7 +251,7 @@ children | 提示文字 | String \| Element | -
 ```html
 <Modal visible={this.state.isShowModal} width="90">
   {this.renderDemoText()}
-  <Button type="primary" size="lg">Yes</Button>
+  <Button type="primary" size="lg">Close</Button>
 </Modal>
 ```
 
@@ -242,13 +260,100 @@ children | 提示文字 | String \| Element | -
 属性 | 说明 |  类型 | 默认值
 -| - | - | -
 visible | 控制弹框显示隐藏 | Boolean | false
-placement | 弹框出现位置。可选值为 `center`、`top`、`bottom`、`left`、`right` | String | center
-width | 控制容器宽度。当为数值，则宽度为具体值；当为字符串，则宽度为百分比 | String \| Number | 100%
+placement | 弹框出现位置。可选值为 `center`、`top`、`bottom`、`left`、`right` | String | -
+animateType | 弹框动画方式。可选值为 `fade`、`scale`、`slide-top`、`slide-bottom`、`slide-right`、`slide-left`、 | String | -
+animateDuration | 动画持续时间 | number | 200
+width | 控制容器宽度。当其值不大于 100 时以百分比显示，大于 100 时为具体值 | Number | 100%
+radius | 控制容器圆角大小 | number | 5
 contentStyle | 容器样式 | Object | -
+mask | 是否显示遮罩
+maskClosable | 控制点击遮罩层是否可以关闭 | Boolean | false
+maskBgColor | 遮罩层背景色 | String | rgba(0,0,0,0.6)
+onMaskPress | 遮罩层点击事件 | Event | -
 closable | 是否显示关闭按钮 | Boolean | false
 closeStyle | 关闭按钮样式 | Object | -
 onClosePress | 关闭事件 | Event | -
-maskBgColor | 遮罩层背景色 | String | rgba(0,0,0,0.6)
-maskClosable | 控制点击遮罩层是否可以关闭 | Boolean | false
-onMaskPress | 遮罩层点击事件 | Event | -
+onRequestClose | 安卓必填。物理键返回函数。 | Function | -
 
+### Popup
+
+弹出组件。套用的是 `Modal` 组件，因此，`Modal` 的属性，同样适用于 该组件。
+
+```html
+<Popup visible={this.state.isShow}>
+  ...
+</Popup>
+```
+
+**API**
+属性 | 说明 |  类型 | 默认值
+-| - | - | -
+visible | 控制弹框显示隐藏 | Boolean | false
+placement | 弹框出现位置 | String | bottom
+splitLineProps | 下划线属性 | Object | -
+
+### PopupHeader
+
+弹出组件的标题组件。
+
+```html
+<Popup visible={this.state.isShow}>
+  <PopupHeader onLeftPress={} onRightPress={} />
+  ...
+</Popup>
+```
+
+**API**
+属性 | 说明 |  类型 | 默认值
+-| - | - | -
+title | 标题 | string | -
+leftText | 左边文字 | String | 取消
+rightText | 右边文字 | String | 确认
+onLeftPress | 左边点击事件 | Function | -
+onRightPress | 左边点击事件 | Function | -
+style | 自定义 header 样式 | Object | -
+
+### ActionSheet
+
+Action Sheet是由用户操作后触发的一种特定的模态弹出框。套用的是 `Modal` 组件，因此，`Modal` 的属性，同样适用于 该组件。
+
+`menus` 数组，是 按钮 的属性对象，因此，可参考 `Button` 组件
+
+```html
+<SplitLine />
+```
+
+**API**
+属性 | 说明 |  类型 | 默认值
+-| - | - | -
+visible | 控制弹框显示隐藏 | Boolean | false
+menus | 菜单项列表 | array | -
+theme | 菜单风格。可选值为`ios`、`android` | String | ios
+onMenuPress | 点击菜单回调事件 | Function | -
+showCancel | 显示取消按钮 | Boolean | false
+cancelText | 取消按钮文字 | number | 0.9
+onCancelPress | 点击取消事件 | Function | -
+cancelProps | 取消按钮属性 | Object | -
+maskClosable | 背景遮罩是否可点击 | Boolean | true
+header.title | 标题 | String \| Element | -
+header.titleSub | 副标题 | String \| Element | -
+
+
+### ActionSheet
+
+对话框组件，套用的是 `Modal` 组件，因此，`Modal` 的属性，同样适用于 该组件。
+
+`menus` 数组，是 按钮 的属性对象，因此，可参考 `Button` 组件
+
+```html
+<SplitLine />
+```
+
+**API**
+属性 | 说明 |  类型 | 默认值
+-| - | - | -
+visible | 控制弹框显示隐藏 | Boolean | false
+menus | 操作菜单项列表 | array | -
+title | 标题 | String | -
+msg | 副标题 | String | -
+onMenuPress | 点击菜单回调事件 | Function | -

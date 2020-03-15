@@ -43,12 +43,12 @@ export default class PopupDemo extends Component {
         </View>
         
         <Popup
-          maskClosable={this.state.maskClosable}
           visible={this.state.isShow}
+          maskClosable={this.state.maskClosable}
           onMaskPress={() => {this.setValueByKey('isShow', false); }}
           onCancelPress={() => {this.setValueByKey('isShow', false); }}
         >
-          {this.state.header ? <PopupHeader title='选择期数'/> : null}
+          {this.state.header ? <PopupHeader title='选择期数' /> : null}
           <CellGroup style={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
             <Cell title="2/1期" value="420.0" label="应支付日：2019年06月21日" extra="已逾期" onPress={() => {this.setValueByKey('isShow', false); }} />
             <Cell title="2/1期" value="420.0" label="应支付日：2019年06月21日" extra="已逾期" />

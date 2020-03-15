@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 
 export default class ActionSheet extends Component {
   static propTypes = {
+    visible: PropTypes.bool,
     theme: PropTypes.oneOfType(['ios', 'android']),
     menus: PropTypes.array,
     onMenuPress: PropTypes.func,
@@ -21,7 +22,6 @@ export default class ActionSheet extends Component {
     onCancelPress: PropTypes.func,
     cancelProps: PropTypes.object,
 
-    visible: PropTypes.bool,
     maskClosable: PropTypes.bool,
     onMaskPress: PropTypes.func,
 

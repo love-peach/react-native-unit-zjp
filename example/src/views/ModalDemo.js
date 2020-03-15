@@ -11,6 +11,7 @@ export default class ModalDemo extends Component {
   state = {
     placement: 'center',
     animateType: '',
+    animateDuration: '',
     width: '',
     radius: '',
     closable: false,
@@ -46,6 +47,9 @@ export default class ModalDemo extends Component {
             <ButtonRadio value={this.state.animateType} options={[{label: 'unset', value: ''}, 'scale', 'fade', 'slide-top', 'slide-bottom', 'slide-left', 'slide-right']} onPress={v => {this.setModalVisibleByKey('animateType', v);}} />
           </ScrollView>
 
+          <Text style={styles.title}>animateDuration</Text>
+          <ButtonRadio value={this.state.animateDuration} options={[{label: 'unset', value: ''}, 100, 150, 200, 300, 400, 500, 600, 1000]} onPress={v => {this.setModalVisibleByKey('animateDuration', v);}} />
+
           <Text style={styles.title}>width</Text>
           <ButtonRadio value={this.state.width} options={[ {label: 'unset', value: ''}, 30, 50, 80, 150, 200, 300]} onPress={v => {this.setModalVisibleByKey('width', v);}} />
 
@@ -73,6 +77,7 @@ export default class ModalDemo extends Component {
           visible={this.state.isShowModal}
           placement={this.state.placement}
           animateType={this.state.animateType || undefined}
+          animateDuration={this.state.animateDuration || undefined}
           width={this.state.width || undefined}
           radius={this.state.radius === '' ? undefined : this.state.radius}
           closable={this.state.closable}

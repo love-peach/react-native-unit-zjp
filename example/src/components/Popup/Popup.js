@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import Modal from '../Modal/Modal';
 import PropTypes from 'prop-types';
-import Theme from '../../themes/Theme';
 
 export default class Popup extends Component {
   static propTypes = {
-
     visible: PropTypes.bool,
     maskClosable: PropTypes.bool,
     onMaskPress: PropTypes.func,
+    contentStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
 
     children: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.element]),
   }
@@ -54,9 +53,9 @@ export default class Popup extends Component {
   }
 
   render() {
-    const { children, ...restProps } = this.props;
+    const { contentStyle = {}, children, ...restProps } = this.props;
     return(
-      <Modal visible={this.state.isVisible} {...restProps} placement="bottom" contentStyle={{ padding: 0, backgroundColor: Theme.grayLight }}>
+      <Modal visible={this.state.isVisible} placement="bottom" {...restProps} contentStyle={{ padding: 0, ...contentStyle }}>
         {this.props.children}
       </Modal>
     );

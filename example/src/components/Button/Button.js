@@ -278,7 +278,7 @@ export default class Button extends Component {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        height: Theme[`btn_height_${size}`],
+        minHeight: Theme[`btn_height_${size}`],
         minWidth: Theme[`btn_min_width_${size}`],
         paddingHorizontal: Theme[`btn_padding_horizontal_${size}`],
         // paddingVertical: Theme[`btn_padding_vertical_${size}`],

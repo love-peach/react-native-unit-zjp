@@ -7,7 +7,7 @@ const RNWindow = Dimensions.get('window');
 export default class ScaleAnimateView extends Component {
   static propTypes = {
     type: PropTypes.oneOf(['scale', 'fade', 'slide-bottom', 'slide-top', 'slide-left', 'slide-right']),
-
+    duration: PropTypes.number,
     height: PropTypes.number,
     width: PropTypes.number,
 
@@ -17,6 +17,7 @@ export default class ScaleAnimateView extends Component {
 
   static defaultProps = {
     type: 'fade',
+    duration: 200,
     height: RNWindow.height * 0.5,
     width: RNWindow.width * 0.8,
   };
@@ -36,18 +37,18 @@ export default class ScaleAnimateView extends Component {
   }
 
   in(callback) {
-    const { type } = this.props;
+    const { type, duration } = this.props;
     let animateObj = {};
     switch(type) {
       case 'scale':
         animateObj = Animated.parallel([
           Animated.spring(this.state.scaleRatio, {
             toValue: 1,
-            duration: 200,
+            duration: duration,
           }),
           Animated.timing(this.state.opacity, {
             toValue: 1,
-            duration: 200,
+            duration: duration,
           }),
         ]);
         break;
@@ -55,7 +56,7 @@ export default class ScaleAnimateView extends Component {
       case 'slide-top':
         animateObj = Animated.spring(this.state.offsetH, {
           toValue: 0,
-          duration: 200,
+          duration: duration,
           friction: 10,
           tension: 50,
         });
@@ -64,7 +65,7 @@ export default class ScaleAnimateView extends Component {
       case 'slide-right':
         animateObj = Animated.spring(this.state.offsetW, {
           toValue: 0,
-          duration: 200,
+          duration: duration,
           friction: 10,
           tension: 50,
         });
@@ -72,7 +73,7 @@ export default class ScaleAnimateView extends Component {
       default:
         animateObj = Animated.timing(this.state.opacity, {
           toValue: 1,
-          duration: 200,
+          duration: duration,
         });
     }
 
@@ -83,53 +84,53 @@ export default class ScaleAnimateView extends Component {
 
   out(callback) {
 
-    const { type } = this.props;
+    const { type, duration } = this.props;
     let animateObj = {};
     switch(type) {
       case 'scale':
         animateObj = Animated.parallel([
           Animated.timing(this.state.scaleRatio, {
             toValue: 1.1,
-            duration: 200,
+            duration: duration,
           }),
           Animated.timing(this.state.opacity, {
             toValue: 0,
-            duration: 200,
+            duration: duration,
           }),
         ]);
         break;
       case 'slide-bottom':
         animateObj = Animated.timing(this.state.offsetH, {
           toValue: this.props.height * 1.3, // *1.3 是保证内容完全退出屏幕 
-          duration: 200,
+          duration: duration,
           easing: Easing.cubic,
         });
         break;
       case 'slide-top':
         animateObj = Animated.timing(this.state.offsetH, {
           toValue: -this.props.height * 1.3, // *1.3 是保证内容完全退出屏幕 
-          duration: 200,
+          duration: duration,
           easing: Easing.cubic,
         });
         break;
       case 'slide-left':
         animateObj = Animated.timing(this.state.offsetW, {
           toValue: -this.props.width * 1.2,
-          duration: 200,
+          duration: duration,
           easing: Easing.cubic,
         });
         break;
       case 'slide-right':
         animateObj = Animated.timing(this.state.offsetW, {
           toValue: this.props.width * 1.2,
-          duration: 200,
+          duration: duration,
           easing: Easing.cubic,
         });
         break;
       default:
         animateObj = Animated.timing(this.state.opacity, {
           toValue: 0,
-          duration: 200,
+          duration: duration,
         });
     }
 
