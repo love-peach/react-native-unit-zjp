@@ -210,6 +210,7 @@ clearButtonMode | 如何展示清除按钮。`TextInput` 原生属性 | String |
 ```
 
 **API**
+
 属性 | 说明 |  类型 | 默认值
 -| - | - | -
 width | 下划线宽度。数字 或者 百分比 '50%' | number \| string | -
