@@ -286,6 +286,7 @@ onRequestClose | 安卓必填。物理键返回函数。 | Function | -
 ```
 
 **API**
+
 属性 | 说明 |  类型 | 默认值
 -| - | - | -
 visible | 控制弹框显示隐藏 | Boolean | false
@@ -304,6 +305,7 @@ splitLineProps | 下划线属性 | Object | -
 ```
 
 **API**
+
 属性 | 说明 |  类型 | 默认值
 -| - | - | -
 title | 标题 | string | -
@@ -324,6 +326,7 @@ Action Sheet是由用户操作后触发的一种特定的模态弹出框。套�
 ```
 
 **API**
+
 属性 | 说明 |  类型 | 默认值
 -| - | - | -
 visible | 控制弹框显示隐藏 | Boolean | false
@@ -350,6 +353,7 @@ header.titleSub | 副标题 | String \| Element | -
 ```
 
 **API**
+
 属性 | 说明 |  类型 | 默认值
 -| - | - | -
 visible | 控制弹框显示隐藏 | Boolean | false
