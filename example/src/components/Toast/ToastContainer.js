@@ -142,12 +142,13 @@ export default class ToastContainer extends Component {
   // 构建动画容器样式
   buildAnimateViewStyle() {
     const { width } = this.props;
+    const widthNum = parseFloat(width);
     let dynamicStyle = {};
-    if (width) {
-      if ( typeof width === 'number') {
-        dynamicStyle.width = width;
+    if (widthNum) {
+      if (widthNum > 100) {
+        dynamicStyle.width = widthNum;
       } else {
-        dynamicStyle.width = `${width}%`;
+        dynamicStyle.width = RNWindow.width * widthNum / 100;
       }
     }
     return dynamicStyle;
@@ -291,7 +292,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 15,
     backgroundColor: '#4c4c4c',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   label: {
     // minWidth: 170,

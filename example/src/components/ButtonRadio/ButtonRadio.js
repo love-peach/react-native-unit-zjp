@@ -29,34 +29,23 @@ export default class ButtonRadio extends Component {
   }
 
   handleOnPress = (data) => {
-    const dataType = typeof data;
     let passData = data;
-
-    switch(dataType) {
-      case 'object':
-        if (typeof data.value === 'boolean' || typeof data.value === 'string' || typeof data.value === 'number') { // 如果 data.value 为 false 或者 空字符串 也原样返回
-          passData = data.value;
-        } else {
-          passData = data.value || data;
-        }
-        break;
-      case 'boolean':
-        passData = data;
-        break;
-      case 'string':
-        passData = data;
-        break;
-      case 'number':
-        passData = data;
-        break;
-      default:
-        passData = data;
+    if (typeof data.value !== 'undefined') {
+      passData = data.value;
     }
-    
+
     if (data.onPress) {
       data.onPress(passData);
     } else {
       this.props.onPress && this.props.onPress(passData);
+    }
+  }
+
+  renderLabel(item) {
+    if (typeof item.label === 'undefined') {
+      return item + '';
+    } else {
+      return item.label + '';
     }
   }
 
@@ -85,7 +74,7 @@ export default class ButtonRadio extends Component {
                 onPress={() => {this.handleOnPress(item);}}
                 style={StyleSheet.flatten([dynamicStyle, item.style])}
               >
-                {item.label || item}
+                {this.renderLabel(item)}
               </Button>
             );
           })

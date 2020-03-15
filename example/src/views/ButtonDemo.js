@@ -106,19 +106,19 @@ export default class ButtonDemo extends Component {
           <ButtonRadio value={this.state.size} options={['xs', 'sm', 'md', 'lg', 'xl' ]} onPress={v => {this.setValueByKey('size', v);}} />
 
           <Text style={styles.title}>radius</Text>
-          <ButtonRadio value={this.state.radius} options={[{label: '0', value: 0}, 2, 5, 10, 1000]} onPress={v => {this.setValueByKey('radius', v);}} />
+          <ButtonRadio value={this.state.radius} options={[0, 2, 5, 10, 1000]} onPress={v => {this.setValueByKey('radius', v);}} />
 
           <Text style={styles.title}>icon</Text>
-          <ButtonRadio value={this.state.icon} options={[{label: 'true', value: true}, {label: 'false', value: false}]} onPress={v => {this.setValueByKey('icon', v);}} />
+          <ButtonRadio value={this.state.icon} options={[true, false]} onPress={v => {this.setValueByKey('icon', v);}} />
 
           <Text style={styles.title}>loading</Text>
-          <ButtonRadio value={this.state.loading} options={[{label: 'true', value: true}, {label: 'false', value: false}]} onPress={v => {this.setValueByKey('loading', v);}} />
+          <ButtonRadio value={this.state.loading} options={[true, false]} onPress={v => {this.setValueByKey('loading', v);}} />
 
           <Text style={styles.title}>iconOnRight</Text>
-          <ButtonRadio value={this.state.iconOnRight} options={[{label: 'true', value: true}, {label: 'false', value: false}]} onPress={v => {this.setValueByKey('iconOnRight', v);}} />
+          <ButtonRadio value={this.state.iconOnRight} options={[true, false]} onPress={v => {this.setValueByKey('iconOnRight', v);}} />
 
           <Text style={styles.title}>ghost</Text>
-          <ButtonRadio value={this.state.ghost} options={[{label: 'true', value: true}, {label: 'false', value: false}]} onPress={v => {this.setValueByKey('ghost', v);}} />
+          <ButtonRadio value={this.state.ghost} options={[true, false]} onPress={v => {this.setValueByKey('ghost', v);}} />
 
           <Text style={styles.title}>outlineType</Text>
           <ButtonRadio value={this.state.outlineType} options={['solid', 'dotted', 'dashed']} onPress={v => {this.setValueByKey('outlineType', v);}} />
@@ -130,7 +130,7 @@ export default class ButtonDemo extends Component {
           <ButtonRadio value={this.state.outlineWidth} options={[Theme.pixelSize, 1, 2, 3, 4, 5]} onPress={v => {this.setValueByKey('outlineWidth', v);}} />
 
           <Text style={styles.title}>gradient</Text>
-          <ButtonRadio value={this.state.gradient} options={[{label: 'true', value: true}, {label: 'false', value: false}]} onPress={v => {this.setValueByKey('gradient', v);}} />
+          <ButtonRadio value={this.state.gradient} options={[true, false]} onPress={v => {this.setValueByKey('gradient', v);}} />
 
           <Text style={styles.title}>gradientColors[0]</Text>
           <ButtonRadio value={this.state.gradientColors0} options={[Theme.info, Theme.primary, Theme.success,  Theme.warning, Theme.error]} onPress={v => {this.setValueByKey('gradientColors0', v);}} />
@@ -148,7 +148,7 @@ export default class ButtonDemo extends Component {
           <ButtonRadio value={this.state.backgroundColor} options={[{label: 'unset', value: ''}, '#2faa93', 'rgba(0,0,0,.4)']} onPress={v => {this.setValueByKey('backgroundColor', v);}} />
 
           <Text style={styles.title}>disabled</Text>
-          <ButtonRadio value={this.state.disabled} options={[{label: 'true', value: true}, {label: 'false', value: false}]} onPress={v => {this.setValueByKey('disabled', v);}} />
+          <ButtonRadio value={this.state.disabled} options={[true, false]} onPress={v => {this.setValueByKey('disabled', v);}} />
 
         </ScrollView>
       </View>

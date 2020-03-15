@@ -14,14 +14,11 @@ export default class Dialog extends Component {
     msg: PropTypes.string,
     onMenuPress: PropTypes.func,
 
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-
     children: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.element]),
   }
 
 
   static defaultProps = {
-    width: '80',
     menus: [],
   }
 
@@ -65,7 +62,7 @@ export default class Dialog extends Component {
     const { visible, menus, title, msg, onMenuPress, children, ...restProps } = this.props;
     const menusLength = menus.length;
     return(
-      <Modal maskClosable={false} placement='center' contentStyle={{ padding: 0, backgroundColor: Theme.grayLight}} {...restProps} visible={this.state.isVisible} width={'80'}>
+      <Modal maskClosable={false} placement='center' contentStyle={{ padding: 0, backgroundColor: Theme.grayLight}} {...restProps} visible={this.state.isVisible}>
         <View style={styles.contentWrap}>
           {title ? <Text style={styles.title}>{title}</Text> : null }
           {msg ? <Text style={styles.msg}>{msg}</Text> : null }
@@ -105,8 +102,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
-    // width: '100%',
-    // borderWidth: 10,
   },
   title: {
     fontSize: 20,

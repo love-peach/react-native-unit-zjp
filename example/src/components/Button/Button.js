@@ -254,9 +254,8 @@ export default class Button extends Component {
     if (children) {
       let childElements = [];
       React.Children.forEach(children, (item) => {
-        if (typeof item === 'string') {
-          childElements.push(<Text key={item} style={labelStyleFinaly} numberOfLines={1}>{item}</Text>);
-        } else if (typeof item === 'number') {
+        const itemType = typeof item;
+        if (itemType === 'string' || itemType === 'boolean' || itemType === 'number') {
           childElements.push(<Text key={item} style={labelStyleFinaly} numberOfLines={1}>{item + ''}</Text>);
         } else if (React.isValidElement(item)) {
           childElements.push(item);

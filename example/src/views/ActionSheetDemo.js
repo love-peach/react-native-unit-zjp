@@ -66,14 +66,14 @@ export default class ActionSheetDemo extends Component {
           <Text style={styles.styles}>maskClosable</Text>
           <ButtonRadio
             value={this.state.maskClosable}
-            options={[{label: 'false', value: false}, {label: 'true', value: true}]}
+            options={[false, true]}
             onPress={(v) => {this.setValueByKey('maskClosable', v); }}
           />
 
           <Text style={styles.styles}>showCancel</Text>
           <ButtonRadio
             value={this.state.showCancel}
-            options={[{label: 'false', value: false}, {label: 'true', value: true}]}
+            options={[false, true]}
             onPress={(v) => {this.setValueByKey('showCancel', v); }}
           />
 

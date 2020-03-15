@@ -14,7 +14,7 @@ const closeIconDefaultSource = require('../../icons/close.png');
 /**
  * @param {Boolean} visible 控制 modal 是否显示
  * @param {String} placement 弹框内容出现位置，可选值为 [center, bottom, top, left, right]
- * @param {Number|String} width 内容块宽度 可以设置数值 或者 字符串。当为数值，则宽度为具体值；当为字符串，则宽度为百分比；
+ * @param {Number|String} width 内容块宽度 可以设置数值 或者 字符串。当其值不大于 100 时以百分比显示，大于 100 时为具体值
  * @param {Object} contentStyle 内容块样式
  * 
  * @param {Boolean} closable 是否显示关闭按钮
@@ -31,8 +31,10 @@ const closeIconDefaultSource = require('../../icons/close.png');
 export default class MyModal extends Component {
   static propTypes = {
     visible: PropTypes.bool,
+    animateType: PropTypes.string, // PropTypes.oneOfType(['fade', 'scale', 'slide-top', 'slide-bottom', 'slide-left', 'slide-right']),
     placement: PropTypes.oneOfType(['center', 'top', 'bottom', 'left', 'right']),
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    radius: PropTypes.number,
     contentStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
 
     fade: PropTypes.bool,
@@ -41,6 +43,7 @@ export default class MyModal extends Component {
     closeStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
     onClosePress: PropTypes.func,
 
+    mask: PropTypes.bool,
     maskClosable: PropTypes.bool,
     maskBgColor: PropTypes.string,
     onMaskPress: PropTypes.func,
@@ -52,7 +55,9 @@ export default class MyModal extends Component {
 
   static defaultProps = {
     placement: 'center',
+    radius: 5,
     closable: false,
+    mask: true,
     maskClosable: false,
     maskBgColor: 'rgba(0, 0, 0, .5)',
     onRequestClose: () => {},
@@ -108,47 +113,46 @@ export default class MyModal extends Component {
 
   // 构建内容容器样式
   buildContentStyle() {
-    const { placement, width, contentStyle } = this.props;
-    const isWidthNum = typeof width === 'number';
+    const { placement, radius, width, contentStyle } = this.props;
+    const radiusNum = parseFloat(radius, 10);
+    const widthNum = parseFloat(width, 10);
     let additionStyle = {};
     switch (placement) {
       case 'center':
         additionStyle = {
-          width: width ? (isWidthNum ? width : `${width}%`) : RNWindow.width * 0.8,
-          borderRadius: 5,
+          width: widthNum ? (widthNum > 100 ? widthNum : RNWindow.width * widthNum / 100 ) : RNWindow.width * 0.8,
+          borderRadius: radiusNum,
           padding: 10,
-          // borderWidth: 10,
-          // width: '90%',
         };
         break;
       case 'top':
         additionStyle = {
-          width: width ? (isWidthNum ? width : `${width}%`) : RNWindow.width,
-          borderBottomLeftRadius: 5,
-          borderBottomRightRadius: 5,
+          width: widthNum ? (widthNum > 100 ? widthNum : RNWindow.width * widthNum / 100 ) : RNWindow.width,
+          borderBottomLeftRadius: radiusNum,
+          borderBottomRightRadius: radiusNum,
           padding: 10,
           paddingTop: STATUSBAR_HEIGHT,
         };
         break;
       case 'bottom':
         additionStyle = {
-          width: width ? (isWidthNum ? width : `${width}%`) : RNWindow.width,
+          width: widthNum ? (widthNum > 100 ? widthNum : RNWindow.width * widthNum / 100 ) : RNWindow.width,
           padding: 10,
-          borderTopLeftRadius: 5,
-          borderTopRightRadius: 5,
+          borderTopLeftRadius: radiusNum,
+          borderTopRightRadius: radiusNum,
         };
         break;
       case 'left':
       case 'right':
         additionStyle = {
-          width: width ? (isWidthNum ? width : `${width}%`) : RNWindow.width * 0.8,
+          width: widthNum ? (widthNum > 100 ? widthNum : RNWindow.width * widthNum / 100 ) : RNWindow.width * 0.8,
           height: '100%',
           paddingTop: STATUSBAR_HEIGHT,
         };
         break;
       default:
         additionStyle = {
-          width: width ? (isWidthNum ? width : `${width}%`) : RNWindow.width,
+          width: widthNum ? (widthNum > 100 ? widthNum : RNWindow.width * widthNum / 100 ) : RNWindow.width,
         };
     }
     return StyleSheet.flatten([styles.content, additionStyle, contentStyle]);
@@ -156,33 +160,34 @@ export default class MyModal extends Component {
 
   // 生成动画视图组件
   buildAnimateViewProps = () => {
-    const { fade, placement, width } = this.props;
+    const { fade, placement, animateType, width } = this.props;
     let WrapComponentProps = {};
-    const isWidthNum = typeof width === 'number';
+    const widthNum = parseFloat(width, 10);
+
 
     switch(placement) {
       case 'center':
-        WrapComponentProps.type = 'scale';
+        WrapComponentProps.type = animateType || 'scale';
         break;
       case 'bottom':
-        WrapComponentProps.type = 'slide-bottom';
+        WrapComponentProps.type = animateType || 'slide-bottom';
         WrapComponentProps.height = this.state.contentHeight;
         break;
       case 'top':
-        WrapComponentProps.type = 'slide-top';
+        WrapComponentProps.type = animateType || 'slide-top';
         WrapComponentProps.height = this.state.contentHeight;
         break;
       case 'left':
-        WrapComponentProps.type = 'slide-left';
-        WrapComponentProps.width = width ? (isWidthNum ? width : RNWindow.width * width / 100) : RNWindow.width * 0.8;
+        WrapComponentProps.type = animateType || 'slide-left';
+        WrapComponentProps.widthNum ? (widthNum > 100 ? widthNum : RNWindow.width * widthNum / 100 ) : RNWindow.width * 0.8;
         break;
       case 'right':
-        WrapComponentProps.type = 'slide-right';
-        WrapComponentProps.width = width ? (isWidthNum ? width : RNWindow.width * width / 100) : RNWindow.width * 0.8;
+        WrapComponentProps.type = animateType || 'slide-right';
+        WrapComponentProps.widthNum ? (widthNum > 100 ? widthNum : RNWindow.width * widthNum / 100 ) : RNWindow.width * 0.8;
         break;
     }
     if (fade) {
-      WrapComponentProps.type = 'fade';
+      WrapComponentProps.type = animateType || 'fade';
     }
     return WrapComponentProps;
   }
@@ -211,20 +216,22 @@ export default class MyModal extends Component {
   }
 
   render() {
-    const { visible, placement, maskBgColor, maskClosable, onMaskPress, onClosePress, ...resProps } = this.props;
+    const { visible, placement, mask, maskBgColor, maskClosable, onMaskPress, onClosePress, ...resProps } = this.props;
     const { isVisible } = this.state;
 
     return (
       <Modal visible={isVisible} {...resProps } transparent hardwareAccelerated animationType="none">
-        <AnimateView
-          type="fade"
-          style={styles.maskWrap}
-          ref={ref => {
-            this.maskAnimateView = ref;
-          }}
-        >
-          <Mask onPress={maskClosable ? (onMaskPress || this.handleMaskClick) : null} bgColor={maskBgColor} />
-        </AnimateView>
+        {mask ? (
+          <AnimateView
+            type="fade"
+            style={styles.maskWrap}
+            ref={ref => {
+              this.maskAnimateView = ref;
+            }}
+          >
+            <Mask onPress={maskClosable ? (onMaskPress || this.handleMaskClick) : null} bgColor={maskBgColor} />
+          </AnimateView>
+        ) : null}
 
         <ContainerView placement={placement}>
           <AnimateView

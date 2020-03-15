@@ -103,7 +103,6 @@ export default class ToastDemo extends Component {
       <View style={{ flex: 1 }}>
         <ScrollView style={{ flex: 1 }}>
           
-
           <Text style={styles.title}>placement</Text>
           <ButtonRadio value={this.state.placement} options={['center', 'top', 'bottom', 'left', 'right']} onPress={v => {this.setModalVisibleByKey('placement', v);}} />
 
@@ -114,10 +113,10 @@ export default class ToastDemo extends Component {
           <ButtonRadio value={this.state.theme} options={['default', 'info', 'success', 'error']} onPress={v => {this.setModalVisibleByKey('theme', v);}} />
 
           <Text style={styles.title}>width</Text>
-          <ButtonRadio value={this.state.width} options={[ {label: 'unset', value: ''}, {label: '"80"', value: '80'}, {label: '"50"', value: '50'}, {label: '"100"', value: '100'}, 150, 200, 300]} onPress={v => {this.setModalVisibleByKey('width', v);}} />
+          <ButtonRadio value={this.state.width} options={[ {label: 'unset', value: ''}, 30, 50, 80, 101, 150, 200, 300]} onPress={v => {this.setModalVisibleByKey('width', v);}} />
 
           <Text style={styles.title}>radius</Text>
-          <ButtonRadio value={this.state.radius} options={['0', 2, 5, 10, 1000]} onPress={(v) => {this.setModalVisibleByKey('radius', v);}} />
+          <ButtonRadio value={this.state.radius} options={[0, 2, 5, 10, 1000]} onPress={(v) => {this.setModalVisibleByKey('radius', v);}} />
 
           <Text style={styles.title}>backgroundColor</Text>
           <ButtonRadio value={this.state.backgroundColor} options={[{label: 'unset', value: ''}, Theme.title, 'red', 'pink', 'rgba(0,0,0,.5)']} onPress={v => {this.setModalVisibleByKey('backgroundColor', v);}} />
@@ -126,16 +125,16 @@ export default class ToastDemo extends Component {
           <ButtonRadio value={this.state.color} options={['#fff', 'red', 'blue', 'yellow']} onPress={v => {this.setModalVisibleByKey('color', v);}} />
 
           <Text style={styles.title}>icon</Text>
-          <ButtonRadio value={this.state.icon} options={[{label: 'false', value: false}, 'none', 'success', 'warning', 'loading']} onPress={v => {this.setModalVisibleByKey('icon', v);}} />
+          <ButtonRadio value={this.state.icon} options={[false, 'none', 'success', 'warning', 'loading']} onPress={v => {this.setModalVisibleByKey('icon', v);}} />
 
           <Text style={styles.title}>mask</Text>
-          <ButtonRadio value={this.state.mask} options={[{label: 'false', value: false}, {label: 'true', value: true}]} onPress={v => {this.setModalVisibleByKey('mask', v);}} />
+          <ButtonRadio value={this.state.mask} options={[false, true]} onPress={v => {this.setModalVisibleByKey('mask', v);}} />
 
           <Text style={styles.title}>maskBgColor</Text>
           <ButtonRadio value={this.state.maskBgColor} options={['transparent', 'red', '#90ea3d', 'rgba(0,0,0,.6)', 'rgba(101,0,212,.5)']} onPress={(v) => {this.setModalVisibleByKey('maskBgColor', v); }} size="sm" />
 
           <Text style={styles.title}>maskClosable</Text>
-          <ButtonRadio value={this.state.maskClosable} options={[{ label: 'false', value: false }, { label: 'true', value: true }]} onPress={(v) => {this.setModalVisibleByKey('maskClosable', v); }} />
+          <ButtonRadio value={this.state.maskClosable} options={[false, true]} onPress={(v) => {this.setModalVisibleByKey('maskClosable', v); }} />
 
 
           <Text style={styles.title}>methods</Text>

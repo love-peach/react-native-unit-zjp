@@ -5,8 +5,6 @@ import Button from '../Button/Button';
 import SplitLine from '../SplitLine/SplitLine';
 import Theme from '../../themes/Theme';
 
-
-
 import PropTypes from 'prop-types';
 
 // TODO: 若 showCancel 为 true，则最好提供 onCancelPress 方法。

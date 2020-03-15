@@ -15,7 +15,7 @@ export default class ButtonRadioDemo extends Component {
     activeType: 'primary',
     ghost: true,
     activeGhost: false,
-    radius: '0',
+    radius: 0,
     vertical: false,
     braceUp: false,
   };
@@ -53,19 +53,19 @@ export default class ButtonRadioDemo extends Component {
           <ButtonRadio value={this.state.activeType} options={['default','primary', 'info', 'warning', 'success', 'error', 'gray', 'golden']} onPress={(v) => {this.setValueByKey('activeType', v);}} size="sm" />
 
           <Text style={styles.title}>ghost</Text>
-          <ButtonRadio value={this.state.ghost} options={[{ label: 'false', value: false }, { label: 'true', value: true }]} onPress={(v) => {this.setValueByKey('ghost', v);}} />
+          <ButtonRadio value={this.state.ghost} options={[true, false]} onPress={(v) => {this.setValueByKey('ghost', v);}} />
 
           <Text style={styles.title}>activeGhost</Text>
-          <ButtonRadio value={this.state.activeGhost} options={[{ label: 'false', value: false }, { label: 'true', value: true }]} onPress={(v) => {this.setValueByKey('activeGhost', v);}} />
+          <ButtonRadio value={this.state.activeGhost} options={[true, false]} onPress={(v) => {this.setValueByKey('activeGhost', v);}} />
 
           <Text style={styles.title}>braceUp</Text>
-          <ButtonRadio value={this.state.braceUp} options={[{ label: 'false', value: false }, { label: 'true', value: true }]} onPress={(v) => {this.setValueByKey('braceUp', v);}} />
+          <ButtonRadio value={this.state.braceUp} options={[true, false]} onPress={(v) => {this.setValueByKey('braceUp', v);}} />
 
           <Text style={styles.title}>radius</Text>
-          <ButtonRadio value={this.state.radius} options={['0', 2, 5, 10, 1000]} onPress={(v) => {this.setValueByKey('radius', v);}} />
+          <ButtonRadio value={this.state.radius} options={[0, 2, 5, 10, 1000]} onPress={(v) => {this.setValueByKey('radius', v);}} />
 
           <Text style={styles.title}>vertical</Text>
-          <ButtonRadio value={this.state.vertical} options={[{ label: 'false', value: false }, { label: 'true', value: true }]} onPress={(v) => {this.setValueByKey('vertical', v);}} />
+          <ButtonRadio value={this.state.vertical} options={[true, false]} onPress={(v) => {this.setValueByKey('vertical', v);}} />
         </View>
       </ScrollView>
     );
