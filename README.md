@@ -5,6 +5,15 @@
 
 ## 备忘录
 
+### 发布流程
+
+当我们，修改完组件后，需要发布的时候，应当，有以下几个流程：
+
+1. 提交代码至 git，然后 gulp 拷贝相关目录 到 dist
+2. cd dist/
+3. npm version xxx
+4. npm publish
+
 ### npm 版本维护
 
 当我们开发好组件，或者是开发中时，需要将包提交到 npm 上，需要有个版本号，记录更改。
@@ -40,7 +49,7 @@
 
 按钮组件，依赖插件 `react-native-linear-gradient` 来实现渐变效果
 
-**代码示例**
+#### 代码示例
 
 ```html
 <Button type="primary">primary</Button>
@@ -48,7 +57,7 @@
 <Button gradient gradientColors={['#f00', '#0f0']}>渐变</Button>
 ```
 
-**API**
+#### API 说明
 
 属性 | 说明 |  类型 | 默认值
 -| - | - | -
@@ -77,12 +86,11 @@ clickInterval | 连续两次点击间隔 毫秒 | Numer | 1000
 onPress | 点击事件 | event | -
 onLongPress | 长按事件 | event | -
 
-
 ### ButtonGroup
 
 按钮组 组件
 
-**代码示例**
+#### ButtonGroup 代码示例
 
 ```html
 <ButtonGroup style={styles.btnGroupWrap} size="xs">
@@ -91,7 +99,7 @@ onLongPress | 长按事件 | event | -
 </ButtonGroup>
 ```
 
-**API**
+#### ButtonGroup API 说明
 
 属性 | 说明 |  类型 | 默认值
 -| - | - | -
@@ -105,6 +113,8 @@ style | 设置按钮组容器样式 | Object | -
 
 列表组件
 
+#### Cell 代码示例
+
 ```html
 <Cell title="2/1期" value="420.0" label="应支付日：2019年06月21日" extra="已逾期" />
 
@@ -112,7 +122,7 @@ style | 设置按钮组容器样式 | Object | -
 
 ```
 
-**API**
+#### Cell API 说明
 
 属性 | 说明 |  类型 | 默认值
 -| - | - | -
@@ -137,10 +147,11 @@ underlayColor | 底色，同 TouchableHighlight 属性。当给定 `onPress` 后
 clickInterval | 点击间隔 毫秒 | Number | 0
 onPress | 点击事件 | Function | -
 
-
 ### CellGroup
 
 列表容器组件
+
+#### CellGroup 代码示例
 
 ```html
 <CellGroup style={{ marginVertical: 20 }} borderOffset={0}>
@@ -151,18 +162,18 @@ onPress | 点击事件 | Function | -
 </CellGroup>
 ```
 
-**API**
+#### CellGroup API 说明
 
 属性 | 说明 |  类型 | 默认值
 -| - | - | -
 paddingOffset | 内部 cell 左右间距 | Number | 12
-borderOffset | 下滑线距离左边间距 | Number | 12
 style | 容器样式 | Object | -
-
 
 ### InputItem
 
 输入框组件
+
+#### InputItem 代码示例
 
 ```html
 <InputItem label="手机号" />
@@ -170,7 +181,7 @@ style | 容器样式 | Object | -
 <InputItem label="密码" type="password" value= {this.state.value1} />
 ```
 
-**API**
+#### InputItem API 说明
 
 属性 | 说明 |  类型 | 默认值
 -| - | - | -
@@ -205,11 +216,13 @@ clearButtonMode | 如何展示清除按钮。`TextInput` 原生属性 | String |
 
 下划线
 
+#### SplitLine 代码示例
+
 ```html
 <SplitLine />
 ```
 
-**API**
+#### SplitLine API 说明
 
 属性 | 说明 |  类型 | 默认值
 -| - | - | -
@@ -224,13 +237,15 @@ style | 自定义下划线样式 | Object | -
 
 提示组件
 
+#### Tip 代码示例
+
 ```html
 <Tip type="error" radius={0}>radius: 0</Tip>
 
 <Tip icon={tipIcon} extra={<Button type="primary" size="xs">立即拨打</Button>}>客服热线：400-0000-0000</Tip>
 ```
 
-**API**
+#### Tip API 说明
 
 属性 | 说明 |  类型 | 默认值
 -| - | - | -
@@ -249,6 +264,8 @@ children | 提示文字 | String \| Element | -
 
 弹框组件
 
+#### Modal 代码示例
+
 ```html
 <Modal visible={this.state.isShowModal} width="90">
   {this.renderDemoText()}
@@ -256,7 +273,7 @@ children | 提示文字 | String \| Element | -
 </Modal>
 ```
 
-**API**
+#### Modal API 说明
 
 属性 | 说明 |  类型 | 默认值
 -| - | - | -
@@ -280,13 +297,15 @@ onRequestClose | 安卓必填。物理键返回函数。 | Function | -
 
 弹出组件。套用的是 `Modal` 组件，因此，`Modal` 的属性，同样适用于 该组件。
 
+#### Popup 代码示例
+
 ```html
 <Popup visible={this.state.isShow}>
   ...
 </Popup>
 ```
 
-**API**
+#### Popup API 说明
 
 属性 | 说明 |  类型 | 默认值
 -| - | - | -
@@ -298,6 +317,8 @@ splitLineProps | 下划线属性 | Object | -
 
 弹出组件的标题组件。
 
+#### PopupHeader 代码示例
+
 ```html
 <Popup visible={this.state.isShow}>
   <PopupHeader onLeftPress={} onRightPress={} />
@@ -305,7 +326,7 @@ splitLineProps | 下划线属性 | Object | -
 </Popup>
 ```
 
-**API**
+#### PopupHeader API 说明
 
 属性 | 说明 |  类型 | 默认值
 -| - | - | -
@@ -322,11 +343,29 @@ Action Sheet是由用户操作后触发的一种特定的模态弹出框。套�
 
 `menus` 数组，是 按钮 的属性对象，因此，可参考 `Button` 组件
 
+#### ActionSheet 代码示例
+
 ```html
-<SplitLine />
+<ActionSheet
+  visible={this.state.isShow}
+  theme={this.state.theme}
+  onMaskPress={() => {this.setValueByKey('isShow', false); }}
+  onCancelPress={() => {this.setValueByKey('isShow', false); }}
+  menus={menusObj[this.state.menus]}
+  maskClosable={this.state.maskClosable}
+  showCancel={this.state.showCancel}
+  cancelText={this.state.cancelText}
+  header={this.state.header ? headerObj[this.state.header] : undefined}
+  onMenuPress={(data) => {
+    this.setValueByKey('isShow', false);
+  }}
+>
+  {this.renderDemoText()}
+  <Button type="primary" size="lg" onPress={() => {this.setValueByKey('isShow', false); }}>close</Button>
+</ActionSheet>
 ```
 
-**API**
+#### ActionSheet API 说明
 
 属性 | 说明 |  类型 | 默认值
 -| - | - | -
@@ -342,18 +381,30 @@ maskClosable | 背景遮罩是否可点击 | Boolean | true
 header.title | 标题 | String \| Element | -
 header.titleSub | 副标题 | String \| Element | -
 
-
-### ActionSheet
+### Dialog
 
 对话框组件，套用的是 `Modal` 组件，因此，`Modal` 的属性，同样适用于 该组件。
 
 `menus` 数组，是 按钮 的属性对象，因此，可参考 `Button` 组件
 
+#### Dialog 代码示例
+
 ```html
-<SplitLine />
+<Dialog
+  visible={this.state.isShow}
+  onCancelPress={() => {this.setValueByKey('isShow', false); }}
+  onMenuPress={(v) => {
+    console.log(v, 'menu');
+    this.setValueByKey('isShow', false);
+  }}
+  title="弹框标题"
+  msg="弹窗内容，告知当前状态、信息和解决方法，描述文字尽量控制在三行内"
+  menus={this.state.menusObj[this.state.menus]}
+>
+</Dialog>
 ```
 
-**API**
+#### Dialog API 说明
 
 属性 | 说明 |  类型 | 默认值
 -| - | - | -

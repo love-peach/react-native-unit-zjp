@@ -1,3 +1,13 @@
+import { PixelRatio } from 'react-native';
+
+// 像素大小。通常用于边框粗细
+const pixelSize = (function() {
+  let pixelRatio = PixelRatio.get();
+  if (pixelRatio >= 3) return 0.3333333333333333;
+  else if (pixelRatio >= 2) return 0.5;
+  else return 1;
+})();
+
 const color = {
   white: '#fff',
 
@@ -25,8 +35,10 @@ const color = {
   textTipAlert: '#fe6666',
 };
 
+
 export default {
   ...color,
+  pixelSize,
 
   // btn - background color
   btn_bg_default: color.gray,
@@ -38,6 +50,7 @@ export default {
   btn_bg_gray: color.grayLight,
   btn_bg_golden: color.golden,
   btn_bg_text: 'transparent',
+  btn_bg_white: color.white,
   btn_bg_disabled: color.gray,
 
   // btn - text color
@@ -50,6 +63,7 @@ export default {
   btn_text_gray: color.titleSub,
   btn_text_golden: color.titleMain,
   btn_text_text: color.primary,
+  btn_text_white: color.titleMain,
   btn_text_disabled: color.white,
 
   // btn - height
@@ -67,11 +81,11 @@ export default {
   btn_min_width_xl: 50,
 
   // btn - font size
-  btn_font_xs: 9,
-  btn_font_sm: 12,
-  btn_font_md: 13,
-  btn_font_lg: 18,
-  btn_font_xl: 18,
+  btn_font_size_xs: 9,
+  btn_font_size_sm: 12,
+  btn_font_size_md: 13,
+  btn_font_size_lg: 18,
+  btn_font_size_xl: 18,
 
   // btn - font weight
   btn_font_weight_xs: '400',
@@ -100,5 +114,49 @@ export default {
   btn_radius_circle: 1000,
 
   // btn - border-width
-  btn_border_width: 1,
+  btn_border_width: pixelSize,
+
+  // btn-group width
+  btn_group_width_xs: 20,
+  btn_group_width_sm: 25,
+  btn_group_width_md: 32,
+  btn_group_width_lg: 40,
+  btn_group_width_xl: 50,
+
+  // cell font-size
+  cell_font_size_title: 15,
+  cell_font_size_value: 15,
+  cell_font_size_value_place: 15,
+  cell_font_size_label: 13,
+  cell_font_size_extra: 13,
+
+  // cell color
+  cell_color_title: color.titleMin,
+  cell_color_value: color.titleMin,
+  cell_color_value_place: color.titleSub,
+  cell_color_label: color.titleSub,
+  cell_color_extra: color.titleSub,
+
+  // mask bg
+  mask_bg: 'rgba(0,0,0,0.6)',
+
+  // input color
+  input_color_label: color.titleMain,
+  input_color_input: color.titleMain,
+  input_color_tip: color.textTip,
+
+  // input font-size
+  input_font_size_label: 15,
+  input_font_size_label_top: 12,
+  input_font_size_input: 15,
+  input_font_size_tip: 12,
+
+  // input font-weight
+  input_weight_label: 'normal',
+  input_weight_input: '500',
+  input_weight_tip: 'normal',
+
+  // 分割线高亮颜色
+  split_line_active_color: color.primary,
+
 };

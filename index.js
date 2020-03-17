@@ -1,7 +1,9 @@
-import Theme from './src/themes/Theme';
-import * as myUnit from './src/components';
+/**
+ * @format
+ */
 
-module.exports = {
-  Theme,
-  ...myUnit
-};
+import {AppRegistry} from 'react-native';
+import App from './src/App';
+import {name as appName} from './app.json';
+
+AppRegistry.registerComponent(appName, () => App);

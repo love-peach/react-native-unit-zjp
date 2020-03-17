@@ -1,40 +1,41 @@
 {
-  "name": "react-native-unit-zjp",
-  "version": "0.0.2",
-  "description": "## Getting started",
-  "main": "index.js",
+  "name": "example",
+  "version": "0.0.1",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "react-native"
-  ],
-  "author": "zhangjinpei",
-  "license": "ISC",
-  "peerDependencies": {
-    "react-native": "^0.41.2"
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint ."
   },
   "dependencies": {
-    "eslint": "^6.7.0",
+    "react": "16.9.0",
+    "react-native": "0.61.4",
+    "react-native-gesture-handler": "^1.5.0",
+    "react-native-reanimated": "^1.4.0",
+    "react-native-root-siblings": "^4.0.6",
+    "react-native-screens": "^2.0.0-alpha.8",
+    "react-native-unit-zjp": "^0.0.3",
+    "react-native-webview": "^8.1.2",
+    "react-navigation": "^4.0.10",
+    "react-navigation-stack": "^1.10.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/runtime": "^7.6.3",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^24.9.0",
+    "eslint": "^6.6.0",
     "eslint-plugin-react": "^7.16.0",
+    "gulp": "^4.0.2",
+    "gulp-rename": "^2.0.0",
+    "jest": "^24.9.0",
+    "metro-react-native-babel-preset": "^0.57.0",
     "react-native-linear-gradient": "^2.5.6",
-    "react-native-svg": "^9.13.3"
+    "react-test-renderer": "16.9.0"
   },
-  "directories": {
-    "example": "example"
-  },
-  "devDependencies": {},
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/love-peach/react-native-unit-zjp.git"
-  },
-  "bugs": {
-    "url": "https://github.com/love-peach/react-native-unit-zjp/issues"
-  },
-  "homepage": "https://github.com/love-peach/react-native-unit-zjp#readme",
-  "files": [
-    "index.js",
-    "README.md",
-    "src"
-  ]
+  "jest": {
+    "preset": "react-native"
+  }
 }

@@ -8,7 +8,6 @@ import Theme from '../../themes/Theme';
  * @type 按钮主题 [default, primary, info, warning, success, error, gray, golden, text]
  * @size 大小 [xl, lg, md, sm, xs]
  * 
- * @shape 圆角大小 提供三种固定大小 [rect, radius, circle]
  * @borderRadius 圆角大小
  * 
  * @color 文字颜色
@@ -39,10 +38,9 @@ import Theme from '../../themes/Theme';
  */
 export default class Button extends Component {
   static propTypes = {
-    type: PropTypes.oneOf(['default', 'primary', 'info', 'warning', 'success', 'error', 'gray', 'golden', 'text']),
+    type: PropTypes.oneOf(['default', 'primary', 'info', 'warning', 'success', 'error', 'gray', 'golden', 'text', 'white']),
     size: PropTypes.oneOf(['xl', 'lg', 'md', 'sm', 'xs']),
-    shape: PropTypes.oneOf(['rect', 'radius', 'circle']),
-    borderRadius: PropTypes.number,
+    radius: PropTypes.number,
     color: PropTypes.string,
     backgroundColor: PropTypes.string,
     ghost: PropTypes.bool,
@@ -55,13 +53,13 @@ export default class Button extends Component {
     gradientProps: PropTypes.object,
     loading: PropTypes.bool,
     disabled: PropTypes.bool,
-    icon: PropTypes.oneOfType([PropTypes.element, PropTypes.object, PropTypes.number, PropTypes.func]),
+    icon: PropTypes.oneOfType([PropTypes.bool, PropTypes.element, PropTypes.object, PropTypes.number, PropTypes.func]),
     iconStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
     iconOnRight: PropTypes.bool,
     activityIndicatorColor: PropTypes.string,
     containerStyle: ViewPropTypes.style,
     style: ViewPropTypes.style,
-    children: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.element]),
+    children: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool, PropTypes.node, PropTypes.element]),
     clickInterval: PropTypes.number,
     onPress: PropTypes.func,
     onLongPress: PropTypes.func,
@@ -70,7 +68,7 @@ export default class Button extends Component {
   static defaultProps = {
     type: 'default',
     size: 'xl',
-    shape: 'circle',
+    radius: 1000,
     outlineType: 'solid',
     gradientColors: [Theme.info, Theme.primary],
     gradientDirection: 'horizontal',
@@ -139,24 +137,18 @@ export default class Button extends Component {
     return Theme[`btn_text_${type}`];
   }
 
-  // 获取圆角大小
-  getBorderRadius() {
-    const { borderRadius, shape } = this.props;
-    if (borderRadius) {
-      return borderRadius;
-    }
-    if (shape) {
-      return Theme[`btn_radius_${shape}`];
-    }
-  }
-
   // 获取边框样式
   getOutLineStyle() {
     const { type, ghost, outlineColor, outlineWidth, outlineType, disabled } = this.props;
-    let outlineStyle = {};
+    let outlineStyle = {
+      borderColor: 'transparent',
+      borderWidth: outlineWidth === 0 ? outlineWidth : outlineWidth || Theme.btn_border_width,
+      borderStyle: outlineType,
+    };
     if (ghost) {
-      outlineStyle.borderWidth = outlineWidth || Theme.btn_border_width;
+      outlineStyle.borderWidth = outlineWidth === 0 ? outlineWidth : outlineWidth || Theme.btn_border_width;
       outlineStyle.borderStyle = outlineType;
+
       if (outlineColor) {
         outlineStyle.borderColor = outlineColor;
       } else if (type === 'default') {
@@ -190,11 +182,11 @@ export default class Button extends Component {
 
   // 构建组件样式
   buildStyle() {
-    let { style } = this.props;
+    let { radius, style } = this.props;
     const outlineStyle = this.getOutLineStyle();
     return StyleSheet.flatten([
       {
-        borderRadius: this.getBorderRadius(),
+        borderRadius: radius,
         backgroundColor: this.getBackgroundColor(),
         overflow: 'hidden',
         ...outlineStyle,
@@ -262,9 +254,9 @@ export default class Button extends Component {
     if (children) {
       let childElements = [];
       React.Children.forEach(children, (item) => {
-        if (typeof item === 'string' || typeof item === 'number') {
-          const element = <Text key={item} style={labelStyleFinaly} numberOfLines={1}>{item}</Text>;
-          childElements.push(element);
+        const itemType = typeof item;
+        if (itemType === 'string' || itemType === 'boolean' || itemType === 'number') {
+          childElements.push(<Text key={item} style={labelStyleFinaly} numberOfLines={1}>{item + ''}</Text>);
         } else if (React.isValidElement(item)) {
           childElements.push(item);
         }
@@ -286,7 +278,7 @@ export default class Button extends Component {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        height: Theme[`btn_height_${size}`],
+        minHeight: Theme[`btn_height_${size}`],
         minWidth: Theme[`btn_min_width_${size}`],
         paddingHorizontal: Theme[`btn_padding_horizontal_${size}`],
         // paddingVertical: Theme[`btn_padding_vertical_${size}`],
@@ -330,8 +322,7 @@ export default class Button extends Component {
       outlineColor,
       outlineWidth,
       outlineType,
-      shape,
-      borderRadius,
+      radius,
       loading,
       activityIndicatorColor,
       clickInterval,
