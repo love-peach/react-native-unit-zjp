@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text, StyleSheet } from 'react-native';
-import { ButtonRadio, Button, Popup, Cell, CellGroup, PopupHeader } from '../components';
-
+import { ButtonRadio, Button, Popup, Cell, CellGroup, PopupHeader } from '../component-path';
 
 export default class PopupDemo extends Component {
   static navigationOptions = () => ({

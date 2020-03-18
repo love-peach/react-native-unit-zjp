@@ -1,7 +1,9 @@
 import React, { Component }from 'react';
 import PropTypes from 'prop-types';
 import {  StyleSheet, ViewPropTypes } from 'react-native';
-import { ButtonGroup, Button } from '../';
+import ButtonGroup from '../ButtonGroup/ButtonGroup';
+import Button from '../Button/Button';
+
 
 export default class ButtonRadio extends Component {
   static propTypes = {

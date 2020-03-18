@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, Modal, View, TouchableOpacity, Image, Platform, NativeModules, Dimensions } from 'react-native';
-import { ContainerView, AnimateView, Mask } from '../';
+import ContainerView from '../ContainerView/ContainerView';
+import AnimateView from '../AnimateView/AnimateView';
+import Mask from '../Mask/Mask';
+
 
 const RNWindow = Dimensions.get('window');
 const { StatusBarManager } = NativeModules;
@@ -28,8 +31,8 @@ const closeIconDefaultSource = require('../../icons/close.png');
 export default class MyModal extends Component {
   static propTypes = {
     visible: PropTypes.bool,
-    placement: PropTypes.oneOfType(['center', 'top', 'bottom', 'left', 'right']),
-    animateType: PropTypes.oneOfType(['fade', 'scale', 'slide-top', 'slide-bottom', 'slide-left', 'slide-right']),
+    placement: PropTypes.oneOf(['center', 'top', 'bottom', 'left', 'right']),
+    animateType: PropTypes.oneOf(['fade', 'scale', 'slide-top', 'slide-bottom', 'slide-left', 'slide-right']),
     animateDuration: PropTypes.number,
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     radius: PropTypes.number,

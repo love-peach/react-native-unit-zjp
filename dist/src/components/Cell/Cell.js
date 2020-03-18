@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, Image, StyleSheet, TouchableHighlight } from 'react-native';
-import { SplitLine } from '../';
+import SplitLine from '../SplitLine/SplitLine';
+
 import Theme from '../../themes/Theme';
 
 /**

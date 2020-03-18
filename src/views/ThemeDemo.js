@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { ScrollView, Text, StyleSheet } from 'react-native';
-import { Button } from '../components';
-import Theme from '../themes/Theme';
-import myTheme from './ThemeCustom';
+import { Button, Theme } from '../component-path';
 
+import myTheme from './ThemeCustom';
 
 export default class ThemeDemo extends Component {
   static navigationOptions = () => ({

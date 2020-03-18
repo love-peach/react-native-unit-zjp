@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, Image, StyleSheet, ActivityIndicator, Dimensions } from 'react-native';
-// import { ContainerView, AnimateView, Mask } from '../';
 import Mask from '../Mask/Mask';
 import ContainerView from '../ContainerView/ContainerView';
 import AnimateView from '../AnimateView/AnimateView';
@@ -15,8 +14,8 @@ export default class ToastContainer extends Component {
     delay: PropTypes.number,
     duration: PropTypes.number,
     
-    placement: PropTypes.string, // PropTypes.oneOfType(['center', 'top', 'bottom', 'left', 'right']),
-    animateType: PropTypes.string, // PropTypes.oneOfType(['fade', 'scale', 'slide-top', 'slide-bottom', 'slide-left', 'slide-right']),
+    placement: PropTypes.oneOf(['center', 'top', 'bottom', 'left', 'right']),
+    animateType: PropTypes.oneOf(['fade', 'scale', 'slide-top', 'slide-bottom', 'slide-left', 'slide-right']),
 
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 

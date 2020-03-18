@@ -2,7 +2,9 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
-import { Button, SplitLine } from '../';
+import Button from '../Button/Button';
+import SplitLine from '../SplitLine/SplitLine';
+
 import Theme from '../../themes/Theme';
 
 export default class PopupHeader extends Component {

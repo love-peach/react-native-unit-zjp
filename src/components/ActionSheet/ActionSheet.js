@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Modal, Button, SplitLine } from '../';
+import Modal from '../Modal/Modal';
+import Button from '../Button/Button';
+import SplitLine from '../SplitLine/SplitLine';
 import Theme from '../../themes/Theme';
 
 import PropTypes from 'prop-types';
@@ -11,7 +13,7 @@ import PropTypes from 'prop-types';
 export default class ActionSheet extends Component {
   static propTypes = {
     visible: PropTypes.bool,
-    theme: PropTypes.oneOfType(['ios', 'android']),
+    theme: PropTypes.oneOf(['ios', 'android']),
     menus: PropTypes.array,
     onMenuPress: PropTypes.func,
 

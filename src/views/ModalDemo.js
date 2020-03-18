@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text, StyleSheet } from 'react-native';
-import { ButtonRadio, Button, Modal } from '../components';
+import { ButtonRadio, Button, Modal } from '../component-path';
 
 
 export default class ModalDemo extends Component {

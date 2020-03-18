@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text, StyleSheet } from 'react-native';
-import { Button, ButtonRadio } from 'react-native-unit-zjp';
-// import { Button, ButtonRadio } from '../components';
-
-import Theme from '../themes/Theme';
+import { Button, ButtonRadio, Theme } from '../component-path';
 
 const buttonIcon = require('../icons/close.png');
-
-// console.log(a, 'a');
 
 export default class ButtonDemo extends Component {
   static navigationOptions = () => ({

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Modal } from '../';
+import Modal from '../Modal/Modal';
+
 import PropTypes from 'prop-types';
 
 export default class Popup extends Component {

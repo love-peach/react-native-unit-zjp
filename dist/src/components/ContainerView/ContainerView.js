@@ -4,7 +4,7 @@ import { View,  StyleSheet } from 'react-native';
 
 export default class ContainerView extends Component {
   static propTypes = {
-    placement: PropTypes.string, // PropTypes.oneOfType(['center', 'top', 'bottom', 'left', 'right']),
+    placement: PropTypes.oneOf(['center', 'top', 'bottom', 'left', 'right']),
     style: PropTypes.object,
     children: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.element]),
   };

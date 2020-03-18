@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { InputItem, InputItemGroup, Button, ButtonGroup } from '../components';
+import { InputItem, InputItemGroup, Button, ButtonGroup } from '../component-path';
 
 const iconDemo = require('../icons/phone_green.png');
-
 
 export default class InputDemo extends Component {
   static navigationOptions = () => ({

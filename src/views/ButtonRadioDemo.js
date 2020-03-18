@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text, StyleSheet } from 'react-native';
-import { ButtonRadio } from '../components';
-
+import { ButtonRadio } from '../component-path';
 
 export default class ButtonRadioDemo extends Component {
   static navigationOptions = () => ({

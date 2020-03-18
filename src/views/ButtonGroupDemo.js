@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text, StyleSheet } from 'react-native';
-import { Button, ButtonGroup } from '../components';
+import { Button, ButtonGroup } from '../component-path';
 
 
 export default class ButtonGroupDemo extends Component {

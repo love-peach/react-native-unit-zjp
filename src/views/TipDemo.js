@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView, View, StyleSheet } from 'react-native';
-import { Button, Tip } from '../components';
+import { Button, Tip } from '../component-path';
 
 const tipIcon = require('../icons/phone_green.png');
 

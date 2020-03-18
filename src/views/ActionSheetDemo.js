@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text, StyleSheet } from 'react-native';
-import { ButtonRadio, ButtonGroup, Button, Modal, ActionSheet } from '../components';
+import { ButtonRadio, Button, ActionSheet } from '../component-path';
+
 
 const headerObj = {
   title: { title: '确定删除吗？'},
@@ -33,17 +34,6 @@ export default class ActionSheetDemo extends Component {
   setValueByKey = (key, visible) => {
     this.setState({ [key]: visible });
   };
-
-  renderDemoText() {
-    return (
-      <View>
-        <Text style={{ fontSize: 18, fontWeight: 'bold', textAlign: 'center', marginBottom: 20, marginTop: 15 }}>Lorem ipsum dolor sit</Text>
-        <Text style={{ marginBottom: 10, marginRight: 15, marginLeft: 15, textAlign: 'justify' }}>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veniam quia dolore deleniti vel fuga omnis repellat ut! Voluptates expedita ipsum ex commodi tenetur debitis animi asperiores. Eius alias corrupti deleniti?
-        </Text>
-      </View>
-    );
-  }
 
   render() {
     return (
@@ -110,10 +100,7 @@ export default class ActionSheetDemo extends Component {
             console.log(data, 'menu');
             this.setValueByKey('isShow', false); 
           }}
-        >
-          {this.renderDemoText()}
-          <Button type="primary" size="lg" onPress={() => {this.setValueByKey('isShow', false); }}>close</Button>
-        </ActionSheet>
+        ></ActionSheet>
       </ScrollView>
     );
   }

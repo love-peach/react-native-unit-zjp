@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text, StyleSheet } from 'react-native';
-import { ButtonRadio, Button, Dialog } from '../components';
+import { ButtonRadio, Button, Dialog } from '../component-path';
 
 export default class DialogDemo extends Component {
   static navigationOptions = () => ({

@@ -9,9 +9,10 @@
 
 当我们，修改完组件后，需要发布的时候，应当，有以下几个流程：
 
-1. 提交代码至git
-2. npm version xxx
-3. 执行 gulp 命令，生成需要发布的 npm 包目录
+1. 提交代码至 git，然后 gulp 拷贝相关目录 到 dist
+2. cd dist/
+3. npm version xxx
+4. npm publish
 
 ### npm 版本维护
 

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
-import { Modal, Button } from '../';
+import Modal from '../Modal/Modal';
+import Button from '../Button/Button';
+
 import Theme from '../../themes/Theme';
 
 export default class Dialog extends Component {

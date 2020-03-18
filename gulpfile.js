@@ -61,16 +61,6 @@ task('utils', () => {
     .pipe(dest(paths.dest.utils));
 });
 
-
-/**
- * 拷贝 main
- */
-task('main', () => {
-  return src('./main.js')
-    .pipe(rename('index.js'))
-    .pipe(dest(distRoot));
-});
-
 /**
  * 拷贝 readme.md
  */
@@ -79,4 +69,4 @@ task('readme', () => {
     .pipe(dest(distRoot));
 });
 
-exports.default = series('clean', 'components', 'icons', 'themes', 'utils', 'main', 'readme');
+exports.default = series('clean', 'components', 'icons', 'themes', 'utils', 'readme');
