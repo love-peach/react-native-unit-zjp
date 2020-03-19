@@ -15,6 +15,7 @@ import PopupDemo from '../views/PopupDemo';
 import ActionSheetDemo from '../views/ActionSheetDemo';
 import DialogDemo from '../views/DialogDemo';
 import ToastDemo from '../views/ToastDemo';
+import CarouselDemo from '../views/CarouselDemo';
 
 const RootStack = createStackNavigator(
   {
@@ -31,6 +32,7 @@ const RootStack = createStackNavigator(
     ActionSheetDemo: ActionSheetDemo,
     DialogDemo: DialogDemo,
     ToastDemo: ToastDemo,
+    CarouselDemo: CarouselDemo,
     WebviewDemo: WebviewDemo,
   },
   {

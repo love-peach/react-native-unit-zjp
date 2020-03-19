@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Switch } from 'react-native';
 import { Button, ButtonRadio, Theme } from '../component-path';
 
 const buttonIcon = require('../icons/close.png');
@@ -108,6 +108,11 @@ export default class ButtonDemo extends Component {
           <ButtonRadio value={this.state.radius} options={[0, 2, 5, 10, 1000]} onPress={v => {this.setValueByKey('radius', v);}} />
 
           <Text style={styles.title}>icon</Text>
+          <Switch value={this.state.icon} onValueChange={(v) => {
+            this.setValueByKey('icon', v);
+          }} />
+          
+         
           <ButtonRadio value={this.state.icon} options={[true, false]} onPress={v => {this.setValueByKey('icon', v);}} />
 
           <Text style={styles.title}>loading</Text>

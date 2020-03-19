@@ -16,6 +16,7 @@ import PopupHeader from './PopupHeader/PopupHeader';
 import ActionSheet from './ActionSheet/ActionSheet';
 import Dialog from './Dialog/Dialog';
 import Toast from './Toast/Toast.js';
+import Carousel from './Carousel/Carousel.js';
 
 export {
   Button,
@@ -36,4 +37,5 @@ export {
   PopupHeader,
   AnimateView,
   ContainerView,
+  Carousel,
 };

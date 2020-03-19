@@ -22,6 +22,7 @@ export default class HomeScreen extends Component {
           <Cell title="CellDemo" link onPress={this.goto.bind(this, 'CellDemo')} />
           <Cell title="InputDemo" link onPress={this.goto.bind(this, 'InputDemo')} />
           <Cell title="TipDemo" link onPress={this.goto.bind(this, 'TipDemo')} />
+          <Cell title="CarouselDemo" link onPress={this.goto.bind(this, 'CarouselDemo')} />
         </CellGroup>
 
         <CellGroup style={{ marginVertical: 20 }}>
