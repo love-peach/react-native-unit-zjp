@@ -6085,10 +6085,10 @@ react-native-screens@^2.0.0-alpha.8:
   dependencies:
     debounce "^1.2.0"
 
-react-native-unit-zjp@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.npmjs.org/react-native-unit-zjp/-/react-native-unit-zjp-0.0.3.tgz#d826f568403c80448feacf4c05e5231ac310e234"
-  integrity sha512-IpxvKJrWEondHnwB928c2S+IDdyyws5HLhoGwZampc2dEkA1X57gug9Zx5JInaR3r5tzWM2xm5i465Br/UOsUg==
+react-native-unit-zjp@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.npmjs.org/react-native-unit-zjp/-/react-native-unit-zjp-0.0.5.tgz#424f22dd547c2381f974c36e1f5c660462d07e5f"
+  integrity sha512-M94E3uzWR0KvCATE81+6MxK/gv+9k5u8JXlyNF4isMFbGpFsIGfyvP0E2IR/bnTdwfm8LCbDJk+xAXZr2z09Pg==
   dependencies:
     react-native-linear-gradient "^2.5.6"
     react-native-root-siblings "^4.0.6"

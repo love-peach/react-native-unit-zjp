@@ -235,6 +235,43 @@ extraStyle | 右边追加内容样式 | Object | -
 style | 容器样式 | Object | -
 children | 提示文字 | String \| Element | -
 
+### Carousel
+
+轮播图组件。这个照搬 [teaset](https://github.com/rilyu/teaset) 的
+
+#### Carousel 代码示例
+
+```html
+<Carousel
+  style={{ height: 100 }}
+  horizontal={this.state.horizontal}
+  autoPlay={this.state.autoPlay}
+  loop={this.state.loop}
+  interval={this.state.interval}
+  direction={this.state.direction}
+  startIndex={this.state.startIndex}
+  control={this.state.control}
+>
+  <View style={{ backgroundColor: Theme.primary, height: '100%' }}><Text>1</Text></View>
+  <View style={{ backgroundColor: Theme.info, height: '100%' }}><Text>2</Text></View>
+  <View style={{ backgroundColor: Theme.success, height: '100%' }}><Text>3</Text></View>
+  <View style={{ backgroundColor: Theme.warning, height: '100%' }}><Text>4</Text></View>
+  <View style={{ backgroundColor: Theme.error, height: '100%' }}><Text>5</Text></View>
+</Carousel>
+```
+
+#### Carousel API 说明
+
+属性 | 说明 |  类型 | 默认值
+-| - | - | -
+horizontal | 水平轮播还是垂直轮播 | Boolean | true
+autoPlay | 自动轮播 | Boolean | true
+interval | 每页停留时间 | Number | 3000
+direction | 方向 | 可选值为 `forward`、`backward` | forward
+startIndex | 初始显示的页数 | Number | 0
+loop | 是否循环轮播 | Boolean | false
+control | 指示器。为 `false` 则不显示指示器；若想自定义指示器，传递组件即可，会自动获取三个参数 {index, total, carousel }  | Boolean \| Element | false
+
 ### Modal
 
 弹框组件

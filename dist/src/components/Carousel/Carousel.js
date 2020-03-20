@@ -25,7 +25,7 @@ export default class Carousel extends Component {
     showsVerticalScrollIndicator: false,
     alwaysBounceHorizontal: false,
     alwaysBounceVertical: false,
-    bounces: false,
+    // bounces: false,
     automaticallyAdjustContentInsets: false,
     scrollEventThrottle: 200,
     scrollsToTop: false,
