@@ -138,14 +138,6 @@ export default class ToastDemo extends Component {
           <Text style={styles.title}>maskClosable</Text>
           <ButtonRadio value={this.state.maskClosable} options={[false, true]} onPress={(v) => {this.setModalVisibleByKey('maskClosable', v); }} />
 
-
-          <Text style={styles.title}>methods</Text>
-          <ButtonGroup size="md" style={styles.btnWrap}>
-            <Button backgroundColor={Theme.title} style={styles.btnDemo} onPress={() => {this.handleShowToast();}}>show</Button>
-            <Button type="success" style={styles.btnDemo} onPress={() => {this.handleShowToastBySuccess();}}>success</Button>
-            <Button type="error" style={styles.btnDemo} onPress={() => {this.handleShowToastByError();}}>error</Button>
-            <Button backgroundColor={Theme.title} style={styles.btnDemo} onPress={() => {this.handleShowToastByLoading();}}>loading</Button>
-          </ButtonGroup>
         </ScrollView>
 
         <View>

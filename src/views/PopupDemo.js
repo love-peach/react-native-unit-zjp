@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Picker } from 'react-native';
 import { ButtonRadio, Button, Popup, Cell, CellGroup, PopupHeader } from '../component-path';
 
 export default class PopupDemo extends Component {
@@ -11,6 +11,7 @@ export default class PopupDemo extends Component {
     isShow: false,
     maskClosable: false,
     header: false,
+    language: 'js',
   };
 
   setValueByKey = (key, visible) => {
@@ -40,6 +41,8 @@ export default class PopupDemo extends Component {
 
           <Button style={{ marginTop: 10 }} type="primary" onPress={this.setValueByKey.bind(this, 'isShow', true)}>show</Button>
         </View>
+
+        <Text>{this.state.language}</Text>
         
         <Popup
           visible={this.state.isShow}
@@ -54,6 +57,21 @@ export default class PopupDemo extends Component {
             <Cell title="2/1期" value="420.0" label="应支付日：2019年06月21日" extra="已逾期" />
             <Cell title="2/1期" value="420.0" label="应支付日：2019年06月21日" extra="已逾期" />
           </CellGroup>
+
+          <Picker
+            selectedValue={this.state.language}
+            style={{ height: 210 }}
+            onValueChange={(itemValue) =>
+              this.setValueByKey('language', itemValue)
+            }
+          >
+            <Picker.Item label="Html" value="html" />
+            <Picker.Item label="Css" value="css" />
+            <Picker.Item label="JavaScript" value="js" />
+            <Picker.Item label="VUe" value="vue" />
+            <Picker.Item label="React" value="react" />
+            <Picker.Item label="React-Native" value="rn" />
+          </Picker>
         </Popup>
 
       </ScrollView>
