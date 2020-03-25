@@ -1,6 +1,6 @@
-// import * as components from '../components'; // 本地调试
+import * as components from '../components'; // 本地调试
 // import * as components from '../../dist'; // 发布前测试包
-import * as components from '../../node_modules/react-native-unit-zjp'; // 正式依赖的包。
+// import * as components from '../../node_modules/react-native-unit-zjp'; // 正式依赖的包。
 /*
 这里之所以 要加 '../../node_modules'，是因为当 dist 目录下 的 package.json 存在时，
 直接从 ’react-native-unit-zjp‘ 引入组件，会指向 dist 目录。
