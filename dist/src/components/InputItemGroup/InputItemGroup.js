@@ -1,7 +1,7 @@
 import React, { Component }from 'react';
 import PropTypes from 'prop-types';
 import { View, StyleSheet, ViewPropTypes } from 'react-native';
-import Theme from '../../themes/Theme';
+import Theme from '../Theme/Theme';
 
 /**
  * @paddingOffset 内部 cell 左右间距

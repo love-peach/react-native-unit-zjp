@@ -16,11 +16,6 @@ task('icons', () => {
     .pipe(dest('dist/src/icons/'));
 });
 
-task('themes', () => {
-  return src('src/themes/**/*.*')
-    .pipe(dest('dist/src/themes/'));
-});
-
 task('utils', () => {
   return src('src/utils/**/*.*')
     .pipe(dest('dist/src/utils/'));
@@ -31,4 +26,4 @@ task('readme', () => {
     .pipe(dest('dist/'));
 });
 
-exports.default = series('clean', 'components', 'icons', 'themes', 'utils', 'readme');
+exports.default = series('clean', 'components', 'icons', 'utils', 'readme');

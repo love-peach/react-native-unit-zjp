@@ -2,7 +2,7 @@ import React, { Component }from 'react';
 import PropTypes from 'prop-types';
 import { View, ViewPropTypes, Text, Image, StyleSheet, ActivityIndicator, TouchableOpacity, TouchableNativeFeedback, Platform } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import Theme from '../../themes/Theme';
+import Theme from '../Theme/Theme';
 
 /**
  * @type 按钮主题 [default, primary, info, warning, success, error, gray, golden, text]

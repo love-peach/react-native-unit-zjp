@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 import SplitLine from '../SplitLine/SplitLine';
-import Theme from '../../themes/Theme';
+import Theme from '../Theme/Theme';
 
 const isIos = Platform.OS === 'ios';
 // const isIos = false;

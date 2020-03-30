@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text, StyleSheet } from 'react-native';
-import { ButtonRadio, Button, ButtonGroup, Toast } from '../component-path';
-
-import Theme from '../themes/Theme';
+import { ButtonRadio, Button, ButtonGroup, Toast, Theme } from '../component-path';
 
 export default class ToastDemo extends Component {
   static navigationOptions = () => ({

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { View, Text, Image, StyleSheet, TouchableHighlight } from 'react-native';
 import SplitLine from '../SplitLine/SplitLine';
 
-import Theme from '../../themes/Theme';
+import Theme from '../Theme/Theme';
 
 /**
  * @title 标题 左上

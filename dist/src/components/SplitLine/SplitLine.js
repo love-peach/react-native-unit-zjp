@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, StyleSheet } from 'react-native';
-import Theme from '../../themes/Theme';
+import Theme from '../Theme/Theme';
 
 export default class SplitLine extends Component {
   static propTypes = {

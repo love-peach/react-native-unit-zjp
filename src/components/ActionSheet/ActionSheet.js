@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import Modal from '../Modal/Modal';
 import Button from '../Button/Button';
 import SplitLine from '../SplitLine/SplitLine';
-import Theme from '../../themes/Theme';
+import Theme from '../Theme/Theme';
 
 import PropTypes from 'prop-types';
 

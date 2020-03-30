@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Button from '../Button/Button';
 import SplitLine from '../SplitLine/SplitLine';
 
-import Theme from '../../themes/Theme';
+import Theme from '../Theme/Theme';
 
 export default class PopupHeader extends Component {
   static propTypes = {

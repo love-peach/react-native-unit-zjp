@@ -1,7 +1,7 @@
 import React, { Component }from 'react';
 import PropTypes from 'prop-types';
 import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
-import Theme from '../../themes/Theme';
+import Theme from '../Theme/Theme';
 
 /**
  * @bgColor 遮罩层背景色

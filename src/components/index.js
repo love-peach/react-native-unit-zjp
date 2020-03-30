@@ -17,6 +17,7 @@ import ActionSheet from './ActionSheet/ActionSheet';
 import Dialog from './Dialog/Dialog';
 import Toast from './Toast/Toast.js';
 import Carousel from './Carousel/Carousel.js';
+import Theme from './Theme/Theme.js';
 
 export {
   Button,
@@ -38,4 +39,5 @@ export {
   AnimateView,
   ContainerView,
   Carousel,
+  Theme,
 };

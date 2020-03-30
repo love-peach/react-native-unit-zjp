@@ -4,7 +4,7 @@ import { View, Text, Image, StyleSheet, ActivityIndicator, Dimensions } from 're
 import Mask from '../Mask/Mask';
 import ContainerView from '../ContainerView/ContainerView';
 import AnimateView from '../AnimateView/AnimateView';
-import Theme from '../../themes/Theme';
+import Theme from '../Theme/Theme';
 
 const RNWindow = Dimensions.get('window');
 

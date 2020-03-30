@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Modal from '../Modal/Modal';
 import Button from '../Button/Button';
 
-import Theme from '../../themes/Theme';
+import Theme from '../Theme/Theme';
 
 export default class Dialog extends Component {
   static propTypes = {

@@ -1,7 +1,7 @@
 import React, { Component }from 'react';
 import PropTypes from 'prop-types';
 import { View, StyleSheet, ViewPropTypes } from 'react-native';
-import Theme from '../../themes/Theme';
+import Theme from '../Theme/Theme';
 
 /**
  * @size 设置按钮组大小 [xl, lg, md, sm, xs] md
